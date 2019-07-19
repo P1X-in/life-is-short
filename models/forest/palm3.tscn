@@ -1,16 +1,27 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://models/forest/Palm3.dae" type="PackedScene" id=1]
 [ext_resource path="res://models/forest/leafs3.material" type="Material" id=2]
 [ext_resource path="res://models/forest/wood3.material" type="Material" id=3]
 
+[sub_resource type="CylinderShape" id=1]
+radius = 0.477637
+height = 3.47868
+
 [node name="palm3" type="Spatial"]
 
 [node name="body" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.273655, -0.516072, 0.371042 )
 
 [node name="Palm4" parent="body" index="0"]
 use_in_baked_light = true
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 3 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35637, 0 )
+shape = SubResource( 1 )
 
 [editable path="body"]
