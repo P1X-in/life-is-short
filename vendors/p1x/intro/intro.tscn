@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
+[ext_resource path="res://vendors/p1x/intro/intro.anim" type="Animation" id=2]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://vendors/p1x/intro/flat_blue_halo_env.tres" type="Environment" id=4]
+[ext_resource path="res://vendors/p1x/intro/P1X.tscn" type="PackedScene" id=5]
+
+[node name="intro" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="main" type="AnimationPlayer" parent="."]
+autoplay = "intro"
+anims/intro = ExtResource( 2 )
+
+[node name="sun" type="DirectionalLight" parent="."]
+transform = Transform( 0.988113, 0.00335031, 0.153689, 0, 0.999763, -0.0217942, -0.153725, 0.0215351, 0.987879, 0, 7, 0 )
+light_color = Color( 0.984314, 1, 0.839216, 1 )
+light_bake_mode = 2
+
+[node name="camera" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+environment = ExtResource( 4 )
+fov = 110.0
+
+[node name="effects" parent="camera" index="0"]
+transform = Transform( 1, 0, 0, 4.65661e-10, 1, 0, 0, 1.49012e-08, 1, 0, 0, -0.35 )
+
+[node name="P1X" parent="camera" instance=ExtResource( 5 )]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+
+[editable path="camera"]
+
+[editable path="camera/P1X"]
