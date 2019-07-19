@@ -39,6 +39,7 @@ var camera_angle_x = 0
 var _camera_angle_x = 0
 
 var raycast
+var gravity_velocity = 0.0
 
 func activate():
     self.controller_enabled = true
@@ -125,7 +126,10 @@ func process_movement_input(delta):
     var dir = Vector3()
     var vel = Vector3()
 
-    vel.y += -self.GRAVITY
+    self.gravity_velocity += delta * -self.GRAVITY
+    if self.is_on_floor():
+        self.gravity_velocity = -self.GRAVITY
+    vel.y = self.gravity_velocity
     axis_value.x = -Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_X)
     axis_value.y = Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_Y)
 
