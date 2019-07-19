@@ -3,9 +3,10 @@ class_name Chunk
 
 export var TERRAIN_HEIGHT = 48
 export var TERRAIN_VERT = .25
-export var GRASS_AMOUNT = 16
 export var COLLIS = true
 export var WATER_LEVEL = -16
+export var SHROOMS_CHANCE = 0.005
+export var SHROOMS_ELEVATION = 1
 
 var mesh_instance
 var noise
@@ -23,6 +24,7 @@ func _init(noise, x, z, chunk_size):
 func _ready():
 	generate_chunk()
 	generate_water_layer()
+	
 	
 func generate_terrain_chunk():
 	var plane_mesh = PlaneMesh.new()
@@ -71,6 +73,17 @@ func generate_chunk():
 	mesh_instance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 	
 	add_child(mesh_instance)
+	generate_vegetation(pool_array)
+	
+func generate_vegetation(pool):
+	var shroom_base = preload("res://models/shroom/shroom.tscn")
+	
+	for pos in pool:
+		if randf() < SHROOMS_CHANCE:
+			var shroom = shroom_base.instance()
+			shroom.translate(pos)
+			add_child(shroom)
+	
 	
 func generate_water_layer():
 	var plane_mesh = PlaneMesh.new()

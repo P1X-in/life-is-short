@@ -6,7 +6,7 @@
 [ext_resource path="res://misc/icon.png" type="Texture" id=4]
 [ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=5]
 [ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=6]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "logo_fadeout"
@@ -124,8 +124,4 @@ texture = ExtResource( 4 )
 [node name="infinite_terrain" type="Spatial" parent="."]
 script = ExtResource( 6 )
 
-[node name="player" type="Spatial" parent="infinite_terrain"]
-transform = Transform( 0.794096, -0.000277192, 0.607792, 0.000349066, 1, 0, -0.607792, 0.000212159, 0.794096, 5.8, 12, -7.7 )
-
-[node name="camera_3d_effects" parent="infinite_terrain/player" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="player" parent="infinite_terrain" instance=ExtResource( 7 )]

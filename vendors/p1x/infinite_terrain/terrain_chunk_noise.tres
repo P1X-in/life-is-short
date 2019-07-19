@@ -1,10 +1,11 @@
 [gd_resource type="NoiseTexture" load_steps=2 format=2]
 
 [sub_resource type="OpenSimplexNoise" id=1]
-seed = 7
-octaves = 4
-persistence = 0.3
-lacunarity = 2.5
+seed = 31
+octaves = 2
+period = 180.0
+persistence = 0.4
+lacunarity = 4.0
 
 [resource]
 width = 64
