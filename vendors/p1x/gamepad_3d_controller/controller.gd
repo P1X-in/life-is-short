@@ -70,23 +70,31 @@ func _process(delta):
     if not self.controller_enabled:
         return
 
+    var delta_speed = delta * self.camera_return_speed
+    var delta_snap = delta * self.rotate_snap_speed
+    if delta_speed > 1.0:
+        delta_speed = 1.0
+
+    if delta_snap > 1.0:
+        delta_snap = 1.0
+
     var angle_diff
 
     if angle_y != _angle_y:
-        angle_diff = (angle_y - _angle_y) * delta * self.rotate_snap_speed
+        angle_diff = (angle_y - _angle_y) * delta_snap
         _angle_y += angle_diff
 
-        self.rotate_y(deg2rad(angle_diff))
+        self.set_rotation_degrees(Vector3(0, _angle_y, 0))
 
     if camera_angle_y != _camera_angle_y:
-        angle_diff = (camera_angle_y - _camera_angle_y) * delta * self.camera_return_speed
+        angle_diff = (camera_angle_y - _camera_angle_y) * delta_speed
         _camera_angle_y += angle_diff
 
         if abs(camera_angle_y - _camera_angle_y) < 0.001:
             _camera_angle_y = camera_angle_y
 
     if camera_angle_x != _camera_angle_x:
-        angle_diff = (camera_angle_x - _camera_angle_x) * delta * self.camera_return_speed
+        angle_diff = (camera_angle_x - _camera_angle_x) * delta_speed
         _camera_angle_x += angle_diff
 
         if abs(camera_angle_x - _camera_angle_x) < 0.001:
@@ -119,6 +127,7 @@ func process_movement_input(delta):
     vel.y += -self.GRAVITY
     axis_value.x = -Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_X)
     axis_value.y = Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_Y)
+
 
     axis_value = axis_value.rotated(deg2rad(self.angle_y + self.camera_angle_y))
 

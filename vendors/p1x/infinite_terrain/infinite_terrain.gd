@@ -50,7 +50,7 @@ func load_done(chunk, thread):
     unready_chunks.erase(key)
     thread.wait_to_finish()
     if not $player.controller_enabled and chunks.size() >= chunk_amount * chunk_amount:
-    	$player.controller_enabled = true
+        $player.controller_enabled = true
     
 func get_chunk(x, z):
     var key = str(x) + "," + str(z)
