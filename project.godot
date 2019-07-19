@@ -26,8 +26,8 @@ config/icon="res://misc/icon.png"
 
 [display]
 
-window/size/width=960
-window/size/height=540
+window/size/width=480
+window/size/height=270
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
@@ -36,6 +36,6 @@ window/stretch/aspect="keep"
 quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 threads/thread_model=2
-quality/shadows/filter_mode=0
+quality/shadows/filter_mode=2
 quality/filters/use_nearest_mipmap_filter=true
 environment/default_environment="res://misc/default_env.tres"
