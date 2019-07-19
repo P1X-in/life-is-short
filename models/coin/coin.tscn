@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://models/coin/gold.material" type="Material" id=1]
 [ext_resource path="res://models/coin/coin.gd" type="Script" id=2]
@@ -22,7 +22,47 @@ rings = 1
 [sub_resource type="SphereShape" id=4]
 
 [sub_resource type="Animation" id=5]
-resource_name = "rotate"
+resource_name = "pick_up"
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 90, 0, 0 ), Vector3( 90, 0, 360 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.5, 0 ), Vector3( 0, 14, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -41,6 +81,7 @@ tracks/0/keys = {
 [node name="coin" type="Spatial"]
 
 [node name="body" type="CSGMesh" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
 mesh = SubResource( 1 )
 
@@ -55,6 +96,7 @@ operation = 2
 mesh = SubResource( 2 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 physics_material_override = SubResource( 3 )
 script = ExtResource( 2 )
@@ -62,6 +104,7 @@ script = ExtResource( 2 )
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 4 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "rotate"
-anims/rotate = SubResource( 5 )
+anims/pick_up = SubResource( 5 )
+anims/rotate = SubResource( 6 )
