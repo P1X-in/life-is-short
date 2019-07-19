@@ -77,12 +77,17 @@ func generate_chunk():
 	
 func generate_vegetation(pool):
 	var shroom_base = preload("res://models/shroom/shroom.tscn")
+	var coin_base = preload("res://models/coin/coin.tscn")
 	
 	for pos in pool:
 		if randf() < SHROOMS_CHANCE:
-			var shroom = shroom_base.instance()
-			shroom.translate(pos)
-			add_child(shroom)
+			var object
+			if randf() < 0.25:
+				 object = shroom_base.instance()
+			else:
+				object = coin_base.instance()
+			object.translate(pos)
+			add_child(object)
 	
 	
 func generate_water_layer():

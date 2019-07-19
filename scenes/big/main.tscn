@@ -125,3 +125,4 @@ texture = ExtResource( 4 )
 script = ExtResource( 6 )
 
 [node name="player" parent="infinite_terrain" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0 )
