@@ -15,13 +15,13 @@ export var rotate_speed = 5.0
 export var rotate_snap_speed = 50.0
 export var max_slope_angle = 40
 
+export var camera_min_deg = -80
+export var camera_max_deg = 0
+
 export var camera_rotate_speed = 1.5
 export var camera_return_speed = 50.0
 
 export var controller_enabled = true
-export var with_camera_pivot = true
-export var align_camera = false
-export var rotate_camera_with_body = false
 
 var camera_pivot
 var camera
@@ -32,9 +32,22 @@ var _angle_y = 0
 var camera_angle_y = 0
 var _camera_angle_y = 0
 
+var camera_angle_x = 0
+var _camera_angle_x = 0
+
 func _ready():
     self.camera_pivot = $"camera_pivot"
     self.camera = $"camera_pivot/camera"
+
+    var rotation = self.get_rotation_degrees()
+    angle_y = rotation.y
+    _angle_y = rotation.y
+
+    rotation = self.camera_pivot.get_rotation_degrees()
+    camera_angle_y = rotation.y
+    _camera_angle_y = rotation.y
+    camera_angle_x = rotation.x
+    _camera_angle_x = rotation.x
 
 func _process(delta):
     if not self.controller_enabled:
@@ -52,16 +65,23 @@ func _process(delta):
         angle_diff = (camera_angle_y - _camera_angle_y) * delta * self.camera_return_speed
         _camera_angle_y += angle_diff
 
-        self.camera_pivot.rotate_y(deg2rad(angle_diff))
         if abs(camera_angle_y - _camera_angle_y) < 0.001:
             _camera_angle_y = camera_angle_y
+
+    if camera_angle_x != _camera_angle_x:
+        angle_diff = (camera_angle_x - _camera_angle_x) * delta * self.camera_return_speed
+        _camera_angle_x += angle_diff
+
+        if abs(camera_angle_x - _camera_angle_x) < 0.001:
+            _camera_angle_x = camera_angle_x
+
+    self.camera_pivot.set_rotation_degrees(Vector3(_camera_angle_x, _camera_angle_y, 0))
 
 func _physics_process(delta):
     if not self.controller_enabled:
         return
 
-    if self.with_camera_pivot:
-        self.process_camera_input(delta)
+    self.process_camera_input(delta)
     self.process_movement_input(delta)
 
 func process_movement_input(delta):
@@ -110,4 +130,8 @@ func process_camera_input(delta):
 
     if abs(axis_value.x) > DEADZONE:
         camera_angle_y -= self.camera_rotate_speed * axis_value.x
+
+    if abs(axis_value.y) > DEADZONE:
+        camera_angle_x -= self.camera_rotate_speed * axis_value.y
+        camera_angle_x = clamp(camera_angle_x, self.camera_min_deg, self.camera_max_deg)
 

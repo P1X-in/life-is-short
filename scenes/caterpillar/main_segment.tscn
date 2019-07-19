@@ -26,6 +26,7 @@ material/0 = null
 shape = SubResource( 3 )
 
 [node name="camera_pivot" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0 )
 
 [node name="camera" parent="camera_pivot" instance=ExtResource( 2 )]
-transform = Transform( 0.999999, 0, 0, 0, 0.866024, 0.499999, 0, -0.499999, 0.866024, 0, 5, 10 )
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 15 )
