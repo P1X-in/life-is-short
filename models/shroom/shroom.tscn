@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://models/shroom/white.material" type="Material" id=1]
+[ext_resource path="res://models/shroom/green.material" type="Material" id=2]
+
+[sub_resource type="CylinderMesh" id=1]
+material = ExtResource( 1 )
+top_radius = 0.25
+bottom_radius = 0.6
+radial_segments = 32
+
+[sub_resource type="SphereMesh" id=2]
+material = ExtResource( 2 )
+radial_segments = 32
+rings = 16
+is_hemisphere = true
+
+[node name="shroom" type="Position3D"]
+
+[node name="foot" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.979845, 0 )
+use_in_baked_light = true
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="head" type="MeshInstance" parent="foot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59, 0 )
+use_in_baked_light = true
+mesh = SubResource( 2 )
+material/0 = null

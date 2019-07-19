@@ -22,7 +22,12 @@ _global_script_class_icons={
 
 config/name="Life is short"
 run/main_scene="res://vendors/p1x/intro/intro.tscn"
-config/icon="res://icon.png"
+config/icon="res://misc/icon.png"
+
+[display]
+
+window/size/width=960
+window/size/height=540
 
 [rendering]
 

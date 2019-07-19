@@ -1,0 +1,139 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://models/caterpillar/body.material" type="Material" id=1]
+[ext_resource path="res://models/caterpillar/leaf.material" type="Material" id=2]
+
+[sub_resource type="SphereMesh" id=2]
+material = ExtResource( 1 )
+radial_segments = 16
+rings = 8
+
+[sub_resource type="CubeMesh" id=6]
+material = ExtResource( 1 )
+size = Vector3( 0.2, 0.2, 0.3 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=4]
+material = SubResource( 3 )
+radius = 0.2
+height = 0.4
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereMesh" id=5]
+radius = 0.05
+height = 0.1
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CapsuleMesh" id=7]
+material = ExtResource( 1 )
+radius = 0.1
+mid_height = 1.16
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CylinderMesh" id=8]
+material = ExtResource( 2 )
+top_radius = 3.0
+bottom_radius = 3.0
+height = 0.14
+radial_segments = 12
+rings = 1
+
+[node name="catepillar" type="Spatial"]
+
+[node name="CSGMesh" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.259623 )
+mesh = SubResource( 2 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="CSGMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.22141 )
+mesh = SubResource( 2 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="CSGMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.349312, 2.37155 )
+mesh = SubResource( 2 )
+
+[node name="CSGMesh8" type="CSGMesh" parent="CSGMesh/CSGMesh3"]
+transform = Transform( 1, 0, 0, 0, 0.940276, -0.340414, 0, 0.340414, 0.940276, -0.4, -0.448894, 0.874288 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh10" type="CSGMesh" parent="CSGMesh/CSGMesh3"]
+transform = Transform( 1, 0, 0, 0, 0.767142, -0.641477, 0, 0.641477, 0.767142, -0.4, -0.772639, 0.593482 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh7" type="CSGMesh" parent="CSGMesh/CSGMesh3"]
+transform = Transform( 1, 0, 0, 0, 0.940276, -0.340414, 0, 0.340414, 0.940276, 0.4, -0.448894, 0.874288 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh9" type="CSGMesh" parent="CSGMesh/CSGMesh3"]
+transform = Transform( 1, 0, 0, 0, 0.767142, -0.641477, 0, 0.641477, 0.767142, 0.4, -0.772639, 0.593482 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="CSGMesh"]
+transform = Transform( 0.882627, 0, 0.470074, 0, 1, 0, -0.470074, 0, 0.882627, 0, 0.980728, 3.1658 )
+mesh = SubResource( 2 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="CSGMesh/CSGMesh4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 1 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh6" type="CSGMesh" parent="CSGMesh/CSGMesh4"]
+transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -0.4, -0.4, 0.846172 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="CSGMesh/CSGMesh4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 1 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh5" type="CSGMesh" parent="CSGMesh/CSGMesh4"]
+transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0.4, -0.4, 0.846172 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh5" type="CSGMesh" parent="CSGMesh"]
+transform = Transform( 0.628778, 0, 0.777584, 0, 1, 0, -0.777584, 0, 0.628778, 0, 1.94227, 3.56522 )
+mesh = SubResource( 2 )
+
+[node name="CSGMesh" type="CSGMesh" parent="CSGMesh/CSGMesh5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.232507, -0.378656, 0.863482 )
+mesh = SubResource( 6 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="CSGMesh/CSGMesh5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.368783, -0.378656, 0.792647 )
+mesh = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="CSGMesh/CSGMesh5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.677431, 0.575228 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="CSGMesh/CSGMesh5/MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0472207, 0.164112 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="CSGMesh/CSGMesh5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.677431, 0.575228 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="CSGMesh/CSGMesh5/MeshInstance2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0472207, 0.164112 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="CSGMesh3" type="CSGMesh" parent="CSGMesh/CSGMesh5"]
+transform = Transform( 0.505526, -0.591586, 0.628068, 0.118317, -0.673524, -0.729634, 0.85466, 0.44316, -0.27049, -0.554189, 1.0239, 0.271108 )
+mesh = SubResource( 7 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="CSGMesh/CSGMesh5"]
+transform = Transform( 0.721325, 0.443497, -0.531977, -0.539631, -0.121595, -0.833074, -0.434152, 0.887989, 0.151615, 0.327966, 1.0239, 0.142548 )
+mesh = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.866198, 0.0844024, 0, -0.0727466, 0.987953, 0.23566, 0.00955124, -0.129713, 1.7949, -0.0970831, -0.688159, 1.73579 )
+mesh = SubResource( 8 )
+material/0 = null

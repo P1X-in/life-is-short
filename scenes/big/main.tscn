@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=1]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=2]
 [ext_resource path="res://misc/font_64pt.tres" type="DynamicFont" id=3]
 [ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=4]
 [ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://models/caterpillar/cat.tscn" type="PackedScene" id=6]
 
 [node name="main" type="Spatial"]
 
@@ -28,6 +29,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_top = 80.0
+margin_bottom = 80.0
 
 [node name="title" type="Label" parent="gui/logo"]
 anchor_left = 0.5
@@ -50,7 +53,7 @@ margin_left = -229.5
 margin_top = 33.0
 margin_right = 256.5
 margin_bottom = 47.0
-text = "\"You're the caterpillar, who use pieces of mushroom to control it's size\""
+text = "\"You're the caterpillar, who use pieces of mushroom to control its size\""
 
 [node name="infinite_terrain" type="Spatial" parent="."]
 script = ExtResource( 4 )
@@ -60,3 +63,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0 )
 
 [node name="camera_3d_effects" parent="infinite_terrain/player" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="catepillar" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.619231, 0, -0.785209, 0, 1, 0, 0.785209, 0, 0.619231, 2.107, 10.195, -11.09 )
