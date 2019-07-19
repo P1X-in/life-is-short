@@ -5,7 +5,7 @@ export var TERRAIN_HEIGHT = 48
 export var TERRAIN_VERT = .25
 export var COLLIS = true
 export var WATER_LEVEL = -16
-export var ITEMS_AMOUNT = 8
+export var ITEMS_AMOUNT = 3
 export var SHROOMS_CHANCE = 0.005
 export var SHROOMS_ELEVATION = 1
 
@@ -75,24 +75,33 @@ func generate_chunk():
 	
 	add_child(mesh_instance)
 	generate_vegetation(pool_array)
+	generate_coins(pool_array)
 	
 func generate_vegetation(pool):
-	var shroom_base = preload("res://models/shroom/shroom.tscn")
-	var coin_base = preload("res://models/coin/coin.tscn")
+	var models = [
+		preload("res://models/shroom/shroom.tscn"),
+		preload("res://models/forest/palm.tscn"),
+		preload("res://models/forest/palm2.tscn"),
+		preload("res://models/forest/palm3.tscn")
+	]
 	
 	for i in range(ITEMS_AMOUNT):
-		var object
+		var object = models[randi() % models.size()].instance()
 		var pos = pool[randi() % pool.size()]
-		if randf() < 0.25:
-			object = shroom_base.instance()
-			var ran = 0.5 + randf()
-			object.get_node("body").transform = object.get_node("body").transform.scaled(Vector3(ran,ran,ran))
-		else:
-			object = coin_base.instance()
+		var ran = 0.5 + randf()
+		var sca = Vector3(ran,ran,ran)
+		object.get_node("body").transform = object.get_node("body").transform.scaled(sca)
 		object.translate(pos)
 		add_child(object)
-			
-	
+		
+func generate_coins(pool):
+	var coin_base = preload("res://models/coin/coin.tscn")
+
+	for i in range(ITEMS_AMOUNT):
+		var pos = pool[randi() % pool.size()]
+		var object = coin_base.instance()
+		object.translate(pos)
+		add_child(object)
 	
 func generate_water_layer():
 	var plane_mesh = PlaneMesh.new()

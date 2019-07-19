@@ -33,6 +33,7 @@ window/stretch/aspect="keep"
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 threads/thread_model=2
 quality/shadows/filter_mode=0

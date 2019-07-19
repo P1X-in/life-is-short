@@ -68,6 +68,9 @@ environment = ExtResource( 1 )
 [node name="sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.227462, -0.71483, 0.661271, 0, 0.679072, 0.734072, -0.973787, -0.166973, 0.154463, 0, 2.2157, 0 )
 light_color = Color( 0.984314, 0.945098, 0.85098, 1 )
+shadow_enabled = true
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 64.0
 
 [node name="gui" type="Control" parent="."]
 anchor_right = 1.0
