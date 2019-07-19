@@ -86,7 +86,10 @@ func _physics_process(delta):
 
 func process_movement_input(delta):
     var axis_value = Vector2()
+    var dir = Vector3()
+    var vel = Vector3()
 
+    vel.y += -self.GRAVITY
     axis_value.x = -Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_X)
     axis_value.y = Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_Y)
 
@@ -98,14 +101,11 @@ func process_movement_input(delta):
         self.angle_y = angle
         self.camera_angle_y -= angle_diff
 
-        var dir = Vector3()
-        var vel = Vector3()
         axis_value = axis_value.normalized()
 
         dir.x = -axis_value.x
         dir.z = axis_value.y
 
-        vel.y += -self.GRAVITY
         var hvel = vel
         hvel.y = 0
 
@@ -120,7 +120,7 @@ func process_movement_input(delta):
         hvel = hvel.linear_interpolate(target, accel * delta)
         vel.x = hvel.x
         vel.z = hvel.z
-        vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4, deg2rad(self.max_slope_angle))
+    vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4, deg2rad(self.max_slope_angle))
 
 func process_camera_input(delta):
     var axis_value = Vector2()
