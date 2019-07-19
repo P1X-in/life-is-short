@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://models/coin/gold.material" type="Material" id=1]
+[ext_resource path="res://models/coin/coin.gd" type="Script" id=2]
 
 [sub_resource type="CylinderMesh" id=1]
 material = ExtResource( 1 )
@@ -56,6 +57,7 @@ mesh = SubResource( 2 )
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 physics_material_override = SubResource( 3 )
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 4 )

@@ -118,6 +118,7 @@ func _physics_process(delta):
     self.process_camera_input(delta)
     self.process_movement_input(delta)
     self.process_camera_collision()
+    self.process_body_collisions()
 
 func process_movement_input(delta):
     var axis_value = Vector2()
@@ -171,3 +172,13 @@ func process_camera_input(delta):
         camera_angle_x -= self.camera_rotate_speed * axis_value.y
         camera_angle_x = clamp(camera_angle_x, self.camera_min_deg, self.camera_max_deg)
 
+func process_body_collisions():
+    var count = self.get_slide_count()
+    var colliding_body
+
+    for i in range(count):
+        colliding_body = self.get_slide_collision(i)
+        self.process_body_collision(colliding_body)
+
+func process_body_collision(collision):
+    return
