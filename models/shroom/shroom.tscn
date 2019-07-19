@@ -1,30 +1,53 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://models/shroom/white.material" type="Material" id=1]
-[ext_resource path="res://models/shroom/green.material" type="Material" id=2]
+[ext_resource path="res://models/shroom/head.material" type="Material" id=2]
 
 [sub_resource type="CylinderMesh" id=1]
 material = ExtResource( 1 )
-top_radius = 0.25
-bottom_radius = 0.6
-radial_segments = 32
+top_radius = 0.4
+bottom_radius = 0.5
+height = 5.0
+radial_segments = 8
 
 [sub_resource type="SphereMesh" id=2]
 material = ExtResource( 2 )
-radial_segments = 32
-rings = 16
+radius = 4.0
+height = 1.0
+radial_segments = 16
+rings = 8
 is_hemisphere = true
+
+[sub_resource type="PhysicsMaterial" id=3]
+
+[sub_resource type="CylinderShape" id=4]
+height = 5.10547
+
+[sub_resource type="CylinderShape" id=5]
+radius = 4.0
+height = 1.0
 
 [node name="shroom" type="Position3D"]
 
 [node name="foot" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.979845, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1942, 0 )
 use_in_baked_light = true
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="head" type="MeshInstance" parent="foot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 use_in_baked_light = true
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+physics_material_override = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1845, 0 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.62091, 0 )
+shape = SubResource( 5 )

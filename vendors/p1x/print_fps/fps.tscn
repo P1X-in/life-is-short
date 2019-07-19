@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://vendors/p1x/print_fps/fps.gd" type="Script" id=1]
+
+[node name="fps" type="Control"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 10.0
+
+[node name="Label" type="Label" parent="."]
+margin_right = 47.0
+margin_bottom = 14.0
+text = "060 fps"
+script = ExtResource( 1 )
