@@ -2,6 +2,7 @@
 
 Slavic Game Jam 2019 game about growing.
 
+You are the young caterpillar from Alice in Wonderland. In the book Alice meets the Caterpillar, who teaches her to use pieces of mushroom to control her size. In the game you eat shrooms, grows, shrink and try to survive as long as you can scoring more points.
 
 Idea notes:
 
