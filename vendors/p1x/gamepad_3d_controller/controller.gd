@@ -16,7 +16,10 @@ export var rotate_snap_speed = 50.0
 export var max_slope_angle = 40
 
 export var camera_min_deg = -80
-export var camera_max_deg = 0
+export var camera_max_deg = 40
+
+export var camera_min_distance = 2
+export var camera_max_distance = 15
 
 export var camera_rotate_speed = 1.5
 export var camera_return_speed = 50.0
@@ -35,6 +38,12 @@ var _camera_angle_y = 0
 var camera_angle_x = 0
 var _camera_angle_x = 0
 
+func activate():
+    self.controller_enabled = true
+
+func deactivate():
+    self.controller_enabled = false
+
 func _ready():
     self.camera_pivot = $"camera_pivot"
     self.camera = $"camera_pivot/camera"
@@ -48,6 +57,8 @@ func _ready():
     _camera_angle_y = rotation.y
     camera_angle_x = rotation.x
     _camera_angle_x = rotation.x
+
+    self.camera.set_translation(Vector3(0, 0, self.camera_max_distance))
 
 func _process(delta):
     if not self.controller_enabled:
@@ -76,6 +87,14 @@ func _process(delta):
             _camera_angle_x = camera_angle_x
 
     self.camera_pivot.set_rotation_degrees(Vector3(_camera_angle_x, _camera_angle_y, 0))
+
+    var distance = self.camera_max_distance
+    if self._camera_angle_x > 0:
+        var fraction = self._camera_angle_x / self.camera_max_deg
+        var mid_distance = (self.camera_max_distance - self.camera_min_distance) * fraction
+        distance = self.camera_max_distance - mid_distance
+
+    self.camera.set_translation(Vector3(0, 0, distance))
 
 func _physics_process(delta):
     if not self.controller_enabled:
