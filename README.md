@@ -1,4 +1,5 @@
-# life-is-short
+# Life is Short
+
 Slavic Game Jam 2019 game about growing.
 
 
