@@ -84,7 +84,9 @@ func generate_vegetation(pool):
 		var object
 		var pos = pool[randi() % pool.size()]
 		if randf() < 0.25:
-			 object = shroom_base.instance()
+			object = shroom_base.instance()
+			var ran = 0.5 + randf() * 4.0
+			object.transform.scaled(Vector3(ran,ran,ran))
 		else:
 			object = coin_base.instance()
 		object.translate(pos)
