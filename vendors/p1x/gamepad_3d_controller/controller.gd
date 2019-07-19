@@ -38,6 +38,8 @@ var _camera_angle_y = 0
 var camera_angle_x = 0
 var _camera_angle_x = 0
 
+var raycast
+
 func activate():
     self.controller_enabled = true
 
@@ -47,6 +49,7 @@ func deactivate():
 func _ready():
     self.camera_pivot = $"camera_pivot"
     self.camera = $"camera_pivot/camera"
+    self.raycast = $"camera_pivot/RayCast"
 
     var rotation = self.get_rotation_degrees()
     angle_y = rotation.y
@@ -57,6 +60,9 @@ func _ready():
     _camera_angle_y = rotation.y
     camera_angle_x = rotation.x
     _camera_angle_x = rotation.x
+
+    self.raycast.cast_to = Vector3(0, -1, self.camera_max_distance)
+    self.raycast.add_exception(self)
 
     self.camera.set_translation(Vector3(0, 0, self.camera_max_distance))
 
@@ -88,11 +94,12 @@ func _process(delta):
 
     self.camera_pivot.set_rotation_degrees(Vector3(_camera_angle_x, _camera_angle_y, 0))
 
+func process_camera_collision():
     var distance = self.camera_max_distance
-    if self._camera_angle_x > 0:
-        var fraction = self._camera_angle_x / self.camera_max_deg
-        var mid_distance = (self.camera_max_distance - self.camera_min_distance) * fraction
-        distance = self.camera_max_distance - mid_distance
+    if self.raycast.is_colliding():
+        var raycast_collision = self.raycast.get_collision_point() - self.get_translation()
+        distance = min(distance, raycast_collision.length() - 1.0)
+        distance = max(distance, self.camera_min_distance)
 
     self.camera.set_translation(Vector3(0, 0, distance))
 
@@ -102,6 +109,7 @@ func _physics_process(delta):
 
     self.process_camera_input(delta)
     self.process_movement_input(delta)
+    self.process_camera_collision()
 
 func process_movement_input(delta):
     var axis_value = Vector2()
