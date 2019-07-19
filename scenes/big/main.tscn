@@ -1,11 +1,63 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=1]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=2]
 [ext_resource path="res://misc/font_64pt.tres" type="DynamicFont" id=3]
-[ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=4]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=5]
-[ext_resource path="res://models/caterpillar/cat.tscn" type="PackedScene" id=6]
+[ext_resource path="res://misc/icon.png" type="Texture" id=4]
+[ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=5]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "logo_fadeout"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("logo:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.4, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("logo:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.4, 2.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
 [node name="main" type="Spatial"]
 
@@ -24,13 +76,20 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="gui"]
+autoplay = "logo_fadeout"
+anims/logo_fadeout = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="gui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.219608, 0.164706, 0.219608, 1 )
+
 [node name="logo" type="Control" parent="gui"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_top = 80.0
-margin_bottom = 80.0
 
 [node name="title" type="Label" parent="gui/logo"]
 anchor_left = 0.5
@@ -55,14 +114,15 @@ margin_right = 256.5
 margin_bottom = 47.0
 text = "\"You're the caterpillar, who use pieces of mushroom to control its size\""
 
+[node name="Sprite" type="Sprite" parent="gui/logo"]
+position = Vector2( 0, -64 )
+texture = ExtResource( 4 )
+
 [node name="infinite_terrain" type="Spatial" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="player" type="Spatial" parent="infinite_terrain"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0 )
 
-[node name="camera_3d_effects" parent="infinite_terrain/player" instance=ExtResource( 5 )]
+[node name="camera_3d_effects" parent="infinite_terrain/player" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-
-[node name="catepillar" parent="." instance=ExtResource( 6 )]
-transform = Transform( 0.619231, 0, -0.785209, 0, 1, 0, 0.785209, 0, 0.619231, 2.107, 10.195, -11.09 )
