@@ -16,8 +16,11 @@ _global_script_class_icons={
 [application]
 
 config/name="Life is short"
+run/main_scene="res://vendors/p1x/intro/intro.tscn"
 config/icon="res://icon.png"
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+quality/driver/fallback_to_gles2=true
+quality/filters/use_nearest_mipmap_filter=true
+environment/default_environment="res://misc/default_env.tres"
