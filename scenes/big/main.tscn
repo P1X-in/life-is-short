@@ -126,3 +126,7 @@ script = ExtResource( 6 )
 
 [node name="player" parent="infinite_terrain" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0 )
+move_max_speed = 96
+rotate_speed = 12.0
+camera_min_deg = -40
+camera_max_deg = 40
