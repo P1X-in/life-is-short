@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const DEADZONE = 0.15
+const DEADZONE = 0.25
 const GRAVITY = 9.8
 const MOVEMENT_AXIS_X = JOY_ANALOG_LX
 const MOVEMENT_AXIS_Y = JOY_ANALOG_LY
@@ -67,28 +67,25 @@ func _physics_process(delta):
 func process_movement_input(delta):
     var axis_value = Vector2()
 
-    axis_value.x = Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_X)
+    axis_value.x = -Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_X)
     axis_value.y = Input.get_joy_axis(self.device_id, MOVEMENT_AXIS_Y)
 
-    axis_value = axis_value.rotated(deg2rad(-camera_angle_y))
+    axis_value = axis_value.rotated(deg2rad(self.angle_y + self.camera_angle_y))
 
-    if abs(axis_value.x) > DEADZONE:
-        angle_y -= self.rotate_speed * axis_value.x
-        camera_angle_y += self.rotate_speed * axis_value.x
+    if axis_value.length() > self.DEADZONE:
+        var angle = rad2deg(axis_value.angle()) + 90
+        var angle_diff = angle - self.angle_y
+        self.angle_y = angle
+        self.camera_angle_y -= angle_diff
 
-    if abs(axis_value.y) > DEADZONE:
         var dir = Vector3()
         var vel = Vector3()
-        var cam_xform = camera.get_global_transform()
-
         axis_value = axis_value.normalized()
 
-        dir += -cam_xform.basis.z.normalized() * axis_value.y
-        dir += cam_xform.basis.x.normalized() * axis_value.x
-        dir.y = 0
-        dir = dir.normalized()
+        dir.x = -axis_value.x
+        dir.z = axis_value.y
 
-        vel.y += delta * self.GRAVITY
+        vel.y += -self.GRAVITY
         var hvel = vel
         hvel.y = 0
 
@@ -103,15 +100,13 @@ func process_movement_input(delta):
         hvel = hvel.linear_interpolate(target, accel * delta)
         vel.x = hvel.x
         vel.z = hvel.z
-        vel = move_and_slide(vel, Vector3(0, 1, 0), 0.05, 4, deg2rad(self.max_slope_angle))
+        vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4, deg2rad(self.max_slope_angle))
 
 func process_camera_input(delta):
     var axis_value = Vector2()
 
     axis_value.x = Input.get_joy_axis(self.device_id, CAMERA_AXIS_X)
     axis_value.y = Input.get_joy_axis(self.device_id, CAMERA_AXIS_Y)
-
-    axis_value = axis_value.rotated(deg2rad(-camera_angle_y))
 
     if abs(axis_value.x) > DEADZONE:
         camera_angle_y -= self.camera_rotate_speed * axis_value.x
