@@ -5,6 +5,7 @@ export var TERRAIN_HEIGHT = 48
 export var TERRAIN_VERT = .25
 export var COLLIS = true
 export var WATER_LEVEL = -16
+export var ITEMS_AMOUNT = 8
 export var SHROOMS_CHANCE = 0.005
 export var SHROOMS_ELEVATION = 1
 
@@ -79,15 +80,16 @@ func generate_vegetation(pool):
 	var shroom_base = preload("res://models/shroom/shroom.tscn")
 	var coin_base = preload("res://models/coin/coin.tscn")
 	
-	for pos in pool:
-		if randf() < SHROOMS_CHANCE:
-			var object
-			if randf() < 0.25:
-				 object = shroom_base.instance()
-			else:
-				object = coin_base.instance()
-			object.translate(pos)
-			add_child(object)
+	for i in range(ITEMS_AMOUNT):
+		var object
+		var pos = pool[randi() % pool.size()]
+		if randf() < 0.25:
+			 object = shroom_base.instance()
+		else:
+			object = coin_base.instance()
+		object.translate(pos)
+		add_child(object)
+			
 	
 	
 func generate_water_layer():

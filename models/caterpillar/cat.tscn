@@ -46,7 +46,6 @@ rings = 1
 [node name="catepillar" type="Spatial"]
 
 [node name="cinematic_catepilar" type="CSGMesh" parent="."]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.259623 )
 mesh = SubResource( 1 )
 

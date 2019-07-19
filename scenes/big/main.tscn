@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=1]
-resource_name = "logo_fadeout"
+resource_name = "fade_out"
 length = 2.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("logo:modulate")
@@ -77,9 +77,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="gui"]
-autoplay = "logo_fadeout"
-anims/logo_fadeout = SubResource( 1 )
+[node name="anim_gui" type="AnimationPlayer" parent="gui"]
+autoplay = "fade_out"
+anims/fade_out = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="gui"]
 anchor_right = 1.0
@@ -123,6 +123,7 @@ texture = ExtResource( 4 )
 
 [node name="infinite_terrain" type="Spatial" parent="."]
 script = ExtResource( 6 )
+chunk_size = 64
 
 [node name="player" parent="infinite_terrain" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0 )
@@ -130,3 +131,4 @@ move_max_speed = 96
 rotate_speed = 12.0
 camera_min_deg = -40
 camera_max_deg = 40
+controller_enabled = false

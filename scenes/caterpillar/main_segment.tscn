@@ -1,12 +1,43 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/caterpillar/main_segment.gd" type="Script" id=1]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://models/caterpillar/body.material" type="Material" id=2]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SphereMesh" id=1]
+radius = 0.8
+height = 1.6
 radial_segments = 16
 
-[sub_resource type="PrismMesh" id=2]
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0.426829, 0.479675, 0.548781 )
+colors = PoolColorArray( 0.722656, 0.934998, 1, 1, 0.34375, 0.00134277, 0.282224, 1, 0.722656, 0.934998, 1, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0.831373, 0.960784, 0.960784, 1 )
+albedo_texture = SubResource( 6 )
+
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 7 )
+radius = 0.2
+height = 0.4
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CylinderMesh" id=9]
+material = ExtResource( 2 )
+top_radius = 0.05
+bottom_radius = 0.1
+height = 0.5
+radial_segments = 8
+rings = 2
+
+[sub_resource type="SphereMesh" id=4]
+radius = 1.5
+height = 3.0
 
 [sub_resource type="SphereShape" id=3]
 
@@ -15,14 +46,45 @@ script = ExtResource( 1 )
 move_accel = 10.0
 move_max_speed = 60
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="head" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.189105, 0.109435 )
 mesh = SubResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="eye" type="MeshInstance" parent="head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.460061, -0.509281 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="eye2" type="MeshInstance" parent="head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.460061, -0.509281 )
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="head"]
+transform = Transform( 0.965926, 0.258819, 0, -0.24723, 0.922674, 0.295887, 0.0765813, -0.285805, 0.955223, 0.285072, 0.949781, -0.221061 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="head"]
+transform = Transform( 0.906308, -0.422618, 0, 0.403695, 0.865726, 0.295887, -0.125047, -0.268165, 0.955223, -0.314928, 0.949781, -0.221061 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 1 )
-mesh = SubResource( 2 )
-material/0 = null
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.213222, 1 )
+mesh = SubResource( 4 )
+material/0 = ExtResource( 2 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.213222, 2 )
+mesh = SubResource( 4 )
+material/0 = ExtResource( 2 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.213222, 3 )
+mesh = SubResource( 4 )
+material/0 = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 3 )
@@ -30,5 +92,5 @@ shape = SubResource( 3 )
 [node name="camera_pivot" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0 )
 
-[node name="camera" parent="camera_pivot" instance=ExtResource( 2 )]
-transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 15 )
+[node name="camera" parent="camera_pivot" instance=ExtResource( 3 )]
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 24 )

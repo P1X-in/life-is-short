@@ -3,15 +3,24 @@
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.831373, 0.647059, 0.945098, 1 )
 sky_horizon_color = Color( 0.964706, 1, 0.65098, 1 )
-ground_horizon_color = Color( 0.760784, 0.713726, 0.486275, 1 )
+ground_horizon_color = Color( 0.964706, 1, 0.65098, 1 )
+ground_curve = 0.15455
 
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
+fog_enabled = true
+fog_color = Color( 0.9375, 0.915871, 0.739746, 1 )
+fog_depth_begin = 64.0
+fog_depth_end = 256.0
+fog_transmit_enabled = true
 tonemap_mode = 3
 tonemap_exposure = 0.9
 tonemap_white = 1.2
 ss_reflections_enabled = true
 ss_reflections_max_steps = 32
+dof_blur_far_enabled = true
+dof_blur_far_distance = 128.0
+dof_blur_far_quality = 0
 glow_enabled = true
 glow_bloom = 0.4
