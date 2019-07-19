@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=1]
 [ext_resource path="res://misc/font_64pt.tres" type="DynamicFont" id=2]
+[ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=3]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=4]
 
 [node name="main" type="Spatial"]
 
@@ -42,3 +44,12 @@ margin_right = 256.5
 margin_bottom = 47.0
 custom_colors/font_color = Color( 0.545098, 0.952941, 0.945098, 1 )
 text = "\"You're the caterpillar, who use pieces of mushroom to control it's size\""
+
+[node name="infinite_terrain" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="player" type="Spatial" parent="infinite_terrain"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0 )
+
+[node name="camera_3d_effects" parent="infinite_terrain/player" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
