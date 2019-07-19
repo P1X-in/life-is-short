@@ -29,13 +29,13 @@ height = 1.0
 
 [node name="shroom" type="Position3D"]
 
-[node name="foot" type="MeshInstance" parent="."]
+[node name="body" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1942, 0 )
 use_in_baked_light = true
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="head" type="MeshInstance" parent="foot"]
+[node name="head" type="MeshInstance" parent="body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 use_in_baked_light = true
 mesh = SubResource( 2 )
