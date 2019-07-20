@@ -4,7 +4,7 @@ export var index = 0
 
 var main_segment = null
 var stored_movement = []
-const ARBITRARY_OFFSET = 3
+var arbitrary_offset = 3
 
 func _ready():
     self.main_segment = self.get_parent().get_node("player")
@@ -26,7 +26,12 @@ func _physics_process(delta):
 
     self.stored_movement.push_back(move)
 
-    if self.stored_movement.size() > self.ARBITRARY_OFFSET * self.index:
+    if self.stored_movement.size() > self.arbitrary_offset * self.index:
         move = self.stored_movement.pop_front()
         self.set_translation(move['translation'])
         self.set_rotation(move['rotation'])
+
+    var scale = self.main_segment.get_scale()
+    self.set_scale(scale)
+    if scale.x - 0.3 > self.arbitrary_offset - 2:
+        self.arbitrary_offset += 2
