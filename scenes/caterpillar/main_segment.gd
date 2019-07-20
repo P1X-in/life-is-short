@@ -74,7 +74,7 @@ func bump_tree(tree):
 
 func raven_strike(raven):
     if self.size < 5.0:
-        self.die()
+        self.die()        
     else:
         raven.die()
 
@@ -86,3 +86,4 @@ func kaiju_fight(kaiju):
 
 func die():
     self.controller_enabled = false
+    $camera_pivot/camera/titles/anim.play("wasted")
