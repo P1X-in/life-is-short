@@ -2,12 +2,13 @@ extends "res://vendors/p1x/gamepad_3d_controller/controller.gd"
 
 var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
+var tree = preload("res://models/forest/tree.gd")
 
 export var initial_scale = 0.4
 
 var accumulated_delta = 0.0
 var size = 1.0
-const SIZE_LIMIT = 12.0
+const SIZE_LIMIT = 10.0
 var far
 
 func _ready():
@@ -37,6 +38,8 @@ func process_body_collision(collision):
         self.pick_up_coin(collision.collider)
     if collision.collider is self.shroom:
         self.eat_shroom(collision.collider)
+    if collision.collider is self.tree:
+        self.bump_tree(collision.collider)
 
 func get_speed(factor):
     var sine_variance = (sin(self.accumulated_delta) + 1.0) / 4.0 + 0.5
@@ -59,3 +62,10 @@ func eat_shroom(shroom):
         self.camera.set_translation(Vector3(0, 0, _camera_distance))
 
     shroom.eat()
+
+func bump_tree(tree):
+    if self.size > 3.0:
+        if self.size > 8.0:
+            tree.fall()
+        else:
+            tree.shake()

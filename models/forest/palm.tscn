@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://models/forest/Palm1.dae" type="PackedScene" id=1]
 [ext_resource path="res://models/forest/wood3.material" type="Material" id=2]
 [ext_resource path="res://models/forest/leafs.material" type="Material" id=3]
+[ext_resource path="res://models/forest/tree.gd" type="Script" id=4]
+[ext_resource path="res://models/forest/tree_fall..tres" type="Animation" id=5]
+[ext_resource path="res://models/forest/tree_shake.tres" type="Animation" id=6]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 2.11522
@@ -21,9 +24,14 @@ material/1 = ExtResource( 2 )
 material/2 = ExtResource( 3 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
+script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 0.983992, -0.178214, 0, 0.178214, 0.983992, 0, 0, 0, 1, -0.451673, 4.56719, -0.0274506 )
 shape = SubResource( 1 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/fall = ExtResource( 5 )
+anims/shake = ExtResource( 6 )
 
 [editable path="body"]
