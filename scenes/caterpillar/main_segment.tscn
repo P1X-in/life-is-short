@@ -11,7 +11,8 @@
 [node name="main" type="KinematicBody"]
 collision_layer = 0
 script = ExtResource( 1 )
-move_max_speed = 10
+move_accel = 10.0
+move_max_speed = 40
 camera_rotate_speed = 3.0
 
 [node name="head" parent="." instance=ExtResource( 2 )]

@@ -74,11 +74,22 @@ func generate_vegetation(pool):
 	]
 	
 	for i in range(ITEMS_AMOUNT):
-		var object = models[randi() % models.size()].instance()
+		var random_model_id = randi() % models.size();
+		var object = models[random_model_id].instance()
+		
 		var pos = pool[randi() % pool.size()]
 		var ran = 0.5 + randf()
 		var sca = Vector3(ran,ran,ran)
-		object.get_node("body").transform = object.get_node("body").transform.scaled(sca)
+		
+		var body_node = "body"
+		if random_model_id == 0:
+			var types = ['type1', 'type2', 'type3']
+			types.shuffle()
+			body_node = types[0]
+		var model_node = object.get_node(body_node)
+		model_node.show()
+		model_node.transform = model_node.transform.scaled(sca)
+			
 		object.translate(pos)
 		add_child(object)
 		

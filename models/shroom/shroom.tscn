@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://models/shroom/white.material" type="Material" id=1]
 [ext_resource path="res://models/shroom/head.material" type="Material" id=2]
-[ext_resource path="res://models/shroom/shroom.gd" type="Script" id=3]
-[ext_resource path="res://sounds/caterpillar/chrum1.wav" type="AudioStream" id=4]
-[ext_resource path="res://sounds/caterpillar/chrum2.wav" type="AudioStream" id=5]
-[ext_resource path="res://sounds/caterpillar/chrum3.wav" type="AudioStream" id=6]
-[ext_resource path="res://sounds/caterpillar/chrum4.wav" type="AudioStream" id=7]
+[ext_resource path="res://models/shroom/noise_nrm.tres" type="Texture" id=3]
+[ext_resource path="res://models/shroom/shroom.gd" type="Script" id=4]
+[ext_resource path="res://sounds/caterpillar/chrum1.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/caterpillar/chrum2.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/caterpillar/chrum3.wav" type="AudioStream" id=7]
+[ext_resource path="res://sounds/caterpillar/chrum4.wav" type="AudioStream" id=8]
 
 [sub_resource type="CylinderMesh" id=1]
 material = ExtResource( 1 )
@@ -23,9 +24,50 @@ radial_segments = 16
 rings = 8
 is_hemisphere = true
 
+[sub_resource type="CylinderMesh" id=8]
+material = ExtResource( 1 )
+top_radius = 0.8
+bottom_radius = 1.1
+height = 4.0
+
+[sub_resource type="SphereMesh" id=9]
+material = ExtResource( 2 )
+radius = 2.62
+height = 3.0
+radial_segments = 16
+rings = 8
+is_hemisphere = true
+
+[sub_resource type="CylinderMesh" id=10]
+material = ExtResource( 1 )
+top_radius = 0.5
+bottom_radius = 0.5
+height = 3.0
+
+[sub_resource type="SpatialMaterial" id=11]
+albedo_color = Color( 0.886275, 0.682353, 0.423529, 1 )
+metallic = 1.0
+metallic_specular = 0.52
+roughness = 0.51
+normal_enabled = true
+normal_scale = 2.5
+normal_texture = ExtResource( 3 )
+transmission_enabled = true
+transmission = Color( 0.388235, 0.733333, 0.317647, 1 )
+uv1_scale = Vector3( 12, 6, 12 )
+
+[sub_resource type="SphereMesh" id=12]
+material = SubResource( 11 )
+radius = 1.92
+height = 3.51
+radial_segments = 16
+rings = 8
+is_hemisphere = true
+
 [sub_resource type="PhysicsMaterial" id=3]
 
 [sub_resource type="CylinderShape" id=4]
+radius = 1.5
 height = 5.10547
 
 [sub_resource type="CylinderShape" id=5]
@@ -139,21 +181,74 @@ size = Vector3( 1, 1, 1 )
 
 [node name="shroom" type="Position3D"]
 
-[node name="body" type="MeshInstance" parent="."]
+[node name="type1" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1942, 0 )
+visible = false
 use_in_baked_light = true
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="head" type="MeshInstance" parent="body"]
+[node name="head" type="MeshInstance" parent="type1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 use_in_baked_light = true
 mesh = SubResource( 2 )
 material/0 = null
 
+[node name="type2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06923, 0 )
+visible = false
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="head" type="MeshInstance" parent="type2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58292, 0 )
+mesh = SubResource( 9 )
+material/0 = null
+
+[node name="type3" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14003, 0 )
+visible = false
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="MeshInstance" type="MeshInstance" parent="type3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.974549, 0 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="foot" type="MeshInstance" parent="type3"]
+transform = Transform( 0.890504, -0.454976, 0, 0.454976, 0.890504, 0, 0, 0, 1, -2.09225, -0.714304, 0 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="type3/foot"]
+transform = Transform( 0.591718, 0.0793999, -0.0796118, -0.0805344, 0.594524, -0.0100183, 0.0581695, 0.0154244, 0.795966, 0.0269852, 0.877146, -0.0282779 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="foot2" type="MeshInstance" parent="type3"]
+transform = Transform( -0.0931249, 0.0475794, -0.488942, 0.227488, 0.445252, -3.38984e-09, 0.435404, -0.222457, -0.104576, -0.570148, -1.15937, -1.11956 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="type3/foot2"]
+transform = Transform( 0.569209, 0.165348, -0.124091, -0.170023, 0.575122, -0.024114, 0.0842253, 0.0435303, 0.78995, 0.0982432, 0.840739, 0.0558315 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="foot3" type="MeshInstance" parent="type3"]
+transform = Transform( -0.319589, 0.244927, 0.348139, 0.227488, 0.667878, -1.01695e-08, -0.310019, 0.237592, -0.358886, 0.712455, -1.15937, 0.265968 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="type3/foot3"]
+transform = Transform( 0.569209, 0.165348, -0.124091, -0.170023, 0.575122, -0.024114, 0.0842253, 0.0435303, 0.78995, 0.0982434, 0.840739, 0.0558317 )
+mesh = SubResource( 12 )
+material/0 = null
+
 [node name="StaticBody" type="StaticBody" parent="."]
 physics_material_override = SubResource( 3 )
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1845, 0 )
@@ -178,19 +273,20 @@ gravity = Vector3( 0, 4.04, 0 )
 initial_velocity = 30.0
 
 [node name="sounds" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="eat" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 4 )
-bus = "sfx"
-
-[node name="eat2" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 5 )
 bus = "sfx"
 
-[node name="eat3" type="AudioStreamPlayer" parent="sounds"]
+[node name="eat2" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 6 )
 bus = "sfx"
 
-[node name="eat4" type="AudioStreamPlayer" parent="sounds"]
+[node name="eat3" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 7 )
+bus = "sfx"
+
+[node name="eat4" type="AudioStreamPlayer" parent="sounds"]
+stream = ExtResource( 8 )
 bus = "sfx"
