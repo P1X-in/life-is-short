@@ -3,9 +3,18 @@ extends "res://vendors/p1x/gamepad_3d_controller/controller.gd"
 var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 
+export var initial_scale = 0.2
+
 var accumulated_delta = 0.0
 var size = 1.0
 const SIZE_LIMIT = 12.0
+var far
+
+func _ready():
+    ._ready()
+    self.size = self.initial_scale
+    self.set_scale(Vector3(self.size, self.size, self.size))
+    self.far = self.camera.get_zfar()
 
 onready var sounds = $"sounds/movement"
 
@@ -44,7 +53,8 @@ func eat_shroom(shroom):
     if self.size < self.SIZE_LIMIT:
         self.size += 0.1
         self.set_scale(Vector3(self.size, self.size, self.size))
-        self.move_max_speed += 1
+        self.camera.set_zfar(self.far * self.size)
+        self.move_max_speed += 2
 
         var fraction = (self.size - 0.1) / self.size
         self._camera_distance = self._camera_distance * fraction
