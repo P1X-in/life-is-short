@@ -1,6 +1,7 @@
 extends KinematicBody
 
 export var flight_speed = 15
+export var flight_max_speed = 100
 export var move_accel = 4.5
 export var move_deaccel = 16
 export var rotate_speed = 5.0
@@ -10,6 +11,8 @@ var main_segment = null
 
 var angle_y = 0
 var _angle_y = 0
+
+var accumulated_delta = 0.0
 
 func _ready():
     self.main_segment = self.get_parent().get_node("player")
@@ -31,6 +34,9 @@ func _physics_process(delta):
     if not self.main_segment.controller_enabled:
         return
 
+    if self.flight_speed < self.flight_max_speed:
+        self.flight_speed += delta
+
     var axis_value = Vector2()
     var axis_value_normalized
     var dir = Vector3()
@@ -43,9 +49,13 @@ func _physics_process(delta):
 
     var angle = rad2deg(-axis_value.angle()) - 90
     self.angle_y = angle
+
+    if axis_value.length() < 5 * self.main_segment.size:
+        vel.y = (player_position.y - position.y) * 5 - 50
+
     axis_value_normalized = axis_value.normalized()
 
-    dir.x = -axis_value_normalized.x
+    dir.x = axis_value_normalized.x
     dir.z = axis_value_normalized.y
 
     var hvel = vel
@@ -62,5 +72,5 @@ func _physics_process(delta):
     hvel = hvel.linear_interpolate(target, accel * delta)
     vel.x = hvel.x
     vel.z = hvel.z
-    #vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4)
+    vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4)
 
