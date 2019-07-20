@@ -5,6 +5,9 @@ var shroom = preload("res://models/shroom/shroom.gd")
 
 var accumulated_delta = 0.0
 var size = 1.0
+const SIZE_LIMIT = 12.0
+
+onready var sounds = $"sounds/movement"
 
 func _physics_process(delta):
     if not self.controller_enabled:
@@ -13,6 +16,12 @@ func _physics_process(delta):
     self.accumulated_delta += delta * 10
     if self.accumulated_delta > 2.0 * PI:
         self.accumulated_delta -= 2.0 * PI
+
+    if self.is_moving:
+        if not self.sounds.playing:
+            self.sounds.play(randf()*4.0)
+    else:
+        self.sounds.stop()
 
 func process_body_collision(collision):
     if collision.collider is self.coin:
@@ -31,8 +40,15 @@ func pick_up_coin(coin):
 
 func eat_shroom(shroom):
     var sounds = [$sounds/eat,$sounds/eat2,$sounds/eat3,$sounds/eat4]
-    self.size += 0.1
-    self.set_scale(Vector3(self.size, self.size, self.size))
-    self.move_max_speed += 1
+
+    if self.size < self.SIZE_LIMIT:
+        self.size += 0.1
+        self.set_scale(Vector3(self.size, self.size, self.size))
+        self.move_max_speed += 1
+
+        var fraction = (self.size - 0.1) / self.size
+        self._camera_distance = self._camera_distance * fraction
+        self.camera.set_translation(Vector3(0, 0, _camera_distance))
+
     shroom.eat()
     sounds[randi()%sounds.size()].play()

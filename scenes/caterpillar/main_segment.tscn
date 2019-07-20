@@ -15,8 +15,7 @@
 [node name="main" type="KinematicBody"]
 collision_layer = 0
 script = ExtResource( 1 )
-move_accel = 10.0
-move_max_speed = 40
+move_max_speed = 10
 camera_rotate_speed = 3.0
 
 [node name="head" parent="." instance=ExtResource( 2 )]
@@ -38,24 +37,18 @@ enabled = true
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 4 )
-bus = "sfx"
 
 [node name="eat" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 5 )
-bus = "sfx"
 
 [node name="eat2" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 6 )
-bus = "sfx"
 
 [node name="eat3" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 7 )
-bus = "sfx"
 
 [node name="eat4" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 8 )
-bus = "sfx"
 
 [node name="movement" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 9 )
-bus = "sfx"

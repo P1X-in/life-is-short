@@ -26,6 +26,8 @@ export var camera_return_speed = 50.0
 
 export var controller_enabled = true
 
+var is_moving = false
+
 var camera_pivot
 var camera
 
@@ -37,6 +39,9 @@ var _camera_angle_y = 0
 
 var camera_angle_x = 0
 var _camera_angle_x = 0
+
+var camera_distance = 0
+var _camera_distance = 0
 
 var raycast
 var gravity_velocity = 0.0
@@ -65,6 +70,8 @@ func _ready():
     self.raycast.cast_to = Vector3(0, -1, self.camera_max_distance)
     self.raycast.add_exception(self)
 
+    self._camera_distance = self.camera_max_distance
+    self.camera_distance = self.camera_max_distance
     self.camera.set_translation(Vector3(0, 0, self.camera_max_distance))
 
 func _process(delta):
@@ -79,29 +86,30 @@ func _process(delta):
     if delta_snap > 1.0:
         delta_snap = 1.0
 
-    var angle_diff
-
     if angle_y != _angle_y:
-        angle_diff = (angle_y - _angle_y) * delta_snap
-        _angle_y += angle_diff
+        _angle_y += (angle_y - _angle_y) * delta_snap
 
         self.set_rotation_degrees(Vector3(0, _angle_y, 0))
 
     if camera_angle_y != _camera_angle_y:
-        angle_diff = (camera_angle_y - _camera_angle_y) * delta_speed
-        _camera_angle_y += angle_diff
+        _camera_angle_y += (camera_angle_y - _camera_angle_y) * delta_speed
 
         if abs(camera_angle_y - _camera_angle_y) < 0.001:
             _camera_angle_y = camera_angle_y
 
     if camera_angle_x != _camera_angle_x:
-        angle_diff = (camera_angle_x - _camera_angle_x) * delta_speed
-        _camera_angle_x += angle_diff
+        _camera_angle_x += (camera_angle_x - _camera_angle_x) * delta_speed
 
         if abs(camera_angle_x - _camera_angle_x) < 0.001:
             _camera_angle_x = camera_angle_x
 
     self.camera_pivot.set_rotation_degrees(Vector3(_camera_angle_x, _camera_angle_y, 0))
+
+    if camera_distance != _camera_distance:
+        _camera_distance += (camera_distance - _camera_distance) * delta_speed / 2.0
+        if abs(camera_distance - _camera_distance) < 0.001:
+            _camera_distance = camera_distance
+    self.camera.set_translation(Vector3(0, 0, _camera_distance))
 
 func process_camera_collision():
     var distance = self.camera_max_distance
@@ -110,7 +118,9 @@ func process_camera_collision():
         distance = min(distance, raycast_collision.length() - 1.0)
         distance = max(distance, self.camera_min_distance)
 
-    self.camera.set_translation(Vector3(0, 0, distance))
+        self._camera_distance = distance
+        self.camera.set_translation(Vector3(0, 0, distance))
+    self.camera_distance = distance
 
 func _physics_process(delta):
     if not self.controller_enabled:
@@ -137,7 +147,8 @@ func process_movement_input(delta):
 
     axis_value = axis_value.rotated(deg2rad(self.angle_y + self.camera_angle_y))
 
-    if axis_value.length() > self.DEADZONE:
+    self.is_moving = axis_value.length() > self.DEADZONE
+    if self.is_moving:
         var angle = rad2deg(axis_value.angle()) + 90
         var angle_diff = angle - self.angle_y
         self.angle_y = angle
@@ -162,10 +173,6 @@ func process_movement_input(delta):
         hvel = hvel.linear_interpolate(target, accel * delta)
         vel.x = hvel.x
         vel.z = hvel.z
-        if not $"sounds/movement".playing:
-            $"sounds/movement".play(randf()*4.0)
-    else:
-            $"sounds/movement".stop()
     vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4, deg2rad(self.max_slope_angle))
 
 func process_camera_input(delta):

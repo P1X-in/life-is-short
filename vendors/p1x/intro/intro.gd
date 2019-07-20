@@ -15,4 +15,4 @@ func next_scene():
     get_tree().change_scene("scenes/big/"+next_scene_bigfile+".tscn")
 
 func _on_music_finished():
-	$music.play()
+    $music.play()
