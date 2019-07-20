@@ -26,10 +26,13 @@ func get_speed(factor):
 
 func pick_up_coin(coin):
     coin.get_parent().get_node("anim").play("pick_up")
+    $sounds/coin.play()
     coin.queue_free()
 
 func eat_shroom(shroom):
+    var sounds = [$sounds/eat,$sounds/eat2,$sounds/eat3,$sounds/eat4]
     self.size += 0.1
     self.set_scale(Vector3(self.size, self.size, self.size))
     self.move_max_speed += 1
     shroom.eat()
+    sounds[randi()%sounds.size()].play()

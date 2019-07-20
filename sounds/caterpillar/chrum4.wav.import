@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/chrum4.wav-7445724234562c5b33e5db581f81d31c.sample"
+
+[deps]
+
+source_file="res://sounds/caterpillar/chrum4.wav"
+dest_files=[ "res://.import/chrum4.wav-7445724234562c5b33e5db581f81d31c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
