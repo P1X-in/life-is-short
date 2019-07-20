@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/caterpillar/main_segment.gd" type="Script" id=1]
 [ext_resource path="res://models/caterpillar/body.material" type="Material" id=2]
@@ -35,18 +35,18 @@ height = 0.7
 radial_segments = 8
 rings = 2
 
-[sub_resource type="SphereMesh" id=7]
-radius = 1.5
-height = 3.0
+[sub_resource type="SphereShape" id=7]
 
-[sub_resource type="SphereShape" id=8]
-
-[node name="Spatial" type="KinematicBody"]
+[node name="main" type="KinematicBody"]
+collision_layer = 0
 script = ExtResource( 1 )
 move_accel = 10.0
+move_max_speed = 40
+camera_rotate_speed = 3.0
 
 [node name="head" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.189105, 0.109435 )
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 
@@ -70,23 +70,8 @@ transform = Transform( 0.906308, -0.422618, 0, 0.403695, 0.865726, 0.295887, -0.
 mesh = SubResource( 6 )
 material/0 = null
 
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.213222, 1 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 2 )
-
-[node name="MeshInstance3" type="MeshInstance" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.213222, 2 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 2 )
-
-[node name="MeshInstance4" type="MeshInstance" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.213222, 3 )
-mesh = SubResource( 7 )
-material/0 = ExtResource( 2 )
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 8 )
+shape = SubResource( 7 )
 
 [node name="camera_pivot" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0 )

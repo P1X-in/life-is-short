@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=1]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=5]
 [ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=6]
 [ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade_out"
@@ -137,3 +138,18 @@ move_max_speed = 96
 rotate_speed = 12.0
 camera_min_deg = -40
 controller_enabled = false
+
+[node name="tail" parent="infinite_terrain" instance=ExtResource( 8 )]
+index = 1
+
+[node name="tail2" parent="infinite_terrain" instance=ExtResource( 8 )]
+index = 2
+
+[node name="tail3" parent="infinite_terrain" instance=ExtResource( 8 )]
+index = 3
+
+[node name="tail4" parent="infinite_terrain" instance=ExtResource( 8 )]
+index = 4
+
+[node name="tail5" parent="infinite_terrain" instance=ExtResource( 8 )]
+index = 5

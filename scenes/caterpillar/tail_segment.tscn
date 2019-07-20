@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/caterpillar/tail_segment.gd" type="Script" id=1]
+[ext_resource path="res://models/caterpillar/body.material" type="Material" id=2]
+
+[sub_resource type="SphereMesh" id=1]
+radius = 0.8
+height = 1.6
+radial_segments = 16
+
+[sub_resource type="SphereShape" id=8]
+
+[node name="tail" type="KinematicBody"]
+collision_layer = 0
+script = ExtResource( 1 )
+
+[node name="head" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 8 )
