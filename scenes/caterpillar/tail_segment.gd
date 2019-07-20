@@ -33,5 +33,5 @@ func _physics_process(delta):
 
     var scale = self.main_segment.get_scale()
     self.set_scale(scale)
-    if scale.x / 0.5 > self.arbitrary_offset:
+    if scale.x / 0.75 > self.arbitrary_offset:
         self.arbitrary_offset += 1

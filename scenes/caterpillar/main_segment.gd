@@ -3,7 +3,7 @@ extends "res://vendors/p1x/gamepad_3d_controller/controller.gd"
 var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 
-export var initial_scale = 0.2
+export var initial_scale = 0.4
 
 var accumulated_delta = 0.0
 var size = 1.0
