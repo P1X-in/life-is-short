@@ -48,8 +48,6 @@ func pick_up_coin(coin):
     coin.queue_free()
 
 func eat_shroom(shroom):
-    var sounds = [$sounds/eat,$sounds/eat2,$sounds/eat3,$sounds/eat4]
-
     if self.size < self.SIZE_LIMIT:
         self.size += 0.1
         self.set_scale(Vector3(self.size, self.size, self.size))
@@ -61,4 +59,3 @@ func eat_shroom(shroom):
         self.camera.set_translation(Vector3(0, 0, _camera_distance))
 
     shroom.eat()
-    sounds[randi()%sounds.size()].play()

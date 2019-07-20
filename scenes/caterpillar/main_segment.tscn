@@ -1,14 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/caterpillar/main_segment.gd" type="Script" id=1]
 [ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=2]
 [ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sounds/coin/coin.wav" type="AudioStream" id=4]
-[ext_resource path="res://sounds/caterpillar/chrum1.wav" type="AudioStream" id=5]
-[ext_resource path="res://sounds/caterpillar/chrum2.wav" type="AudioStream" id=6]
-[ext_resource path="res://sounds/caterpillar/chrum3.wav" type="AudioStream" id=7]
-[ext_resource path="res://sounds/caterpillar/chrum4.wav" type="AudioStream" id=8]
-[ext_resource path="res://sounds/caterpillar/movement.wav" type="AudioStream" id=9]
+[ext_resource path="res://sounds/caterpillar/movement.wav" type="AudioStream" id=5]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -37,18 +33,9 @@ enabled = true
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 4 )
-
-[node name="eat" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 5 )
-
-[node name="eat2" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 6 )
-
-[node name="eat3" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 7 )
-
-[node name="eat4" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 8 )
+volume_db = -10.0
+bus = "sfx"
 
 [node name="movement" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 9 )
+stream = ExtResource( 5 )
+bus = "sfx"
