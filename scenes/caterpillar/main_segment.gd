@@ -73,4 +73,7 @@ func bump_tree(tree):
             tree.shake()
 
 func raven_strike(raven):
-    self.controller_enabled = false
+    if self.size < 5.0:
+        self.controller_enabled = false
+    else:
+        raven.queue_free()
