@@ -24,13 +24,13 @@ radial_segments = 16
 rings = 8
 is_hemisphere = true
 
-[sub_resource type="CylinderMesh" id=3]
+[sub_resource type="CylinderMesh" id=13]
 material = ExtResource( 1 )
 top_radius = 0.8
 bottom_radius = 1.1
 height = 4.0
 
-[sub_resource type="SphereMesh" id=4]
+[sub_resource type="SphereMesh" id=14]
 material = ExtResource( 2 )
 radius = 2.62
 height = 3.0
@@ -38,13 +38,13 @@ radial_segments = 16
 rings = 8
 is_hemisphere = true
 
-[sub_resource type="CylinderMesh" id=5]
+[sub_resource type="CylinderMesh" id=15]
 material = ExtResource( 1 )
 top_radius = 0.5
 bottom_radius = 0.5
 height = 3.0
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=16]
 albedo_color = Color( 0.886275, 0.682353, 0.423529, 1 )
 metallic = 1.0
 metallic_specular = 0.52
@@ -56,8 +56,8 @@ transmission_enabled = true
 transmission = Color( 0.388235, 0.733333, 0.317647, 1 )
 uv1_scale = Vector3( 12, 6, 12 )
 
-[sub_resource type="SphereMesh" id=7]
-material = SubResource( 6 )
+[sub_resource type="SphereMesh" id=17]
+material = SubResource( 16 )
 radius = 1.92
 height = 3.51
 radial_segments = 16
@@ -181,6 +181,7 @@ size = Vector3( 1, 1, 1 )
 [node name="shroom" type="Position3D"]
 
 [node name="type1" type="MeshInstance" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1942, 0 )
 visible = false
 use_in_baked_light = true
@@ -194,54 +195,57 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="type2" type="MeshInstance" parent="."]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06923, 0 )
 visible = false
-mesh = SubResource( 3 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="head" type="MeshInstance" parent="type2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58292, 0 )
-mesh = SubResource( 4 )
+mesh = SubResource( 14 )
 material/0 = null
 
 [node name="type3" type="MeshInstance" parent="."]
+editor/display_folded = true
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.511056, 0 )
-mesh = SubResource( 5 )
+visible = false
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="type3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.974549, 0 )
-mesh = SubResource( 7 )
+mesh = SubResource( 17 )
 material/0 = null
 
 [node name="foot" type="MeshInstance" parent="type3"]
 transform = Transform( 0.890504, -0.454976, 0, 0.454976, 0.890504, 0, 0, 0, 1, -2.09225, -0.714304, 0 )
-mesh = SubResource( 5 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="type3/foot"]
 transform = Transform( 0.591718, 0.0793999, -0.0796118, -0.0805344, 0.594524, -0.0100183, 0.0581695, 0.0154244, 0.795966, 0.0269852, 0.877146, -0.0282779 )
-mesh = SubResource( 7 )
+mesh = SubResource( 17 )
 material/0 = null
 
 [node name="foot2" type="MeshInstance" parent="type3"]
 transform = Transform( -0.0931249, 0.0475794, -0.488942, 0.227488, 0.445252, -3.38984e-09, 0.435404, -0.222457, -0.104576, -0.570148, -1.15937, -1.11956 )
-mesh = SubResource( 5 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="type3/foot2"]
 transform = Transform( 0.569209, 0.165348, -0.124091, -0.170023, 0.575122, -0.024114, 0.0842253, 0.0435303, 0.78995, 0.0982432, 0.840739, 0.0558315 )
-mesh = SubResource( 7 )
+mesh = SubResource( 17 )
 material/0 = null
 
 [node name="foot3" type="MeshInstance" parent="type3"]
 transform = Transform( -0.319589, 0.244927, 0.348139, 0.227488, 0.667878, -1.01695e-08, -0.310019, 0.237592, -0.358886, 0.712455, -1.15937, 0.265968 )
-mesh = SubResource( 5 )
+mesh = SubResource( 15 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="type3/foot3"]
 transform = Transform( 0.569209, 0.165348, -0.124091, -0.170023, 0.575122, -0.024114, 0.0842253, 0.0435303, 0.78995, 0.0982434, 0.840739, 0.0558317 )
-mesh = SubResource( 7 )
+mesh = SubResource( 17 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="."]
