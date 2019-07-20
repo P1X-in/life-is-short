@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://models/bug/body.material" type="Material" id=1]
+[ext_resource path="res://models/bug/eye.material" type="Material" id=2]
+
+[sub_resource type="SphereMesh" id=1]
+material = ExtResource( 1 )
+radius = 1.5
+height = 1.0
+is_hemisphere = true
+
+[sub_resource type="CubeMesh" id=2]
+material = ExtResource( 1 )
+size = Vector3( 0.2, 2, 3.46 )
+
+[sub_resource type="SphereMesh" id=3]
+material = ExtResource( 1 )
+radius = 0.2
+height = 0.4
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereMesh" id=4]
+material = ExtResource( 2 )
+radius = 0.2
+height = 0.4
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CylinderShape" id=5]
+radius = 1.61052
+height = 1.19756
+
+[node name="bug" type="Spatial"]
+
+[node name="body" type="CSGMesh" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.72, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="CSGMesh" type="CSGMesh" parent="body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.300894, 0 )
+operation = 2
+mesh = SubResource( 2 )
+
+[node name="CSGMesh4" type="CSGMesh" parent="body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.300894, 0 )
+operation = 2
+mesh = SubResource( 2 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.300894, 0 )
+operation = 2
+mesh = SubResource( 2 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.300894, 0 )
+operation = 2
+mesh = SubResource( 2 )
+
+[node name="eye_place" type="CSGMesh" parent="body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.5, -0.4 )
+operation = 2
+mesh = SubResource( 3 )
+
+[node name="eye" type="MeshInstance" parent="body/eye_place"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0922823, -0.102625, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="eye_place2" type="CSGMesh" parent="body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.5, 0.4 )
+operation = 2
+mesh = SubResource( 3 )
+
+[node name="eye2" type="MeshInstance" parent="body/eye_place2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0922823, -0.102625, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.579322, 0 )
+shape = SubResource( 5 )
