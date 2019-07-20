@@ -3,7 +3,6 @@ extends "res://vendors/p1x/gamepad_3d_controller/controller.gd"
 var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 var tree = preload("res://models/forest/tree.gd")
-var raven = preload("res://models/raven/raven.gd")
 
 export var initial_scale = 0.4
 
@@ -34,6 +33,8 @@ func _physics_process(delta):
     else:
         self.sounds.stop()
 
+    self.raycast.cast_to = Vector3(0, -1 * self.size, self.camera_max_distance * self.size)
+
 func process_body_collision(collision):
     if collision.collider is self.coin:
         self.pick_up_coin(collision.collider)
@@ -41,8 +42,6 @@ func process_body_collision(collision):
         self.eat_shroom(collision.collider)
     if collision.collider is self.tree:
         self.bump_tree(collision.collider)
-    if collision.collider is self.raven:
-        self.raven_strike(collision.collider)
 
 func get_speed(factor):
     var sine_variance = (sin(self.accumulated_delta) + 1.0) / 4.0 + 0.5

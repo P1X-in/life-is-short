@@ -1,5 +1,7 @@
 extends KinematicBody
 
+var player = preload("res://scenes/caterpillar/main_segment.gd")
+
 export var flight_speed = 15
 export var flight_max_speed = 100
 export var move_accel = 4.5
@@ -50,8 +52,11 @@ func _physics_process(delta):
     var angle = rad2deg(-axis_value.angle()) - 90
     self.angle_y = angle
 
-    if axis_value.length() < 5 * self.main_segment.size:
+    if axis_value.length() < 3 * self.main_segment.size:
         vel.y = (player_position.y - position.y) * 5 - 50
+
+    if axis_value.length() < 0.1:
+        return
 
     axis_value_normalized = axis_value.normalized()
 
@@ -74,3 +79,10 @@ func _physics_process(delta):
     vel.z = hvel.z
     vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4)
 
+    var count = self.get_slide_count()
+    var colliding_body
+    for i in range(count):
+        colliding_body = self.get_slide_collision(i)
+
+        if colliding_body.collider is self.player:
+            colliding_body.collider.raven_strike(self)
