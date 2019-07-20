@@ -5,8 +5,8 @@ var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 var tree = preload("res://models/forest/tree.gd")
 
-export var move_speed = 15
-export var move_max_speed = 150
+export var move_speed = 100
+export var move_max_speed = 200
 export var move_accel = 4.5
 export var move_deaccel = 16
 export var rotate_speed = 5.0

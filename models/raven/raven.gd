@@ -4,7 +4,7 @@ var player = preload("res://scenes/caterpillar/main_segment.gd")
 var kaiju = preload("res://models/godzilla/godzilla.tscn")
 
 export var flight_speed = 15
-export var flight_max_speed = 100
+export var flight_max_speed = 180
 export var move_accel = 4.5
 export var move_deaccel = 16
 export var rotate_speed = 5.0
