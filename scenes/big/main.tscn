@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=2]
@@ -8,7 +8,10 @@
 [ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=7]
 [ext_resource path="res://models/raven/raven.tscn" type="PackedScene" id=8]
-[ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=9]
+[ext_resource path="res://models/signs/eat.dae" type="PackedScene" id=9]
+[ext_resource path="res://models/signs/letters.material" type="Material" id=10]
+[ext_resource path="res://models/signs/wood3.material" type="Material" id=11]
+[ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=12]
 
 [node name="main" type="Spatial"]
 script = ExtResource( 1 )
@@ -69,11 +72,35 @@ index = 5
 [node name="raven" parent="infinite_terrain" instance=ExtResource( 8 )]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 30, 40 )
 
+[node name="eat" parent="infinite_terrain" instance=ExtResource( 9 )]
+transform = Transform( 0.992606, -0.121379, 0, 0.121379, 0.992606, 0, 0, 0, 1, -2.54182, -14.7199, -34.8934 )
+
+[node name="text6-0" parent="infinite_terrain/eat" index="0"]
+material/0 = ExtResource( 10 )
+
+[node name="Cube8-0" parent="infinite_terrain/eat" index="1"]
+material/0 = ExtResource( 11 )
+
+[node name="Cube9-0" parent="infinite_terrain/eat" index="2"]
+material/0 = ExtResource( 11 )
+
+[node name="Cube9_copy10-0" parent="infinite_terrain/eat" index="3"]
+material_override = ExtResource( 11 )
+
+[node name="SpotLight" type="SpotLight" parent="infinite_terrain/eat"]
+transform = Transform( 0.993718, -0.0513761, 0.0994278, -0.0513761, 0.579859, 0.813095, -0.0994278, -0.813095, 0.573577, 2.27839, 18.632, 11.8059 )
+light_energy = 4.0
+shadow_enabled = true
+spot_range = 34.7224
+spot_angle = 30.8644
+
 [node name="music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
+stream = ExtResource( 12 )
 autoplay = true
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
 
 [editable path="infinite_terrain/player"]
 
 [editable path="infinite_terrain/player/camera_pivot/camera/titles"]
+
+[editable path="infinite_terrain/eat"]

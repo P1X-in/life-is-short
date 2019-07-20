@@ -1,11 +1,73 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://models/titles/eat.dae" type="PackedScene" id=1]
-[ext_resource path="res://materials/sintext.material" type="Material" id=2]
-[ext_resource path="res://models/titles/lis.dae" type="PackedScene" id=3]
-[ext_resource path="res://models/titles/wasted.dae" type="PackedScene" id=4]
+[ext_resource path="res://models/titles/lis.dae" type="PackedScene" id=1]
+[ext_resource path="res://models/titles/wasted.dae" type="PackedScene" id=2]
+[ext_resource path="res://models/titles/sintext_vs.material" type="Material" id=3]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=24]
+resource_name = "hide_logo"
+tracks/0/type = "value"
+tracks/0/path = NodePath("lis:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("lis/text2-0:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -12, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("lis/text1-0:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 12, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("lis/text3-0:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 5 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpotLight:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=1]
 resource_name = "lis"
 tracks/0/type = "value"
 tracks/0/path = NodePath("lis:visible")
@@ -80,71 +142,7 @@ tracks/5/keys = {
 "values": [ 10.1265 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "start"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("lis:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("SpotLight:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("start:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("start:translation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( -12, 0, -8 ), Vector3( 0, 0, -8 ), Vector3( 0, 0, -8 ), Vector3( 12, 0, -8 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("SpotLight:spot_range")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 25.1962 ]
-}
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "wasted"
 length = 2.0
 loop = true
@@ -197,53 +195,255 @@ tracks/3/keys = {
 "values": [ 10.1265 ]
 }
 
+[sub_resource type="VisualShaderNodeColorUniform" id=8]
+uniform_name = "color"
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=14]
+constant = 0.31
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=15]
+constant = 0.39
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=16]
+constant = 0.52
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=17]
+constant = 0.62
+
+[sub_resource type="VisualShaderNodeColorUniform" id=18]
+uniform_name = "trans_color"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=11]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=12]
+uniform_name = "speed"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=13]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id=19]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=20]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=3]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=4]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=5]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=6]
+function = 0
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=7]
+uniform_name = "amplitude"
+
+[sub_resource type="VisualShaderNodeInput" id=10]
+input_name = "time"
+
+[sub_resource type="VisualShader" id=9]
+code = "shader_type spatial;
+uniform float speed;
+uniform float amplitude;
+uniform vec4 color : hint_color;
+uniform vec4 trans_color : hint_color;
+
+
+
+void vertex() {
+// Input:2
+	vec3 n_out2p0;
+	n_out2p0 = VERTEX;
+
+// VectorDecompose:5
+	float n_out5p0;
+	float n_out5p1;
+	float n_out5p2;
+	n_out5p0 = n_out2p0.x;
+	n_out5p1 = n_out2p0.y;
+	n_out5p2 = n_out2p0.z;
+
+// Input:9
+	float n_out9p0;
+	n_out9p0 = TIME;
+
+// ScalarUniform:11
+	float n_out11p0;
+	n_out11p0 = speed;
+
+// ScalarOp:12
+	float n_out12p0;
+	n_out12p0 = n_out9p0 * n_out11p0;
+
+// ScalarOp:10
+	float n_out10p0;
+	n_out10p0 = n_out5p0 + n_out12p0;
+
+// ScalarFunc:7
+	float n_out7p0;
+	n_out7p0 = sin(n_out10p0);
+
+// ScalarUniform:8
+	float n_out8p0;
+	n_out8p0 = amplitude;
+
+// ScalarOp:6
+	float n_out6p0;
+	n_out6p0 = n_out7p0 * n_out8p0;
+
+// ScalarOp:3
+	float n_out3p0;
+	n_out3p0 = n_out5p1 + n_out6p0;
+
+// VectorCompose:4
+	vec3 n_out4p0;
+	n_out4p0 = vec3( n_out5p0 , n_out3p0 , n_out5p2 );
+
+// Output:0
+	VERTEX = n_out4p0;
+
+}
+
+void fragment() {
+// ColorUniform:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	n_out2p0 = color.rgb;
+	n_out2p1 = color.a;
+
+// Scalar:3
+	float n_out3p0;
+	n_out3p0 = 0.310000;
+
+// Scalar:4
+	float n_out4p0;
+	n_out4p0 = 0.390000;
+
+// Scalar:5
+	float n_out5p0;
+	n_out5p0 = 0.520000;
+
+// Scalar:6
+	float n_out6p0;
+	n_out6p0 = 0.620000;
+
+// ColorUniform:7
+	vec3 n_out7p0;
+	float n_out7p1;
+	n_out7p0 = trans_color.rgb;
+	n_out7p1 = trans_color.a;
+
+// Output:0
+	ALBEDO = n_out2p0;
+	METALLIC = n_out3p0;
+	ROUGHNESS = n_out4p0;
+	RIM = n_out5p0;
+	RIM_TINT = n_out6p0;
+	TRANSMISSION = n_out7p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( 80, 264.496 )
+nodes/vertex/0/position = Vector2( 1460, 40 )
+nodes/vertex/2/node = SubResource( 19 )
+nodes/vertex/2/position = Vector2( 100, 100 )
+nodes/vertex/3/node = SubResource( 20 )
+nodes/vertex/3/position = Vector2( 960, 40 )
+nodes/vertex/4/node = SubResource( 3 )
+nodes/vertex/4/position = Vector2( 1160, 40 )
+nodes/vertex/5/node = SubResource( 4 )
+nodes/vertex/5/position = Vector2( 260, 80 )
+nodes/vertex/6/node = SubResource( 5 )
+nodes/vertex/6/position = Vector2( 800, 260 )
+nodes/vertex/7/node = SubResource( 6 )
+nodes/vertex/7/position = Vector2( 600, 220 )
+nodes/vertex/8/node = SubResource( 7 )
+nodes/vertex/8/position = Vector2( 600, 320 )
+nodes/vertex/9/node = SubResource( 10 )
+nodes/vertex/9/position = Vector2( 120, 300 )
+nodes/vertex/10/node = SubResource( 11 )
+nodes/vertex/10/position = Vector2( 420, 240 )
+nodes/vertex/11/node = SubResource( 12 )
+nodes/vertex/11/position = Vector2( 100, 380 )
+nodes/vertex/12/node = SubResource( 13 )
+nodes/vertex/12/position = Vector2( 240, 220 )
+nodes/vertex/connections = PoolIntArray( 2, 0, 5, 0, 4, 0, 0, 0, 5, 0, 4, 0, 5, 2, 4, 2, 5, 1, 3, 0, 3, 0, 4, 1, 7, 0, 6, 0, 6, 0, 3, 1, 8, 0, 6, 1, 5, 0, 10, 0, 10, 0, 7, 0, 11, 0, 12, 1, 9, 0, 12, 0, 12, 0, 10, 1 )
+nodes/fragment/0/position = Vector2( 600, 40 )
+nodes/fragment/2/node = SubResource( 8 )
+nodes/fragment/2/position = Vector2( 100, 80 )
+nodes/fragment/3/node = SubResource( 14 )
+nodes/fragment/3/position = Vector2( 340, 160 )
+nodes/fragment/4/node = SubResource( 15 )
+nodes/fragment/4/position = Vector2( 340, 240 )
+nodes/fragment/5/node = SubResource( 16 )
+nodes/fragment/5/position = Vector2( 320, 300 )
+nodes/fragment/6/node = SubResource( 17 )
+nodes/fragment/6/position = Vector2( 320, 380 )
+nodes/fragment/7/node = SubResource( 18 )
+nodes/fragment/7/position = Vector2( 340, 460 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 0, 3, 0, 0, 2, 4, 0, 0, 3, 5, 0, 0, 10, 6, 0, 0, 11, 7, 0, 0, 17 )
+
+[sub_resource type="ShaderMaterial" id=21]
+shader = SubResource( 9 )
+shader_param/speed = 3.0
+shader_param/amplitude = 0.2
+shader_param/color = Color( 0.137255, 0.321569, 0.0352941, 1 )
+shader_param/trans_color = Color( 0.823529, 0.984314, 0.427451, 1 )
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = SubResource( 9 )
+shader_param/speed = 3.0
+shader_param/amplitude = 0.2
+shader_param/color = Color( 0.411765, 0.258824, 0.0823529, 1 )
+shader_param/trans_color = Color( 1, 0.894118, 0.329412, 1 )
+
+[sub_resource type="ShaderMaterial" id=23]
+shader = SubResource( 9 )
+shader_param/speed = 3.0
+shader_param/amplitude = 0.3
+shader_param/color = Color( 0.556863, 0.560784, 0.0235294, 1 )
+shader_param/trans_color = Color( 1, 0.952454, 0.839844, 1 )
+
 [node name="titles" type="Position3D"]
 
 [node name="anim" type="AnimationPlayer" parent="."]
-anims/lis = SubResource( 2 )
-anims/start = SubResource( 1 )
-anims/wasted = SubResource( 3 )
+anims/hide_logo = SubResource( 24 )
+anims/lis = SubResource( 1 )
+anims/wasted = SubResource( 2 )
 
-[node name="start" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -8 )
-visible = false
-
-[node name="text6-0" parent="start" index="0"]
-material/0 = ExtResource( 2 )
-
-[node name="lis" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
-visible = false
+[node name="lis" parent="." instance=ExtResource( 1 )]
 
 [node name="text1-0" parent="lis" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0 )
-material/0 = ExtResource( 2 )
+material/0 = SubResource( 21 )
 
 [node name="text2-0" parent="lis" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
-material/0 = ExtResource( 2 )
+material/0 = SubResource( 22 )
 
 [node name="text3-0" parent="lis" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
-material/0 = ExtResource( 2 )
+material/0 = SubResource( 23 )
 
-[node name="wasted" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0 )
+[node name="wasted" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0 )
 visible = false
 
 [node name="text4-0" parent="wasted" index="0"]
-material/0 = ExtResource( 2 )
+material/0 = ExtResource( 3 )
 
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 3.26748, 4.61383 )
 visible = false
-light_energy = 8.0
+light_energy = 4.0
 spot_range = 10.1265
 spot_angle = 64.5322
-
-[editable path="start"]
 
 [editable path="lis"]
 

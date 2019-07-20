@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/eat.dae-7f21ca224b6db51df73b0337c144aca0.scn"
+path="res://.import/eat.dae-ebcaa979732622cade7b4e1573a5589c.scn"
 
 [deps]
 
-source_file="res://models/titles/eat.dae"
-dest_files=[ "res://.import/eat.dae-7f21ca224b6db51df73b0337c144aca0.scn" ]
+source_file="res://models/signs/eat.dae"
+dest_files=[ "res://.import/eat.dae-ebcaa979732622cade7b4e1573a5589c.scn" ]
 
 [params]
 
