@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/caterpillar/body.material" type="Material" id=1]
+
+[sub_resource type="SphereMesh" id=1]
+radius = 0.8
+height = 1.6
+radial_segments = 16
+rings = 8
+
+[node name="tail" type="MeshInstance"]
+mesh = SubResource( 1 )
+material/0 = ExtResource( 1 )
