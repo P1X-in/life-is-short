@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=2]
@@ -9,7 +9,8 @@
 [ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=7]
 [ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=9]
-[ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=10]
+[ext_resource path="res://models/raven/raven.tscn" type="PackedScene" id=10]
+[ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "fade_out"
@@ -158,8 +159,10 @@ index = 4
 [node name="tail5" parent="infinite_terrain" instance=ExtResource( 9 )]
 index = 5
 
+[node name="raven" parent="infinite_terrain" instance=ExtResource( 10 )]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 30, 40 )
+
 [node name="music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 autoplay = true
-bus = "music"
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
