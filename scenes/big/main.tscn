@@ -1,68 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=2]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=3]
-[ext_resource path="res://misc/font_64pt.tres" type="DynamicFont" id=4]
-[ext_resource path="res://misc/icon.png" type="Texture" id=5]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=6]
-[ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=7]
-[ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=9]
-[ext_resource path="res://models/raven/raven.tscn" type="PackedScene" id=10]
-[ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=11]
-
-[sub_resource type="Animation" id=1]
-resource_name = "fade_out"
-length = 2.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("logo:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.4, 2.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("logo:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.4, 2.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("ColorRect:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1, 2.1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, true, false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("ColorRect:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1, 2.1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
-}
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=4]
+[ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=5]
+[ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=7]
+[ext_resource path="res://models/raven/raven.tscn" type="PackedScene" id=8]
+[ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=9]
 
 [node name="main" type="Spatial"]
 script = ExtResource( 1 )
@@ -78,7 +24,6 @@ directional_shadow_mode = 1
 directional_shadow_max_distance = 256.0
 
 [node name="gui" type="Control" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 3 )
@@ -86,83 +31,45 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="anim_gui" type="AnimationPlayer" parent="gui"]
-autoplay = "fade_out"
-anims/fade_out = SubResource( 1 )
-
-[node name="ColorRect" type="ColorRect" parent="gui"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.219608, 0.164706, 0.219608, 1 )
-
-[node name="logo" type="Control" parent="gui"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-
-[node name="title" type="Label" parent="gui/logo"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -145.0
-margin_top = -25.5
-margin_right = 145.0
-margin_bottom = 25.5
-custom_fonts/font = ExtResource( 4 )
-text = "Life is Short"
-
-[node name="subtitle" type="Label" parent="gui/logo"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -139.5
-margin_top = 27.5
-margin_right = 139.5
-margin_bottom = 72.5
-text = "\"You're the caterpillar, who use pieces of mushroom to control its size\""
-align = 1
-valign = 1
-autowrap = true
-
-[node name="Sprite" type="Sprite" parent="gui/logo"]
-position = Vector2( 0, -64 )
-texture = ExtResource( 5 )
-
-[node name="fps" parent="gui" instance=ExtResource( 6 )]
+[node name="fps" parent="gui" instance=ExtResource( 4 )]
 
 [node name="infinite_terrain" type="Spatial" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 5 )
 chunk_size = 64
 
-[node name="player" parent="infinite_terrain" instance=ExtResource( 8 )]
+[node name="player" parent="infinite_terrain" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0 )
 move_max_speed = 96
 rotate_speed = 12.0
 camera_min_deg = -40
 controller_enabled = false
 
-[node name="tail" parent="infinite_terrain" instance=ExtResource( 9 )]
+[node name="anim" parent="infinite_terrain/player/camera_pivot/camera/titles" index="0"]
+autoplay = "lis"
+
+[node name="tail" parent="infinite_terrain" instance=ExtResource( 7 )]
 index = 1
 
-[node name="tail2" parent="infinite_terrain" instance=ExtResource( 9 )]
+[node name="tail2" parent="infinite_terrain" instance=ExtResource( 7 )]
 index = 2
 
-[node name="tail3" parent="infinite_terrain" instance=ExtResource( 9 )]
+[node name="tail3" parent="infinite_terrain" instance=ExtResource( 7 )]
 index = 3
 
-[node name="tail4" parent="infinite_terrain" instance=ExtResource( 9 )]
+[node name="tail4" parent="infinite_terrain" instance=ExtResource( 7 )]
 index = 4
 
-[node name="tail5" parent="infinite_terrain" instance=ExtResource( 9 )]
+[node name="tail5" parent="infinite_terrain" instance=ExtResource( 7 )]
 index = 5
 
-[node name="raven" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="raven" parent="infinite_terrain" instance=ExtResource( 8 )]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 30, 40 )
 
 [node name="music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource( 9 )
 autoplay = true
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
+
+[editable path="infinite_terrain/player"]
+
+[editable path="infinite_terrain/player/camera_pivot/camera/titles"]

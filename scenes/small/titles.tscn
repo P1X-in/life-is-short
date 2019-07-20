@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://models/titles/start.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://materials/sintext.material" type="Material" id=2]
+[ext_resource path="res://models/titles/lis.dae" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "start"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("start:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -12, 0, 0 ), Vector3( -1, 0, 0 ), Vector3( 1, 0, 0 ), Vector3( 12, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("start:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("lis:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpotLight:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="titles" type="Position3D"]
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/start = SubResource( 1 )
+
+[node name="start" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
+visible = false
+use_in_baked_light = true
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="lis" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 1.51518, 4.61383 )
+light_energy = 6.0
+spot_range = 5.99221
+spot_angle = 64.5322

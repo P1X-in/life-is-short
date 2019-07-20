@@ -51,6 +51,7 @@ func load_done(chunk, thread):
     thread.wait_to_finish()
     if not $player.controller_enabled and chunks.size() >= chunk_amount * chunk_amount:
         $player.controller_enabled = true
+        $player/camera_pivot/camera/titles/anim.play("start")
     
 func get_chunk(x, z):
     var key = str(x) + "," + str(z)

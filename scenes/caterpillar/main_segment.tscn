@@ -1,12 +1,447 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scenes/caterpillar/main_segment.gd" type="Script" id=1]
 [ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=2]
 [ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=3]
-[ext_resource path="res://sounds/coin/coin.wav" type="AudioStream" id=4]
-[ext_resource path="res://sounds/caterpillar/movement.wav" type="AudioStream" id=5]
+[ext_resource path="res://scenes/small/titles.tscn" type="PackedScene" id=4]
+[ext_resource path="res://materials/sintext.material" type="Material" id=5]
+[ext_resource path="res://sounds/coin/coin.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/caterpillar/movement.wav" type="AudioStream" id=7]
 
 [sub_resource type="SphereShape" id=1]
+
+[sub_resource type="Animation" id=44]
+resource_name = "lis"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("lis:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("lis/text2-0:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 12, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("lis/text1-0:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -12, 0, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("lis/text3-0:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 6 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpotLight:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=19]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=25]
+default_input_values = [ 0, 0.0, 1, 4.0 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id=26]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=27]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeScalarOp" id=28]
+default_input_values = [ 0, 0.0, 1, 0.1 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=29]
+function = 1
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=30]
+function = 12
+
+[sub_resource type="VisualShaderNodeScalarOp" id=31]
+default_input_values = [ 0, 0.0, 1, 0.2 ]
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=32]
+function = 0
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=33]
+function = 12
+
+[sub_resource type="VisualShaderNodeScalarOp" id=34]
+default_input_values = [ 0, 0.0, 1, 0.2 ]
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=35]
+function = 0
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=36]
+function = 12
+
+[sub_resource type="VisualShaderNodeScalarOp" id=37]
+default_input_values = [ 0, 0.0, 1, 0.1 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarOp" id=38]
+default_input_values = [ 0, 0.0, 1, 0.1 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id=39]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0.4, 0.4, 0.4 ) ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=40]
+uniform_name = "speed"
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=13]
+constant = 0.5
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=14]
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=15]
+constant = 0.4
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=16]
+constant = 0.8
+
+[sub_resource type="VisualShaderNodeInput" id=18]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=11]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=22]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=23]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=24]
+uniform_name = "Y_amp"
+
+[sub_resource type="VisualShaderNodeInput" id=41]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=2]
+
+[sub_resource type="VisualShaderNodeVectorCompose" id=3]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id=4]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=5]
+default_input_values = [ 0, 0.0, 1, 2.0 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=6]
+function = 0
+
+[sub_resource type="VisualShaderNodeScalarUniform" id=7]
+uniform_name = "X_amp"
+
+[sub_resource type="VisualShaderNodeInput" id=10]
+input_name = "time"
+
+[sub_resource type="VisualShader" id=9]
+code = "shader_type spatial;
+render_mode world_vertex_coords;
+
+uniform float X_amp;
+uniform float Y_amp;
+uniform float speed;
+
+
+
+void vertex() {
+// Input:2
+	vec3 n_out2p0;
+	n_out2p0 = VERTEX;
+
+// VectorDecompose:5
+	float n_out5p0;
+	float n_out5p1;
+	float n_out5p2;
+	n_out5p0 = n_out2p0.x;
+	n_out5p1 = n_out2p0.y;
+	n_out5p2 = n_out2p0.z;
+
+// Input:9
+	float n_out9p0;
+	n_out9p0 = TIME;
+
+// ScalarOp:10
+	float n_out10p0;
+	n_out10p0 = n_out5p0 + n_out9p0;
+
+// ScalarFunc:7
+	float n_out7p0;
+	n_out7p0 = sin(n_out10p0);
+
+// ScalarUniform:8
+	float n_out8p0;
+	n_out8p0 = X_amp;
+
+// ScalarOp:6
+	float n_out6p0;
+	n_out6p0 = n_out7p0 * n_out8p0;
+
+// ScalarUniform:13
+	float n_out13p0;
+	n_out13p0 = Y_amp;
+
+// ScalarOp:12
+	float n_out12p0;
+	n_out12p0 = n_out6p0 * n_out13p0;
+
+// ScalarOp:11
+	float n_out11p0;
+	n_out11p0 = n_out5p0 + n_out12p0;
+
+// ScalarOp:3
+	float n_out3p0;
+	n_out3p0 = n_out5p1 + n_out6p0;
+
+// VectorCompose:4
+	vec3 n_out4p0;
+	n_out4p0 = vec3( n_out11p0 , n_out3p0 , n_out5p2 );
+
+// Output:0
+	VERTEX = n_out4p0;
+
+}
+
+void fragment() {
+// Input:9
+	vec3 n_out9p0;
+	n_out9p0 = VERTEX;
+
+// VectorDecompose:10
+	float n_out10p0;
+	float n_out10p1;
+	float n_out10p2;
+	n_out10p0 = n_out9p0.x;
+	n_out10p1 = n_out9p0.y;
+	n_out10p2 = n_out9p0.z;
+
+// Input:19
+	float n_out19p0;
+	n_out19p0 = TIME;
+
+// ScalarUniform:37
+	float n_out37p0;
+	n_out37p0 = speed;
+
+// ScalarOp:18
+	float n_out18p0;
+	n_out18p0 = n_out19p0 * n_out37p0;
+
+// ScalarOp:25
+	float n_out25p0;
+	n_out25p0 = n_out10p0 + n_out18p0;
+
+// ScalarOp:32
+	float n_in32p1 = 0.10000;
+	float n_out32p0;
+	n_out32p0 = n_out25p0 * n_in32p1;
+
+// ScalarFunc:26
+	float n_out26p0;
+	n_out26p0 = sin(n_out32p0);
+
+// ScalarFunc:24
+	float n_out24p0;
+	n_out24p0 = abs(n_out26p0);
+
+// ScalarOp:28
+	float n_out28p0;
+	n_out28p0 = n_out10p1 + n_out18p0;
+
+// ScalarOp:31
+	float n_in31p1 = 0.10000;
+	float n_out31p0;
+	n_out31p0 = n_out28p0 * n_in31p1;
+
+// ScalarFunc:23
+	float n_out23p0;
+	n_out23p0 = cos(n_out31p0);
+
+// ScalarFunc:27
+	float n_out27p0;
+	n_out27p0 = abs(n_out23p0);
+
+// ScalarOp:22
+	float n_in22p1 = 0.10000;
+	float n_out22p0;
+	n_out22p0 = n_out18p0 * n_in22p1;
+
+// ScalarFunc:29
+	float n_out29p0;
+	n_out29p0 = sin(n_out22p0);
+
+// ScalarFunc:30
+	float n_out30p0;
+	n_out30p0 = abs(n_out29p0);
+
+// VectorCompose:21
+	vec3 n_out21p0;
+	n_out21p0 = vec3( n_out24p0 , n_out27p0 , n_out30p0 );
+
+// VectorOp:36
+	vec3 n_in36p1 = vec3(0.40000,0.40000,0.40000);
+	vec3 n_out36p0;
+	n_out36p0 = n_out21p0 * n_in36p1;
+
+// Scalar:4
+	float n_out4p0;
+	n_out4p0 = 0.500000;
+
+// Scalar:5
+	float n_out5p0;
+	n_out5p0 = 0.000000;
+
+// Scalar:6
+	float n_out6p0;
+	n_out6p0 = 0.400000;
+
+// Scalar:7
+	float n_out7p0;
+	n_out7p0 = 0.800000;
+
+// Output:0
+	ALBEDO = n_out36p0;
+	METALLIC = n_out4p0;
+	ROUGHNESS = n_out5p0;
+	RIM = n_out6p0;
+	RIM_TINT = n_out7p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -349.512, 113 )
+flags/world_vertex_coords = true
+nodes/vertex/0/position = Vector2( 1420, 80 )
+nodes/vertex/2/node = SubResource( 41 )
+nodes/vertex/2/position = Vector2( -140, 60 )
+nodes/vertex/3/node = SubResource( 2 )
+nodes/vertex/3/position = Vector2( 920, 80 )
+nodes/vertex/4/node = SubResource( 3 )
+nodes/vertex/4/position = Vector2( 1120, 80 )
+nodes/vertex/5/node = SubResource( 4 )
+nodes/vertex/5/position = Vector2( 40, 60 )
+nodes/vertex/6/node = SubResource( 5 )
+nodes/vertex/6/position = Vector2( 800, 200 )
+nodes/vertex/7/node = SubResource( 6 )
+nodes/vertex/7/position = Vector2( 600, 200 )
+nodes/vertex/8/node = SubResource( 7 )
+nodes/vertex/8/position = Vector2( 660, 340 )
+nodes/vertex/9/node = SubResource( 10 )
+nodes/vertex/9/position = Vector2( -40, 280 )
+nodes/vertex/10/node = SubResource( 11 )
+nodes/vertex/10/position = Vector2( 260, 220 )
+nodes/vertex/11/node = SubResource( 22 )
+nodes/vertex/11/position = Vector2( 740, 20 )
+nodes/vertex/12/node = SubResource( 23 )
+nodes/vertex/12/position = Vector2( 520, -40 )
+nodes/vertex/13/node = SubResource( 24 )
+nodes/vertex/13/position = Vector2( 320, 20 )
+nodes/vertex/connections = PoolIntArray( 2, 0, 5, 0, 4, 0, 0, 0, 5, 2, 4, 2, 5, 1, 3, 0, 3, 0, 4, 1, 7, 0, 6, 0, 6, 0, 3, 1, 8, 0, 6, 1, 5, 0, 10, 0, 9, 0, 10, 1, 10, 0, 7, 0, 11, 0, 4, 0, 5, 0, 11, 0, 6, 0, 12, 0, 12, 0, 11, 1, 13, 0, 12, 1 )
+nodes/fragment/0/position = Vector2( 1540, 100 )
+nodes/fragment/4/node = SubResource( 13 )
+nodes/fragment/4/position = Vector2( 1280, 120 )
+nodes/fragment/5/node = SubResource( 14 )
+nodes/fragment/5/position = Vector2( 1280, 180 )
+nodes/fragment/6/node = SubResource( 15 )
+nodes/fragment/6/position = Vector2( 1280, 300 )
+nodes/fragment/7/node = SubResource( 16 )
+nodes/fragment/7/position = Vector2( 1280, 360 )
+nodes/fragment/9/node = SubResource( 18 )
+nodes/fragment/9/position = Vector2( -280, 20 )
+nodes/fragment/10/node = SubResource( 19 )
+nodes/fragment/10/position = Vector2( -100, 20 )
+nodes/fragment/18/node = SubResource( 25 )
+nodes/fragment/18/position = Vector2( -60, 120 )
+nodes/fragment/19/node = SubResource( 26 )
+nodes/fragment/19/position = Vector2( -280, 140 )
+nodes/fragment/21/node = SubResource( 27 )
+nodes/fragment/21/position = Vector2( 1040, 20 )
+nodes/fragment/22/node = SubResource( 28 )
+nodes/fragment/22/position = Vector2( 300, 180 )
+nodes/fragment/23/node = SubResource( 29 )
+nodes/fragment/23/position = Vector2( 680, 40 )
+nodes/fragment/24/node = SubResource( 30 )
+nodes/fragment/24/position = Vector2( 860, -20 )
+nodes/fragment/25/node = SubResource( 31 )
+nodes/fragment/25/position = Vector2( 300, -20 )
+nodes/fragment/26/node = SubResource( 32 )
+nodes/fragment/26/position = Vector2( 680, -20 )
+nodes/fragment/27/node = SubResource( 33 )
+nodes/fragment/27/position = Vector2( 860, 40 )
+nodes/fragment/28/node = SubResource( 34 )
+nodes/fragment/28/position = Vector2( 300, 80 )
+nodes/fragment/29/node = SubResource( 35 )
+nodes/fragment/29/position = Vector2( 680, 100 )
+nodes/fragment/30/node = SubResource( 36 )
+nodes/fragment/30/position = Vector2( 860, 100 )
+nodes/fragment/31/node = SubResource( 37 )
+nodes/fragment/31/position = Vector2( 460, 80 )
+nodes/fragment/32/node = SubResource( 38 )
+nodes/fragment/32/position = Vector2( 460, -20 )
+nodes/fragment/36/node = SubResource( 39 )
+nodes/fragment/36/position = Vector2( 1280, 20 )
+nodes/fragment/37/node = SubResource( 40 )
+nodes/fragment/37/position = Vector2( -260, 220 )
+nodes/fragment/connections = PoolIntArray( 4, 0, 0, 2, 5, 0, 0, 3, 6, 0, 0, 10, 7, 0, 0, 11, 9, 0, 10, 0, 19, 0, 18, 0, 24, 0, 21, 0, 18, 0, 25, 1, 27, 0, 21, 1, 10, 0, 25, 0, 10, 1, 28, 0, 18, 0, 28, 1, 30, 0, 21, 2, 29, 0, 30, 0, 26, 0, 24, 0, 23, 0, 27, 0, 22, 0, 29, 0, 18, 0, 22, 0, 28, 0, 31, 0, 31, 0, 23, 0, 32, 0, 26, 0, 25, 0, 32, 0, 21, 0, 36, 0, 36, 0, 0, 0, 37, 0, 18, 1 )
+
+[sub_resource type="ShaderMaterial" id=42]
+shader = SubResource( 9 )
+shader_param/X_amp = 0.43
+shader_param/Y_amp = 0.7
+shader_param/speed = 6.0
+
+[sub_resource type="ShaderMaterial" id=43]
+shader = SubResource( 9 )
+shader_param/X_amp = 0.43
+shader_param/Y_amp = 0.7
+shader_param/speed = 8.0
 
 [node name="main" type="KinematicBody"]
 collision_layer = 0
@@ -26,16 +461,43 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0 )
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 24 )
 far = 192.0
 
+[node name="titles" parent="camera_pivot/camera" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.28 )
+
+[node name="anim" parent="camera_pivot/camera/titles" index="0"]
+anims/lis = SubResource( 44 )
+
+[node name="start" parent="camera_pivot/camera/titles" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
+
+[node name="lis" parent="camera_pivot/camera/titles" index="2"]
+editor/display_folded = true
+visible = true
+
+[node name="text1-0" parent="camera_pivot/camera/titles/lis" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0 )
+material/0 = ExtResource( 5 )
+
+[node name="text2-0" parent="camera_pivot/camera/titles/lis" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
+material/0 = SubResource( 42 )
+
+[node name="text3-0" parent="camera_pivot/camera/titles/lis" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
+material/0 = SubResource( 43 )
+
 [node name="RayCast" type="RayCast" parent="camera_pivot"]
 enabled = true
 
 [node name="sounds" type="Node" parent="."]
 
 [node name="coin" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 4 )
+stream = ExtResource( 6 )
 volume_db = -10.0
-bus = "sfx"
 
 [node name="movement" type="AudioStreamPlayer" parent="sounds"]
-stream = ExtResource( 5 )
-bus = "sfx"
+stream = ExtResource( 7 )
+
+[editable path="camera_pivot/camera/titles"]
+
+[editable path="camera_pivot/camera/titles/lis"]
