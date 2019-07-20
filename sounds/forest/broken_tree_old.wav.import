@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/broken_tree_old.wav-c1f3cc020d9aefd47e8daf0730f4abec.sample"
+
+[deps]
+
+source_file="res://sounds/forest/broken_tree_old.wav"
+dest_files=[ "res://.import/broken_tree_old.wav-c1f3cc020d9aefd47e8daf0730f4abec.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

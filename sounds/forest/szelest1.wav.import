@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/szelest1.wav-a5ddc3d64d66f0f3c856cfb6bc561aa8.sample"
+
+[deps]
+
+source_file="res://sounds/forest/szelest1.wav"
+dest_files=[ "res://.import/szelest1.wav-a5ddc3d64d66f0f3c856cfb6bc561aa8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

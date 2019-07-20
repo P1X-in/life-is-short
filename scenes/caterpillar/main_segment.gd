@@ -64,8 +64,8 @@ func eat_shroom(shroom):
     shroom.eat()
 
 func bump_tree(tree):
-    if self.size > 3.0:
-        if self.size > 8.0:
+    if self.size > 0.4:
+        if self.size > 0.6:
             tree.fall()
         else:
             tree.shake()

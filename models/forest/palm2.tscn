@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://models/forest/Palm2.dae" type="PackedScene" id=1]
 [ext_resource path="res://models/forest/wood3.material" type="Material" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://models/forest/tree.gd" type="Script" id=4]
 [ext_resource path="res://models/forest/tree_fall..tres" type="Animation" id=5]
 [ext_resource path="res://models/forest/tree_shake.tres" type="Animation" id=6]
+[ext_resource path="res://sounds/forest/broken_tree.wav" type="AudioStream" id=7]
+[ext_resource path="res://sounds/forest/szelest1.wav" type="AudioStream" id=8]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 2.10203
@@ -33,5 +35,15 @@ shape = SubResource( 1 )
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/fall = ExtResource( 5 )
 anims/shake = ExtResource( 6 )
+
+[node name="broken" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = 3.0
+bus = "destruction"
+
+[node name="shake" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = 4.0
+bus = "sfx"
 
 [editable path="body"]
