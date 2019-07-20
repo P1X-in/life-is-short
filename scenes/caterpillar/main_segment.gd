@@ -74,6 +74,15 @@ func bump_tree(tree):
 
 func raven_strike(raven):
     if self.size < 5.0:
-        self.controller_enabled = false
+        self.die()
     else:
-        raven.queue_free()
+        raven.die()
+
+func kaiju_fight(kaiju):
+    if self.size < 9.0:
+        self.die()
+    else:
+        kaiju.queue_free()
+
+func die():
+    self.controller_enabled = false

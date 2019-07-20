@@ -1,10 +1,12 @@
 extends KinematicBody
 
 var player = preload("res://scenes/caterpillar/main_segment.gd")
-var kaiju = preload("res://models/godzilla/godzilla.tscn")
+var coin = preload("res://models/coin/coin.gd")
+var shroom = preload("res://models/shroom/shroom.gd")
+var tree = preload("res://models/forest/tree.gd")
 
-export var flight_speed = 15
-export var flight_max_speed = 100
+export var move_speed = 15
+export var move_max_speed = 100
 export var move_accel = 4.5
 export var move_deaccel = 16
 export var rotate_speed = 5.0
@@ -37,8 +39,8 @@ func _physics_process(delta):
     if not self.main_segment.controller_enabled:
         return
 
-    if self.flight_speed < self.flight_max_speed:
-        self.flight_speed += delta
+    if self.move_speed < self.move_max_speed:
+        self.move_speed += delta
 
     var axis_value = Vector2()
     var axis_value_normalized
@@ -47,14 +49,18 @@ func _physics_process(delta):
 
     var player_position = self.main_segment.get_translation()
     var position = self.get_translation()
+
+    if position.y < -20:
+        position.y = 50
+        self.set_translation(position)
+
     axis_value.x = player_position.x - position.x
     axis_value.y = player_position.z - position.z
 
     var angle = rad2deg(-axis_value.angle()) - 90
     self.angle_y = angle
 
-    if axis_value.length() < 3 * self.main_segment.size:
-        vel.y = (player_position.y - position.y) * 5 - 50
+    vel.y = -50
 
     if axis_value.length() < 0.1:
         return
@@ -68,7 +74,7 @@ func _physics_process(delta):
     hvel.y = 0
 
     var target = dir
-    target *= self.flight_speed
+    target *= self.move_speed
     var accel
     if dir.dot(hvel) > 0:
         accel = self.move_accel
@@ -86,11 +92,8 @@ func _physics_process(delta):
         colliding_body = self.get_slide_collision(i)
 
         if colliding_body.collider is self.player:
-            colliding_body.collider.raven_strike(self)
-
-func die():
-    var godzilla = self.kaiju.instance()
-    self.get_parent().add_child(godzilla)
-    var position = self.get_translation()
-    godzilla.set_translation(Vector3(position.x - 50, 50, position.z - 50))
-    self.queue_free()
+            colliding_body.collider.kaiju_fight(self)
+        if colliding_body.collider is self.shroom or colliding_body.collider is self.coin:
+            colliding_body.collider.get_parent().queue_free()
+        if colliding_body.collider is self.tree:
+            colliding_body.collider.fall()
