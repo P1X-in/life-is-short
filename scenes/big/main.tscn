@@ -158,7 +158,8 @@ index = 4
 [node name="tail5" parent="infinite_terrain" instance=ExtResource( 9 )]
 index = 5
 
-[node name="music" type="AudioStreamPlayer2D" parent="."]
+[node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 autoplay = true
 bus = "music"
+[connection signal="finished" from="music" to="." method="_on_music_finished"]

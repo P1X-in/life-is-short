@@ -162,6 +162,10 @@ func process_movement_input(delta):
         hvel = hvel.linear_interpolate(target, accel * delta)
         vel.x = hvel.x
         vel.z = hvel.z
+        if not $"sounds/movement".playing:
+            $"sounds/movement".play(randf()*4.0)
+    else:
+            $"sounds/movement".stop()
     vel = self.move_and_slide(vel, Vector3(0, 1, 0), true, 4, deg2rad(self.max_slope_angle))
 
 func process_camera_input(delta):
