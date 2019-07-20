@@ -123,6 +123,7 @@ func _physics_process(delta):
 
 func process_movement_input(delta):
     var axis_value = Vector2()
+    var axis_value_normalized
     var dir = Vector3()
     var vel = Vector3()
 
@@ -142,16 +143,16 @@ func process_movement_input(delta):
         self.angle_y = angle
         self.camera_angle_y -= angle_diff
 
-        axis_value = axis_value.normalized()
+        axis_value_normalized = axis_value.normalized()
 
-        dir.x = -axis_value.x
-        dir.z = axis_value.y
+        dir.x = -axis_value_normalized.x
+        dir.z = axis_value_normalized.y
 
         var hvel = vel
         hvel.y = 0
 
         var target = dir
-        target *= self.move_max_speed
+        target *= self.get_speed(axis_value.length())
         var accel
         if dir.dot(hvel) > 0:
             accel = self.move_accel
@@ -186,3 +187,6 @@ func process_body_collisions():
 
 func process_body_collision(collision):
     return
+
+func get_speed(factor):
+    return self.move_max_speed * factor
