@@ -23,6 +23,7 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0 )
 
 [node name="camera" parent="camera_pivot" instance=ExtResource( 3 )]
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 24 )
+far = 192.0
 
 [node name="RayCast" type="RayCast" parent="camera_pivot"]
 enabled = true

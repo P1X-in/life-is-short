@@ -38,4 +38,5 @@ quality/driver/fallback_to_gles2=true
 threads/thread_model=2
 quality/shadows/filter_mode=2
 quality/filters/use_nearest_mipmap_filter=true
+quality/filters/msaa=1
 environment/default_environment="res://misc/default_env.tres"
