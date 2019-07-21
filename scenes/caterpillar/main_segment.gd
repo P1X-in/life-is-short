@@ -10,6 +10,7 @@ var accumulated_delta = 0.0
 var size = 1.0
 const SIZE_LIMIT = 10.0
 var far
+var coins_count = 0
 
 func _ready():
     ._ready()
@@ -50,6 +51,8 @@ func get_speed(factor):
 func pick_up_coin(coin):
     coin.get_parent().get_node("anim").play("pick_up")
     $sounds/coin.play()
+    coins_count += 1
+    $".".get_parent().get_parent().get_node("gui/icons/coins").update_coins(coins_count)
     coin.queue_free()
 
 func eat_shroom(shroom):
