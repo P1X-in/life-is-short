@@ -35,3 +35,9 @@ func _physics_process(delta):
     self.set_scale(scale)
     if scale.x / 0.75 > self.arbitrary_offset:
         self.arbitrary_offset += 1
+
+func raven_strike(raven):
+    self.main_segment.raven_strike(raven)
+
+func kaiju_fight(kaiju):
+    self.main_segment.kaiju_fight(kaiju)

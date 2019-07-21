@@ -16,7 +16,6 @@ func _ready():
     self.size = self.initial_scale
     self.set_scale(Vector3(self.size, self.size, self.size))
     self.far = self.camera.get_zfar()
-    print(self.far)
 
 onready var sounds = $"sounds/movement"
 

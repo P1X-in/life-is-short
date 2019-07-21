@@ -1,6 +1,7 @@
 extends KinematicBody
 
 var player = preload("res://scenes/caterpillar/main_segment.gd")
+var segment = preload("res://scenes/caterpillar/tail_segment.gd")
 var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 var tree = preload("res://models/forest/tree.gd")
@@ -91,7 +92,7 @@ func _physics_process(delta):
     for i in range(count):
         colliding_body = self.get_slide_collision(i)
 
-        if colliding_body.collider is self.player:
+        if colliding_body.collider is self.player or colliding_body.collider is self.segment:
             colliding_body.collider.kaiju_fight(self)
         if colliding_body.collider is self.shroom or colliding_body.collider is self.coin:
             colliding_body.collider.get_parent().queue_free()

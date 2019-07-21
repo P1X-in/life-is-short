@@ -1,6 +1,7 @@
 extends KinematicBody
 
 var player = preload("res://scenes/caterpillar/main_segment.gd")
+var segment = preload("res://scenes/caterpillar/tail_segment.gd")
 var kaiju = preload("res://models/godzilla/godzilla.tscn")
 
 export var flight_speed = 15
@@ -54,7 +55,7 @@ func _physics_process(delta):
     self.angle_y = angle
 
     if axis_value.length() < 3 * self.main_segment.size:
-        vel.y = (player_position.y - position.y) * 5 - 50
+        vel.y = (player_position.y - position.y) * 5
 
     if axis_value.length() < 0.1:
         return
@@ -85,7 +86,7 @@ func _physics_process(delta):
     for i in range(count):
         colliding_body = self.get_slide_collision(i)
 
-        if colliding_body.collider is self.player:
+        if colliding_body.collider is self.player or colliding_body.collider is self.segment:
             colliding_body.collider.raven_strike(self)
 
 func die():
@@ -94,3 +95,4 @@ func die():
     var position = self.get_translation()
     godzilla.set_translation(Vector3(position.x - 50, 50, position.z - 50))
     self.queue_free()
+    print("raven defeated")
