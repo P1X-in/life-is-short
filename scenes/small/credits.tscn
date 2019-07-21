@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://misc/main_theme.tres" type="Theme" id=1]
+
+[node name="credists_list" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+
+[node name="center" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="title" type="Label" parent="center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_top = -107.0
+margin_right = 192.0
+margin_bottom = -93.0
+text = "This game was made possible by the works of those people."
+align = 1
+
+[node name="credits" type="VBoxContainer" parent="center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 2.0
+margin_top = -77.0
+margin_right = 258.0
+margin_bottom = 115.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="kj" type="Label" parent="center/credits"]
+margin_top = 8.0
+margin_right = 256.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 256, 32 )
+text = "Krzysztof Jankowski
+graphics and sound design"
+valign = 1
+
+[node name="ci" type="Label" parent="center/credits"]
+margin_top = 56.0
+margin_right = 256.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 256, 32 )
+text = "CzlowiekImadlo
+code"
+valign = 1
+
+[node name="mh" type="Label" parent="center/credits"]
+margin_top = 104.0
+margin_right = 256.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 256, 32 )
+text = "Mirek Harenda
+music"
+valign = 1
+
+[node name="m" type="Label" parent="center/credits"]
+margin_top = 152.0
+margin_right = 256.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 256, 32 )
+text = "Mauryc
+3D models"
+valign = 1

@@ -89,3 +89,11 @@ func die():
     self.controller_enabled = false
     get_parent().get_parent().get_node("gui/titles/Viewport/Camera/titles/anim").play("wasted")
     get_parent().get_parent().get_node("gui/icons").hide()
+    get_parent().get_parent().get_node("gui/wasted").show()
+	
+	
+	
+	
+	
+	
+	

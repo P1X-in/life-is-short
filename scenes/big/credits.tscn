@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://misc/flat_env.tres" type="Environment" id=3]
+[ext_resource path="res://vendors/p1x/intro/P1X.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/small/credits.tscn" type="PackedScene" id=5]
+[ext_resource path="res://models/coin/gold.material" type="Material" id=6]
+
+[sub_resource type="CylinderMesh" id=1]
+material = ExtResource( 6 )
+height = 0.2
+radial_segments = 8
+rings = 1
+
+[node name="credits" type="Spatial"]
+script = ExtResource( 1 )
+next_scene_bigfile = "intro"
+
+[node name="camera_3d_effects" parent="." instance=ExtResource( 2 )]
+environment = ExtResource( 3 )
+
+[node name="P1X" parent="camera_3d_effects" instance=ExtResource( 4 )]
+transform = Transform( 0.902134, 0, -0.431456, 0, 1, 0, 0.431456, 0, 0.902134, -1.07, -0.26, -4.02 )
+
+[node name="credits_list" parent="." instance=ExtResource( 5 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.831127, 0.32497, -0.451246, 0.0865667, 0.725969, 0.682258, 0.549304, -0.606106, 0.57524, 0, 2.99794, 0 )
+light_energy = 3.29
+
+[node name="CPUParticles" type="CPUParticles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.923, -9.79213 )
+amount = 16
+lifetime = 3.0
+mesh = SubResource( 1 )
+emission_shape = 2
+emission_box_extents = Vector3( 7.49, 1, 1 )
+flag_align_y = true
+gravity = Vector3( 0, -2, 0 )
+angular_velocity = 1.0

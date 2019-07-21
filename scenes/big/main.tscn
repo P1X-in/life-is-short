@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
+[ext_resource path="res://misc/main_script.gd" type="Script" id=1]
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=2]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=3]
 [ext_resource path="res://misc/flat_env.tres" type="Environment" id=4]
@@ -17,7 +17,7 @@
 [ext_resource path="res://models/signs/wood3.material" type="Material" id=15]
 [ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=16]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -31,7 +31,7 @@ func _ready():
 func update_coins(coins):
 	set_text(\"%04d\" % [coins])"
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Label
 var time_start = 0
 var time_now = 0
@@ -80,6 +80,7 @@ __meta__ = {
 }
 
 [node name="icons" type="ViewportContainer" parent="gui"]
+editor/display_folded = true
 margin_right = 166.0
 margin_bottom = 64.0
 
@@ -117,11 +118,10 @@ margin_left = 19.0
 margin_top = -20.0
 margin_right = 59.0
 margin_bottom = 20.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0000"
 align = 1
 valign = 1
-script = SubResource( 2 )
+script = SubResource( 1 )
 
 [node name="time" type="Label" parent="gui/icons"]
 anchor_left = 0.5
@@ -135,11 +135,12 @@ margin_bottom = 20.0
 text = "01:23"
 align = 1
 valign = 1
-script = SubResource( 1 )
+script = SubResource( 2 )
 
 [node name="fps" parent="gui" instance=ExtResource( 7 )]
 
 [node name="titles" type="ViewportContainer" parent="gui"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -168,6 +169,39 @@ visible = false
 [node name="wasted" parent="gui/titles/Viewport/Camera/titles" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0 )
 visible = true
+
+[node name="wasted" type="Control" parent="gui"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="over" type="Label" parent="gui/wasted"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -109.0
+margin_top = -22.5
+margin_right = 109.0
+margin_bottom = 22.5
+text = "Game Over!
+You got 00000 points.
+(sorry, we don't implement that)"
+align = 1
+
+[node name="a_or_b" type="Label" parent="gui/wasted"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -121.0
+margin_top = 83.5
+margin_right = 121.0
+margin_bottom = 96.5
+text = "PRESS A TO RESTART or B FOR CREDITS"
+align = 1
 
 [node name="infinite_terrain" type="Spatial" parent="."]
 script = ExtResource( 9 )
