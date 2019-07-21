@@ -15,7 +15,7 @@ rings = 1
 
 [node name="credits" type="Spatial"]
 script = ExtResource( 1 )
-next_scene_bigfile = "intro"
+next_scene_bigfile = "vendors/p1x/intro/intro"
 
 [node name="camera_3d_effects" parent="." instance=ExtResource( 2 )]
 environment = ExtResource( 3 )
