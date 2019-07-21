@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://models/icons_3d/orange.material" type="Material" id=1]
+[ext_resource path="res://models/icons_3d/black.material" type="Material" id=2]
+
+[sub_resource type="Animation" id=3]
+resource_name = "tick"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("face/minuters:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -360, 0 ), Vector3( 0, -720, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("face/hours:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -360, 0 ) ]
+}
+
+[sub_resource type="CylinderMesh" id=1]
+material = ExtResource( 1 )
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.1
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CubeMesh" id=2]
+material = ExtResource( 2 )
+size = Vector3( 0.1, 0.1, 0.4 )
+
+[sub_resource type="CubeMesh" id=4]
+material = ExtResource( 2 )
+size = Vector3( 0.05, 0.1, 0.2 )
+
+[sub_resource type="CylinderMesh" id=5]
+material = ExtResource( 2 )
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.1
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id=6]
+material = ExtResource( 2 )
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.2
+radial_segments = 16
+
+[node name="clock" type="Spatial"]
+
+[node name="anim_clock" type="AnimationPlayer" parent="."]
+autoplay = "tick"
+anims/tick = SubResource( 3 )
+
+[node name="face" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="minuters" type="Position3D" parent="face"]
+transform = Transform( 0.371219, 0, 0.928545, 0, 1, 0, -0.928545, 0, 0.371219, 0, 0, 0 )
+
+[node name="hand" type="MeshInstance" parent="face/minuters"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.2 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="hours" type="Position3D" parent="face"]
+transform = Transform( -0.828016, 0, -0.560705, 0, 1, 0, 0.560705, 0, -0.828016, 0, 0, 0 )
+
+[node name="hand_short" type="MeshInstance" parent="face/hours"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.1 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="case" type="CSGMesh" parent="."]
+mesh = SubResource( 5 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="case"]
+operation = 2
+mesh = SubResource( 6 )

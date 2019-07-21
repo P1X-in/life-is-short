@@ -84,4 +84,5 @@ func kaiju_fight(kaiju):
 
 func die():
     self.controller_enabled = false
-    $camera_pivot/camera/titles/anim.play("wasted")
+    get_parent().get_parent().get_node("gui/titles/Viewport/Camera/titles/anim").play("wasted")
+    get_parent().get_parent().get_node("gui/icons").hide()
