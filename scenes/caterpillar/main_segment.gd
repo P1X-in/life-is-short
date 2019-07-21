@@ -16,6 +16,7 @@ func _ready():
     self.size = self.initial_scale
     self.set_scale(Vector3(self.size, self.size, self.size))
     self.far = self.camera.get_zfar()
+    print(self.far)
 
 onready var sounds = $"sounds/movement"
 
@@ -56,7 +57,8 @@ func eat_shroom(shroom):
     if self.size < self.SIZE_LIMIT:
         self.size += 0.1
         self.set_scale(Vector3(self.size, self.size, self.size))
-        self.camera.set_zfar(self.far * self.size)
+        if self.size > 1.0:
+            self.camera.set_zfar(self.far * self.size)
         self.move_max_speed += 2
 
         var fraction = (self.size - 0.1) / self.size
