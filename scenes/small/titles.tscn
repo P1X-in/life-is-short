@@ -245,6 +245,8 @@ input_name = "time"
 
 [sub_resource type="VisualShader" id=21]
 code = "shader_type spatial;
+render_mode world_vertex_coords;
+
 uniform float speed;
 uniform float amplitude;
 uniform vec4 color : hint_color;
@@ -351,6 +353,7 @@ void light() {
 }
 "
 graph_offset = Vector2( 80, 264.496 )
+flags/world_vertex_coords = true
 nodes/vertex/0/position = Vector2( 1460, 40 )
 nodes/vertex/2/node = SubResource( 13 )
 nodes/vertex/2/position = Vector2( 100, 100 )
@@ -430,8 +433,7 @@ material/0 = SubResource( 23 )
 material/0 = SubResource( 24 )
 
 [node name="wasted" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0 )
 
 [node name="text4-0" parent="wasted" index="0"]
 material/0 = ExtResource( 3 )
