@@ -158,10 +158,10 @@ fov = 50.0
 [node name="titles" parent="gui/titles/Viewport/Camera" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6 )
 
-[node name="anim" parent="gui/titles/Viewport/Camera/titles" index="0"]
-autoplay = "lis"
-
 [node name="lis" parent="gui/titles/Viewport/Camera/titles" index="1"]
+visible = false
+
+[node name="wasted" parent="gui/titles/Viewport/Camera/titles" index="2"]
 visible = false
 
 [node name="wasted" type="Control" parent="gui"]

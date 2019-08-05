@@ -51,7 +51,6 @@ func load_done(chunk, thread):
     thread.wait_to_finish()
     if not $player.controller_enabled and chunks.size() >= chunk_amount * chunk_amount:
         $player.controller_enabled = true
-        get_parent().get_node("gui/titles/Viewport/Camera/titles/anim").play("hide_logo")
         get_parent().get_node("gui/icons/time").start_timer()
     
 func get_chunk(x, z):
