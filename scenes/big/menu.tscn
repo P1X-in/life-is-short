@@ -1,15 +1,22 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://scenes/small/titles.tscn" type="PackedScene" id=2]
 [ext_resource path="res://models/coin/coin.tscn" type="PackedScene" id=3]
 [ext_resource path="res://models/shroom/shroom.tscn" type="PackedScene" id=4]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=5]
-[ext_resource path="res://misc/default_env.tres" type="Environment" id=6]
-[ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
+[ext_resource path="res://models/tornado/big_dust.material" type="Material" id=5]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://misc/default_env.tres" type="Environment" id=7]
+[ext_resource path="res://misc/main_theme.tres" type="Theme" id=8]
 
-[sub_resource type="Animation" id=3]
-resource_name = "difficulty_to_main"
+[sub_resource type="CylinderMesh" id=1]
+material = ExtResource( 5 )
+top_radius = 24.0
+bottom_radius = 24.0
+height = 32.0
+radial_segments = 32
+
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Position3D:rotation_degrees")
 tracks/0/interp = 1
@@ -70,9 +77,22 @@ tracks/4/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath("menu/buttons/start")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
 
-[sub_resource type="Animation" id=1]
-resource_name = "main"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Position3D:rotation_degrees")
 tracks/0/interp = 1
@@ -86,7 +106,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("menu/buttons2:modulate")
+tracks/1/path = NodePath("menu/buttons2:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -94,11 +114,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"update": 1,
+"values": [ false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("menu/buttons2:visible")
+tracks/2/path = NodePath("menu/buttons:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -107,10 +127,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ false ]
+"values": [ true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("menu/buttons:visible")
+tracks/3/path = NodePath("menu/buttons:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -118,11 +138,11 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("menu/buttons:modulate")
+tracks/4/path = NodePath("menu/options:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -130,12 +150,37 @@ tracks/4/enabled = true
 tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("camera_3d_effects:translation")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Vector3( 0, 0, 8.01 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("menu/buttons/start")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "main_to_difficulty"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Position3D:rotation_degrees")
 tracks/0/interp = 1
@@ -196,34 +241,206 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath("menu/buttons2/easy")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position3D:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 132, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("menu/buttons:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("menu/buttons:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("menu/options:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("menu/options:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath("menu/options/options_back")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
+
+[sub_resource type="Animation" id=6]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Position3D:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 132, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("menu/buttons:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.7, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("menu/buttons:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("menu/options:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("menu/options:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath("menu/buttons/start")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "grab_focus"
+} ]
+}
 
 [node name="main_menu" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Position3D" type="Position3D" parent="."]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, -11.17 )
 
 [node name="titles" parent="Position3D" instance=ExtResource( 2 )]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 1.84 )
 
+[node name="wasted" parent="Position3D/titles" index="2"]
+visible = false
+
 [node name="coin" parent="Position3D" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.17, 3.65 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.28, 3.65 )
 
 [node name="shroom" parent="Position3D" instance=ExtResource( 4 )]
-transform = Transform( 6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0 )
 
 [node name="type1" parent="Position3D/shroom" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.136, 0 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -8.726, 0 )
 visible = true
 
 [node name="type3" parent="Position3D/shroom" index="2"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.36, 0.471, 0 )
+transform = Transform( 3.19658, 0, 0.147951, 0, 3.91, 0, -0.147951, 0, 3.19658, 2.79, 4.561, 0 )
 visible = true
 
-[node name="camera_3d_effects" parent="." instance=ExtResource( 5 )]
-environment = ExtResource( 6 )
+[node name="MeshInstance" type="MeshInstance" parent="Position3D"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="camera_3d_effects" parent="." instance=ExtResource( 6 )]
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 4.005 )
+environment = ExtResource( 7 )
 
 [node name="menu" type="Control" parent="."]
 anchor_top = 1.0
@@ -231,10 +448,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -160.0
 margin_bottom = -160.0
-theme = ExtResource( 7 )
+theme = ExtResource( 8 )
 
 [node name="buttons" type="HBoxContainer" parent="menu"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -20.0
@@ -263,6 +479,7 @@ rect_min_size = Vector2( 128, 0 )
 text = "QUIT"
 
 [node name="buttons2" type="HBoxContainer" parent="menu"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -20.0
@@ -271,42 +488,82 @@ custom_constants/separation = 64
 alignment = 1
 
 [node name="back" type="Button" parent="menu/buttons2"]
-margin_left = 162.0
-margin_right = 193.0
+margin_left = 328.0
+margin_right = 359.0
 margin_bottom = 32.0
 text = "<-"
 
 [node name="free" type="Button" parent="menu/buttons2"]
-margin_left = 257.0
-margin_right = 501.0
+margin_left = 423.0
+margin_right = 551.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 128, 0 )
-disabled = true
-text = "FREE - DISCOVERY"
+text = "FREE"
 
 [node name="easy" type="Button" parent="menu/buttons2"]
-margin_left = 565.0
-margin_right = 771.0
+margin_left = 615.0
+margin_right = 743.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 128, 0 )
-text = "ARCADE - EASY"
+text = "ARCADE"
 
 [node name="hard" type="Button" parent="menu/buttons2"]
-margin_left = 835.0
-margin_right = 1117.0
+margin_left = 807.0
+margin_right = 951.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 128, 0 )
-disabled = true
-text = "ARCADE - HARDCORE"
+text = "HARDCORE"
+
+[node name="options" type="HBoxContainer" parent="menu"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -20.0
+margin_bottom = -20.0
+custom_constants/separation = 64
+alignment = 1
+
+[node name="low" type="Button" parent="menu/options"]
+margin_left = 431.0
+margin_right = 559.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 128, 0 )
+text = "FAST"
+
+[node name="normal" type="Button" parent="menu/options"]
+margin_left = 623.0
+margin_right = 751.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 128, 0 )
+text = "NORMAL"
+
+[node name="ultra" type="Button" parent="menu/options"]
+margin_left = 815.0
+margin_right = 943.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 128, 0 )
+text = "ULTRA"
+
+[node name="options_back" type="Button" parent="menu/options"]
+margin_left = 336.0
+margin_right = 367.0
+margin_bottom = 32.0
+text = "->"
 
 [node name="anim_main" type="AnimationPlayer" parent="."]
 autoplay = "main"
-anims/difficulty_to_main = SubResource( 3 )
-anims/main = SubResource( 1 )
-anims/main_to_difficulty = SubResource( 2 )
+anims/difficulty_to_main = SubResource( 2 )
+anims/main = SubResource( 3 )
+anims/main_to_difficulty = SubResource( 4 )
+anims/main_to_options = SubResource( 5 )
+anims/options_to_main = SubResource( 6 )
+[connection signal="pressed" from="menu/buttons/options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="menu/buttons/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="menu/buttons/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="menu/buttons2/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="menu/buttons2/easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="menu/options/options_back" to="." method="_on_options_back_pressed"]
+
+[editable path="Position3D/titles"]
 
 [editable path="Position3D/shroom"]

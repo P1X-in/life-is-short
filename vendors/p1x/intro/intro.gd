@@ -1,4 +1,4 @@
-	extends Spatial
+extends Spatial
 
 export var next_scene_bigfile = "scenes/big/main"
 
@@ -23,3 +23,10 @@ func _on_back_pressed():
 
 func _on_easy_pressed():
     next_scene()
+
+func _on_options_pressed():
+    $anim_main.play("main_to_options")
+
+
+func _on_options_back_pressed():
+    $anim_main.play("options_to_main")

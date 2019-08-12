@@ -3,19 +3,20 @@
 [ext_resource path="res://misc/font_64pt.tres" type="DynamicFont" id=1]
 [ext_resource path="res://misc/Awesome.ttf" type="DynamicFontData" id=2]
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.105882, 0.0980392, 0.109804, 0.12549 )
 corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
+corner_detail = 16
 expand_margin_left = 24.0
 expand_margin_right = 24.0
 expand_margin_top = 16.0
 expand_margin_bottom = 16.0
 anti_aliasing_size = 2
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.168627, 0.027451, 0.262745, 0.501961 )
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -27,7 +28,7 @@ expand_margin_top = 16.0
 expand_margin_bottom = 16.0
 anti_aliasing_size = 2
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.470588, 0.121569, 0.698039, 0.501961 )
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -39,7 +40,7 @@ expand_margin_top = 16.0
 expand_margin_bottom = 16.0
 anti_aliasing_size = 2
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.168627, 0.027451, 0.262745, 0.25098 )
 corner_radius_top_left = 32
 corner_radius_top_right = 32
@@ -66,21 +67,21 @@ shadow_color = Color( 0.168627, 0.027451, 0.262745, 0.25098 )
 shadow_size = 8
 anti_aliasing_size = 2
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=6]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
 [resource]
-default_font = SubResource( 1 )
+default_font = SubResource( 6 )
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 Button/colors/font_color_disabled = Color( 0.266667, 0.243137, 0.243137, 0.12549 )
 Button/colors/font_color_hover = Color( 0.885498, 0.78125, 1, 1 )
 Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 Button/constants/hseparation = 4
 Button/fonts/font = ExtResource( 1 )
-Button/styles/disabled = SubResource( 6 )
-Button/styles/focus = SubResource( 3 )
-Button/styles/hover = SubResource( 4 )
-Button/styles/normal = SubResource( 2 )
+Button/styles/disabled = SubResource( 1 )
+Button/styles/focus = SubResource( 2 )
+Button/styles/hover = SubResource( 3 )
+Button/styles/normal = SubResource( 4 )
 Button/styles/pressed = SubResource( 5 )
