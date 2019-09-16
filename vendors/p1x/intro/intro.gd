@@ -2,10 +2,11 @@ extends Spatial
 
 export var next_scene_bigfile = "scenes/big/main"
 export var first_button_path = "menu/buttons/start"
+export var has_buttons = false
 
 
 func _ready():
-	activate_first_button()
+	if has_buttons: activate_first_button()
 
 func _input(event):
 	if Input.is_key_pressed(KEY_ESCAPE):

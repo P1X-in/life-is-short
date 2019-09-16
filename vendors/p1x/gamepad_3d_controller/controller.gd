@@ -18,8 +18,8 @@ export var max_slope_angle = 40
 export var camera_min_deg = -80
 export var camera_max_deg = 40
 
-export var camera_min_distance = 8
-export var camera_max_distance = 12
+export var camera_min_distance = 12
+export var camera_max_distance = 14
 
 export var camera_rotate_speed = 1.5
 export var camera_return_speed = 50.0

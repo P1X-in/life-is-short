@@ -68,9 +68,9 @@ func generate_chunk():
 func generate_vegetation(pool):
 	var models = [
 		preload("res://models/shroom/shroom.tscn"),
-		preload("res://models/forest/palm.tscn"),
-		preload("res://models/forest/palm2.tscn"),
-		preload("res://models/forest/palm3.tscn")
+		preload("res://models/forest/tree1.tscn"),
+		preload("res://models/forest/tree2.tscn"),
+		preload("res://models/forest/tree3.tscn")
 	]
 	
 	for i in range(ITEMS_AMOUNT):

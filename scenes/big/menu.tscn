@@ -42,6 +42,7 @@ font_data = ExtResource( 7 )
 
 [node name="main_menu" type="Spatial"]
 script = ExtResource( 1 )
+has_buttons = true
 
 [node name="clouds" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68, -11.17 )
