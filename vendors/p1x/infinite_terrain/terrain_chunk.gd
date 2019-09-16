@@ -23,6 +23,8 @@ func _init(noise, x, z, chunk_size):
 	self.chunk_size = chunk_size
 	
 func _ready():
+	seed("paradise".hash())
+	randomize()
 	generate_chunk()
 	generate_water_layer()
 	
@@ -70,7 +72,9 @@ func generate_vegetation(pool):
 		preload("res://models/shroom/shroom.tscn"),
 		preload("res://models/forest/tree1.tscn"),
 		preload("res://models/forest/tree2.tscn"),
-		preload("res://models/forest/tree3.tscn")
+		preload("res://models/forest/tree3.tscn"),
+		preload("res://models/forest/tree4.tscn"),
+		preload("res://models/forest/tree5.tscn")
 	]
 	
 	for i in range(ITEMS_AMOUNT):
