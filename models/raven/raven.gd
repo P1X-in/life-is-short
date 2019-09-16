@@ -22,6 +22,7 @@ func _ready():
     self.main_segment = self.get_parent().get_node("player")
 
 func _process(delta):
+    return
     if not self.main_segment.controller_enabled:
         return
 
@@ -35,6 +36,7 @@ func _process(delta):
         self.set_rotation_degrees(Vector3(0, _angle_y, 0))
 
 func _physics_process(delta):
+    return
     if not self.main_segment.controller_enabled:
         return
 

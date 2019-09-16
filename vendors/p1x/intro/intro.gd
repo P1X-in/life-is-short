@@ -1,32 +1,30 @@
 extends Spatial
 
 export var next_scene_bigfile = "scenes/big/main"
+export var first_button_path = "menu/buttons/start"
+
+
+func _ready():
+	activate_first_button()
 
 func _input(event):
-    if Input.is_key_pressed(KEY_ESCAPE):
-        quit_game()
-
+	if Input.is_key_pressed(KEY_ESCAPE):
+		quit_game()
+		
+func _on_quit_pressed():
+	quit_game()
+	
 func quit_game():
-    get_tree().quit()
+	get_tree().quit()
 
 func next_scene():
-    get_tree().change_scene(next_scene_bigfile+".tscn")
+	get_tree().change_scene(next_scene_bigfile+".tscn")
 
 func _on_start_pressed():
-    $anim_main.play("main_to_difficulty")
+	next_scene()
 
-func _on_quit_pressed():
-    quit_game()
+func _on_creds_pressed():
+	pass
 
-func _on_back_pressed():
-    $anim_main.play("difficulty_to_main")
-
-func _on_easy_pressed():
-    next_scene()
-
-func _on_options_pressed():
-    $anim_main.play("main_to_options")
-
-
-func _on_options_back_pressed():
-    $anim_main.play("options_to_main")
+func activate_first_button():
+	get_node(first_button_path).grab_focus()

@@ -54,18 +54,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 5 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("SpotLight:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.9 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
 
 [sub_resource type="Animation" id=2]
 tracks/0/type = "value"
@@ -116,36 +104,12 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 6 ), Vector3( 0, 0, 0 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("SpotLight:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("SpotLight:spot_range")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 10.1265 ]
-}
 
 [sub_resource type="Animation" id=3]
 length = 2.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("SpotLight:visible")
+tracks/0/path = NodePath("wasted:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -157,40 +121,16 @@ tracks/0/keys = {
 "values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("wasted:visible")
+tracks/1/path = NodePath("wasted:translation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("wasted:translation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1.5, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( -12, 0, 0 ), Vector3( -1, 0, 0 ), Vector3( 1, 0, 0 ), Vector3( 12, 0, 0 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("SpotLight:spot_range")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 10.1265 ]
 }
 
 [sub_resource type="VisualShaderNodeColorUniform" id=4]
@@ -437,12 +377,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0 )
 
 [node name="text4-0" parent="wasted" index="0"]
 material/0 = ExtResource( 3 )
-
-[node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 3.26748, 4.61383 )
-light_energy = 4.0
-spot_range = 10.1265
-spot_angle = 64.5322
 
 [editable path="lis"]
 

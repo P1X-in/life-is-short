@@ -66,10 +66,10 @@ environment = ExtResource( 2 )
 
 [node name="sun" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.175109, 0.984549, 0, -0.984549, 0.175109, 0, 2.2157, 0 )
-light_color = Color( 0.984314, 0.945098, 0.85098, 1 )
+light_energy = 3.5
 shadow_enabled = true
-directional_shadow_mode = 1
-directional_shadow_max_distance = 256.0
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 512.0
 
 [node name="gui" type="Control" parent="."]
 anchor_right = 1.0
@@ -202,7 +202,6 @@ script = ExtResource( 9 )
 chunk_size = 64
 
 [node name="player" parent="infinite_terrain" instance=ExtResource( 10 )]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0 )
 move_max_speed = 96
 rotate_speed = 12.0

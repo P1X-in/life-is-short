@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://models/forest/Tree1.dae" type="PackedScene" id=1]
+[ext_resource path="res://models/forest/wood3.material" type="Material" id=2]
+[ext_resource path="res://models/forest/tree.gd" type="Script" id=3]
+[ext_resource path="res://models/forest/tree_fall..tres" type="Animation" id=4]
+[ext_resource path="res://models/forest/tree_shake.tres" type="Animation" id=5]
+[ext_resource path="res://sounds/forest/broken_tree.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/forest/szelest1.wav" type="AudioStream" id=7]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.113725, 0.776471, 0.341176, 1 )
+
+[sub_resource type="CylinderShape" id=1]
+radius = 2.10203
+height = 11.3912
+
+[node name="tree1" type="Spatial"]
+
+[node name="Scene Root" parent="." instance=ExtResource( 1 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
+
+[node name="Tree1" parent="Scene Root" index="0"]
+material/0 = SubResource( 2 )
+material/1 = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+script = ExtResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.98524, 0 )
+shape = SubResource( 1 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/fall = ExtResource( 4 )
+anims/shake = ExtResource( 5 )
+
+[node name="broken" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 3.0
+
+[node name="shake" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = 4.0
+
+[editable path="Scene Root"]
