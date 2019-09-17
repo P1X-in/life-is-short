@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const DEADZONE = 0.25
+const DEADZONE = 0.12
 const GRAVITY = 9.8
 const MOVEMENT_AXIS_X = JOY_ANALOG_LX
 const MOVEMENT_AXIS_Y = JOY_ANALOG_LY
@@ -18,8 +18,8 @@ export var max_slope_angle = 40
 export var camera_min_deg = -80
 export var camera_max_deg = 40
 
-export var camera_min_distance = 12
-export var camera_max_distance = 14
+export var camera_min_distance = 24
+export var camera_max_distance = 32
 
 export var camera_rotate_speed = 1.5
 export var camera_return_speed = 50.0

@@ -86,7 +86,7 @@ func generate_vegetation(pool):
 		var object = models[random_model_id].instance()
 		
 		var pos = pool[randi() % pool.size()]
-		var ran = 0.5 + randf()
+		var ran = 0.8 + randf()
 		var sca = Vector3(ran,ran,ran)
 		
 		var body_node = "body"

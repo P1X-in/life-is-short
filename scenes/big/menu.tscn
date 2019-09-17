@@ -1,20 +1,26 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://vendors/p1x/shaders/clouds.material" type="Material" id=2]
 [ext_resource path="res://vendors/p1x/intro/P1X.tscn" type="PackedScene" id=3]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=4]
-[ext_resource path="res://misc/default_env.tres" type="Environment" id=5]
-[ext_resource path="res://misc/main_theme.tres" type="Theme" id=6]
-[ext_resource path="res://misc/Inter-BoldItalic.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=8]
+[ext_resource path="res://models/coin/gold.material" type="Material" id=4]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://misc/default_env.tres" type="Environment" id=6]
+[ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
+[ext_resource path="res://misc/Inter-BoldItalic.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=9]
 
 [sub_resource type="PlaneMesh" id=1]
 material = ExtResource( 2 )
 size = Vector2( 256, 256 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "flow"
+[sub_resource type="CylinderMesh" id=2]
+material = ExtResource( 4 )
+height = 0.2
+radial_segments = 8
+rings = 1
+
+[sub_resource type="Animation" id=3]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -30,7 +36,7 @@ tracks/0/keys = {
 "values": [ 6.8, 4.0, 6.8 ]
 }
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 120
 outline_size = 2
 outline_color = Color( 1, 0.941176, 0.572549, 1 )
@@ -38,7 +44,7 @@ use_mipmaps = true
 use_filter = true
 extra_spacing_char = -11
 extra_spacing_space = 2
-font_data = ExtResource( 7 )
+font_data = ExtResource( 8 )
 
 [node name="main_menu" type="Spatial"]
 script = ExtResource( 1 )
@@ -58,23 +64,37 @@ material/0 = null
 editor/display_folded = true
 transform = Transform( 0.845821, 0, 0.533467, 0, 1, 0, -0.533467, 0, 0.845821, -16.31, 1.83, -17.85 )
 
-[node name="camera_3d_effects" parent="." instance=ExtResource( 4 )]
+[node name="CPUParticles" type="CPUParticles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, -18 )
+amount = 128
+lifetime = 8.0
+preprocess = 8.1
+randomness = 0.45
+mesh = SubResource( 2 )
+emission_shape = 2
+emission_box_extents = Vector3( 32, 1, 12 )
+flag_align_y = true
+gravity = Vector3( 0, -2, 0 )
+angular_velocity = 1.0
+
+[node name="camera_3d_effects" parent="." instance=ExtResource( 5 )]
 transform = Transform( 0.970295, -0.241922, 0, 0.241922, 0.970295, 0, 0, 0, 0.999999, 0, 0, 4.005 )
-environment = ExtResource( 5 )
+environment = ExtResource( 6 )
 
 [node name="bars" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -300.0
 margin_right = 300.0
 margin_bottom = -0.00012207
 rect_rotation = 4.06217
-theme = ExtResource( 6 )
+theme = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="bars"]
 autoplay = "flow"
 playback_speed = 0.1
-anims/flow = SubResource( 2 )
+anims/flow = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="bars"]
 anchor_top = 0.5
@@ -115,7 +135,7 @@ margin_left = 577.061
 margin_top = -112.682
 margin_right = 1148.06
 margin_bottom = 33.3181
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color_shadow = Color( 0.109804, 0.176471, 0.482353, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 12
@@ -134,7 +154,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -160.0
 margin_bottom = -160.0
-theme = ExtResource( 6 )
+theme = ExtResource( 7 )
 
 [node name="buttons" type="VBoxContainer" parent="menu"]
 anchor_left = 0.5
@@ -162,14 +182,15 @@ margin_bottom = 162.0
 rect_min_size = Vector2( 128, 0 )
 text = "QUIT"
 
-[node name="fps" parent="." instance=ExtResource( 8 )]
+[node name="fps" parent="." instance=ExtResource( 9 )]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0
 margin_top = 14.0
 margin_right = 14.0
 margin_bottom = 14.0
-theme = ExtResource( 6 )
+theme = ExtResource( 7 )
 
 [node name="ver" type="Label" parent="fps"]
 anchor_top = 1.0
