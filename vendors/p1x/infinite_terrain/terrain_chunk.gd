@@ -9,6 +9,19 @@ export var ITEMS_AMOUNT = 3
 export var SHROOMS_CHANCE = 0.005
 export var SHROOMS_ELEVATION = 1
 
+var models = [
+	preload("res://models/shroom/shroom.tscn"),
+	preload("res://models/forest/tree1.tscn"),
+	preload("res://models/forest/tree2.tscn"),
+	preload("res://models/forest/tree3.tscn"),
+	preload("res://models/forest/tree4.tscn"),
+	preload("res://models/forest/tree5.tscn"),
+	preload("res://models/forest/tree6.tscn"),
+	preload("res://models/forest/bush1.tscn"),
+	preload("res://models/forest/bush2.tscn"),
+	preload("res://models/forest/bush3.tscn")
+]
+
 var mesh_instance
 var noise
 var x
@@ -68,15 +81,6 @@ func generate_chunk():
 	generate_coins(pool_array)
 	
 func generate_vegetation(pool):
-	var models = [
-		preload("res://models/shroom/shroom.tscn"),
-		preload("res://models/forest/tree1.tscn"),
-		preload("res://models/forest/tree2.tscn"),
-		preload("res://models/forest/tree3.tscn"),
-		preload("res://models/forest/tree4.tscn"),
-		preload("res://models/forest/tree5.tscn")
-	]
-	
 	for i in range(ITEMS_AMOUNT):
 		var random_model_id = randi() % models.size();
 		var object = models[random_model_id].instance()

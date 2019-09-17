@@ -8,7 +8,7 @@ export var initial_scale = 0.4
 
 var accumulated_delta = 0.0
 var size = 1.0
-const SIZE_LIMIT = 10.0
+const SIZE_LIMIT = 4.0
 var far
 var coins_count = 0
 
@@ -70,8 +70,8 @@ func eat_shroom(shroom):
     shroom.eat()
 
 func bump_tree(tree):
-    if self.size > 3.0:
-        if self.size > 8.0:
+    if self.size > self.SIZE_LIMIT * .5:
+        if self.size > self.SIZE_LIMIT * .75:
             tree.fall()
         else:
             tree.shake()

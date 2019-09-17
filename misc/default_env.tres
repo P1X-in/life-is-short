@@ -16,7 +16,6 @@ fog_depth_begin = 16.0
 fog_depth_end = 256.0
 fog_depth_curve = 3.86375
 fog_transmit_enabled = true
-fog_height_enabled = true
 fog_height_min = -8.0
 fog_height_max = -24.0
 tonemap_mode = 3
