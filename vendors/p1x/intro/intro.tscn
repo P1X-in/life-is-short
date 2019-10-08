@@ -30,15 +30,6 @@ transform = Transform( 1, 0, 0, 4.65661e-10, 1, 0, 0, 1.49012e-08, 1, 0, 0, -0.3
 [node name="P1X" parent="camera" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
 
-[node name="P" parent="camera/P1X" index="0"]
-editor/display_folded = true
-
-[node name="1" parent="camera/P1X" index="1"]
-editor/display_folded = true
-
-[node name="X" parent="camera/P1X" index="2"]
-editor/display_folded = true
-
 [node name="SpotLight" type="SpotLight" parent="camera"]
 transform = Transform( 0.937222, 0, -0.348734, -0.100158, 0.957869, -0.269175, 0.334041, 0.287205, 0.897736, -0.734812, -0.789447, 0 )
 light_color = Color( 0.180392, 0.392157, 0.478431, 1 )
