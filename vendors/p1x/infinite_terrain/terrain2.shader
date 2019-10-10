@@ -14,6 +14,26 @@ void vertex() {
     VERTEX.y += rand * DISTORTION_FACTOR;
 }
 
+
+float noise (in vec2 p) {
+    return texture(noisemap, p).x;
+}
+
+vec3 grass(vec2 p){
+    return vec3(mix(
+        vec3(0.12,0.71,0.),
+        vec3(0.07,0.47,0.),
+        noise(p)
+    ));
+}
+
+// Wind funtion created by bjarkeck
+float wind(vec2 p, in float t){
+    p += vec2(1.4 + cos(t + p.x * 3.33), 1.5 + sin(t * 0.4 + p.y * 4.)) * 0.002;
+    float f = 1. - noise(p);
+    return 1. - f * 0.7; 
+}
+
 void fragment() {
     float ran = texture(noisemap, UV * RANDOM_UV_FACTOR).x;
     float ran_ground = texture(noisemap_ground, UV * GROUND_UV_FACTOR).x;

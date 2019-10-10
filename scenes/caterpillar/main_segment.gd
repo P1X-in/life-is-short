@@ -52,7 +52,7 @@ func pick_up_coin(coin):
     coin.get_parent().get_node("anim").play("pick_up")
     $sounds/coin.play()
     coins_count += 1
-    $".".get_parent().get_parent().get_node("gui/power/coins").update_coins(coins_count)
+    $".".get_parent().get_parent().get_node("gui/right/power/coins").update_coins(coins_count)
     coin.queue_free()
 
 func eat_shroom(shroom):

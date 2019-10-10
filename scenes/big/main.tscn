@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://misc/main_script.gd" type="Script" id=1]
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=2]
@@ -19,22 +19,13 @@
 [ext_resource path="res://misc/style_gray-50.tres" type="StyleBox" id=17]
 [ext_resource path="res://misc/style_violet.tres" type="StyleBox" id=18]
 [ext_resource path="res://misc/style_violet-50.tres" type="StyleBox" id=19]
+[ext_resource path="res://misc/style_blue.tres" type="StyleBox" id=20]
+[ext_resource path="res://misc/style_blue-50.tres" type="StyleBox" id=21]
+[ext_resource path="res://misc/style_yellow-50.tres" type="StyleBox" id=22]
+[ext_resource path="res://misc/style_yellow.tres" type="StyleBox" id=23]
+[ext_resource path="res://misc/style_green.tres" type="StyleBox" id=24]
 
 [sub_resource type="PlaneMesh" id=3]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Label
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-func update_coins(coins):
-	set_text(\"%04d\" % [coins])"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Label
@@ -63,6 +54,49 @@ func _process(delta):
 		set_text(\"00:00\")
 "
 
+[sub_resource type="Animation" id=5]
+resource_name = "pulse"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_styles/panel:shadow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:custom_styles/panel:shadow_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.8, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 18, 0, 0, 18, 0 ]
+}
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Label
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func update_coins(coins):
+	set_text(\"%04d\" % [coins])"
+
 [sub_resource type="PlaneMesh" id=4]
 material = ExtResource( 6 )
 size = Vector2( 128, 128 )
@@ -89,8 +123,14 @@ __meta__ = {
 }
 
 [node name="fps" parent="gui" instance=ExtResource( 7 )]
-margin_left = -90.0
-margin_right = -90.0
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_left = 70.0
+margin_top = -90.0
+margin_right = 70.0
+margin_bottom = -90.0
 
 [node name="titles" type="ViewportContainer" parent="gui"]
 anchor_right = 1.0
@@ -168,25 +208,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="coins" type="Label" parent="gui/power"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -34.0
-margin_top = -37.0
-margin_right = 26.0
-margin_bottom = -11.0
-text = "0000"
-align = 1
-valign = 1
-script = SubResource( 1 )
-
 [node name="top" type="Control" parent="gui"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_top = 130.0
-margin_bottom = 130.0
+margin_top = 100.0
+margin_bottom = 100.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -233,7 +259,7 @@ __meta__ = {
 [node name="title" type="Label" parent="gui/top/time"]
 margin_left = -189.0
 margin_top = -60.0
-margin_right = 30.0
+margin_right = -80.0
 margin_bottom = -35.0
 text = "TIME LEFT"
 
@@ -252,13 +278,187 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="lifes" type="Control" parent="gui/top"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -380.0
+margin_right = -380.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="gui/top/lifes"]
+margin_left = -189.0
+margin_top = -60.0
+margin_right = -76.0
+margin_bottom = -35.0
+text = "LIFES LEFT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shelf" type="HBoxContainer" parent="gui/top/lifes"]
+margin_left = -185.0
+margin_top = -30.0
+margin_right = 66.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="life" type="Control" parent="gui/top/lifes/shelf"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="life2" type="Control" parent="gui/top/lifes/shelf"]
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="life3" type="Control" parent="gui/top/lifes/shelf"]
+margin_left = 136.0
+margin_right = 200.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="life4" type="Control" parent="gui/top/lifes/shelf"]
+margin_left = 204.0
+margin_right = 268.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+
+[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life4"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="score" type="Control" parent="gui/top"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 400.0
-margin_right = 400.0
+margin_left = 500.0
+margin_right = 500.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -281,7 +481,7 @@ __meta__ = {
 [node name="title" type="Label" parent="gui/top/score"]
 margin_left = -189.0
 margin_top = -60.0
-margin_right = -2.0
+margin_right = -117.0
 margin_bottom = -35.0
 text = "SCORE"
 __meta__ = {
@@ -304,6 +504,111 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="right" type="Control" parent="gui"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_right = -100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="power" type="Control" parent="gui/right"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="PanelContainer" parent="gui/right/power"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -128.0
+margin_right = 40.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 80, 256 )
+custom_styles/panel = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="PanelContainer" parent="gui/right/power"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = 36.5
+margin_right = 40.0
+margin_bottom = 129.5
+rect_min_size = Vector2( 80, 0 )
+custom_styles/panel = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="PanelContainer" parent="gui/right/power"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -114.0
+margin_top = -126.0
+margin_right = -50.0
+margin_bottom = -62.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title2" type="Label" parent="gui/right/power/button"]
+margin_left = 4.0
+margin_top = 11.0
+margin_right = 60.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 13 )
+text = "A"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="gui/right/power/button"]
+autoplay = "pulse"
+anims/pulse = SubResource( 5 )
+
+[node name="coins" type="Label" parent="gui/right/power"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -160.0
+margin_right = 29.0
+margin_bottom = -134.0
+text = "0000"
+align = 1
+valign = 1
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="gui/right/power"]
+margin_left = -40.0
+margin_top = 138.0
+margin_right = 39.0
+margin_bottom = 191.0
+text = "POWER
+LEVEL"
+align = 1
 
 [node name="infinite_terrain" type="Spatial" parent="."]
 script = ExtResource( 9 )
