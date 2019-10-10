@@ -1,8 +1,8 @@
 extends Spatial
 class_name Chunk
 
-export var TERRAIN_HEIGHT = 48
-export var TERRAIN_VERT = .16
+export var TERRAIN_HEIGHT = 32
+export var TERRAIN_VERT = .08
 export var COLLIS = true
 export var WATER_LEVEL = -16
 export var CLOUDS_LEVEL = 64
