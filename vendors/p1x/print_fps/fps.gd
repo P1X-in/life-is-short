@@ -3,7 +3,7 @@ extends Label
 var fps = 0
 
 func _ready():
-	pass
+	set_process(true)
 
 func _process(delta):
 	var current_fps = Performance.get_monitor(Performance.TIME_FPS)

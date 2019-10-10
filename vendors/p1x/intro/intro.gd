@@ -1,7 +1,7 @@
 extends Spatial
 
 export var next_scene_bigfile = "scenes/big/main"
-export var first_button_path = "menu/buttons/start"
+export var first_button_path = "main/menu/panel/buttons/start"
 export var has_buttons = false
 
 

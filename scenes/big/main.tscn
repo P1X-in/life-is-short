@@ -1,20 +1,17 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://misc/main_script.gd" type="Script" id=1]
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=2]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=3]
 [ext_resource path="res://misc/flat_env.tres" type="Environment" id=4]
-[ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=5]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=5]
 [ext_resource path="res://vendors/p1x/infinite_terrain/terrain2.material" type="Material" id=6]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=7]
-[ext_resource path="res://models/signs/eat.dae" type="PackedScene" id=8]
+[ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/small/titles.tscn" type="PackedScene" id=8]
 [ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=9]
-[ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=10]
-[ext_resource path="res://models/raven/raven.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/small/titles.tscn" type="PackedScene" id=12]
+[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=11]
 [ext_resource path="res://misc/font_34pt.tres" type="DynamicFont" id=13]
-[ext_resource path="res://models/signs/letters.material" type="Material" id=14]
-[ext_resource path="res://models/signs/wood3.material" type="Material" id=15]
 [ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=16]
 [ext_resource path="res://misc/style_gray-50.tres" type="StyleBox" id=17]
 [ext_resource path="res://misc/style_violet.tres" type="StyleBox" id=18]
@@ -25,7 +22,7 @@
 [ext_resource path="res://misc/style_yellow.tres" type="StyleBox" id=23]
 [ext_resource path="res://misc/style_green.tres" type="StyleBox" id=24]
 
-[sub_resource type="PlaneMesh" id=3]
+[sub_resource type="PlaneMesh" id=1]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Label
@@ -54,7 +51,7 @@ func _process(delta):
 		set_text(\"00:00\")
 "
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "pulse"
 length = 2.0
 loop = true
@@ -83,7 +80,7 @@ tracks/1/keys = {
 "values": [ 0, 18, 0, 0, 18, 0 ]
 }
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -97,9 +94,14 @@ func _ready():
 func update_coins(coins):
 	set_text(\"%04d\" % [coins])"
 
-[sub_resource type="PlaneMesh" id=4]
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.752941, 0.901961, 0.831373, 1 )
+
+[sub_resource type="PlaneMesh" id=6]
 material = ExtResource( 6 )
-size = Vector2( 128, 128 )
+size = Vector2( 64, 64 )
+subdivide_width = 4
+subdivide_depth = 4
 
 [node name="main" type="Spatial"]
 script = ExtResource( 1 )
@@ -108,8 +110,8 @@ script = ExtResource( 1 )
 environment = ExtResource( 2 )
 
 [node name="sun" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.175109, 0.984549, 0, -0.984549, 0.175109, 0, 2.2157, 0 )
-light_energy = 3.5
+transform = Transform( 0.999936, -0.00487585, 0.0102431, 0, 0.902923, 0.429802, -0.0113444, -0.429774, 0.902865, 0, 2.2157, 0 )
+light_specular = 0.91
 shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 512.0
@@ -122,15 +124,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="fps" parent="gui" instance=ExtResource( 7 )]
+[node name="fps" parent="gui" instance=ExtResource( 5 )]
 anchor_left = 0.0
-anchor_top = 1.0
 anchor_right = 0.0
-anchor_bottom = 1.0
-margin_left = 70.0
-margin_top = -90.0
-margin_right = 70.0
-margin_bottom = -90.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 20.0
+margin_bottom = 20.0
 
 [node name="titles" type="ViewportContainer" parent="gui"]
 anchor_right = 1.0
@@ -151,7 +151,7 @@ environment = ExtResource( 4 )
 current = true
 fov = 50.0
 
-[node name="titles" parent="gui/titles/Viewport/Camera" instance=ExtResource( 12 )]
+[node name="titles" parent="gui/titles/Viewport/Camera" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6 )
 
 [node name="lis" parent="gui/titles/Viewport/Camera/titles" index="1"]
@@ -161,7 +161,7 @@ visible = false
 visible = false
 
 [node name="CSGMesh" type="CSGMesh" parent="gui/titles/Viewport/Camera"]
-mesh = SubResource( 3 )
+mesh = SubResource( 1 )
 material = ExtResource( 6 )
 
 [node name="wasted" type="Control" parent="gui"]
@@ -210,9 +210,11 @@ __meta__ = {
 
 [node name="top" type="Control" parent="gui"]
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-margin_top = 100.0
-margin_bottom = 100.0
+anchor_bottom = 1.0
+margin_top = -90.0
+margin_bottom = -90.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -234,8 +236,7 @@ anchor_bottom = 0.5
 margin_left = -193.0
 margin_top = -32.0
 margin_right = 193.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 386, 64 )
+rect_min_size = Vector2( 386, 32 )
 custom_styles/panel = ExtResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -249,8 +250,7 @@ anchor_bottom = 0.5
 margin_left = -193.78
 margin_top = -32.0
 margin_right = 43.78
-margin_bottom = 32.0
-rect_min_size = Vector2( 0, 64 )
+rect_min_size = Vector2( 0, 32 )
 custom_styles/panel = ExtResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -278,7 +278,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="lifes" type="Control" parent="gui/top"]
+[node name="lives" type="Control" parent="gui/top"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -289,164 +289,165 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="title" type="Label" parent="gui/top/lifes"]
+[node name="title" type="Label" parent="gui/top/lives"]
 margin_left = -189.0
 margin_top = -60.0
 margin_right = -76.0
 margin_bottom = -35.0
-text = "LIFES LEFT"
+text = "LIVES LEFT"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="shelf" type="HBoxContainer" parent="gui/top/lifes"]
+[node name="shelf" type="HBoxContainer" parent="gui/top/lives"]
 margin_left = -185.0
 margin_top = -30.0
-margin_right = 66.0
-margin_bottom = 34.0
+margin_right = -38.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 0, 32 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="life" type="Control" parent="gui/top/lifes/shelf"]
-margin_right = 64.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 64 )
+[node name="live" type="Control" parent="gui/top/lives/shelf"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life"]
+[node name="bg" type="PanelContainer" parent="gui/top/lives/shelf/live"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life"]
+[node name="on" type="PanelContainer" parent="gui/top/lives/shelf/live"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="life2" type="Control" parent="gui/top/lifes/shelf"]
-margin_left = 68.0
-margin_right = 132.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 64 )
+[node name="live2" type="Control" parent="gui/top/lives/shelf"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life2"]
+[node name="bg" type="PanelContainer" parent="gui/top/lives/shelf/live2"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life2"]
+[node name="on" type="PanelContainer" parent="gui/top/lives/shelf/live2"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="life3" type="Control" parent="gui/top/lifes/shelf"]
-margin_left = 136.0
-margin_right = 200.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 64 )
+[node name="live3" type="Control" parent="gui/top/lives/shelf"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life3"]
+[node name="bg" type="PanelContainer" parent="gui/top/lives/shelf/live3"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life3"]
+[node name="on" type="PanelContainer" parent="gui/top/lives/shelf/live3"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="life4" type="Control" parent="gui/top/lifes/shelf"]
-margin_left = 204.0
-margin_right = 268.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 64, 64 )
+[node name="live4" type="Control" parent="gui/top/lives/shelf"]
+margin_left = 108.0
+margin_right = 140.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="gui/top/lifes/shelf/life4"]
+[node name="bg" type="PanelContainer" parent="gui/top/lives/shelf/live4"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="gui/top/lifes/shelf/life4"]
+[node name="on" type="PanelContainer" parent="gui/top/lives/shelf/live4"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -32.0
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 64, 64 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
 custom_styles/panel = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -582,7 +583,7 @@ valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="gui/right/power/button"]
 autoplay = "pulse"
-anims/pulse = SubResource( 5 )
+anims/pulse = SubResource( 3 )
 
 [node name="coins" type="Label" parent="gui/right/power"]
 anchor_left = 0.5
@@ -596,7 +597,7 @@ margin_bottom = -134.0
 text = "0000"
 align = 1
 valign = 1
-script = SubResource( 1 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -610,87 +611,125 @@ text = "POWER
 LEVEL"
 align = 1
 
+[node name="loading" type="Control" parent="gui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="Panel" parent="gui/loading"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="gui/loading"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -180.0
+margin_top = -70.0
+margin_right = 180.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 360, 140 )
+custom_styles/panel = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="center" type="Control" parent="gui/loading/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="_loading" type="Label" parent="gui/loading/Panel/center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.0
+margin_top = -32.5
+margin_right = 127.0
+margin_bottom = -7.5
+text = "GENERATING TERRAIN..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="Label" parent="gui/loading/Panel/center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.5
+margin_top = 7.5
+margin_right = 16.5
+margin_bottom = 32.5
+text = "1/4"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="infinite_terrain" type="Spatial" parent="."]
 script = ExtResource( 9 )
-chunk_size = 64
+chunk_size = 256
+chunk_amount = 4
 
-[node name="player" parent="infinite_terrain" instance=ExtResource( 5 )]
+[node name="player" parent="infinite_terrain" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 24, 0 )
-move_max_speed = 96
-rotate_speed = 12.0
-camera_min_deg = -40
 controller_enabled = false
 
 [node name="camera" parent="infinite_terrain/player/camera_pivot" index="0"]
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 2.12, 32 )
 
-[node name="tail" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 1
 
-[node name="tail2" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail2" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 2
 
-[node name="tail3" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail3" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 3
 
-[node name="tail4" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail4" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 4
 
-[node name="tail5" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail5" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 5
 
-[node name="tail6" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail6" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 6
 
-[node name="tail7" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail7" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 7
 
-[node name="tail8" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail8" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 8
 
-[node name="tail9" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail9" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 9
 
-[node name="tail10" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail10" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 10
 
-[node name="tail11" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail11" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 11
 
-[node name="tail12" parent="infinite_terrain" instance=ExtResource( 10 )]
+[node name="tail12" parent="infinite_terrain" instance=ExtResource( 11 )]
 index = 12
-
-[node name="raven" parent="infinite_terrain" instance=ExtResource( 11 )]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 30, 40 )
-visible = false
-
-[node name="eat" parent="infinite_terrain" instance=ExtResource( 8 )]
-transform = Transform( 0.996985, 0.0775966, 0, -0.0769277, 0.988391, 0.131018, 0.0101666, -0.130623, 0.99138, -2.54182, -15.5714, -34.8934 )
-
-[node name="text6-0" parent="infinite_terrain/eat" index="0"]
-material/0 = ExtResource( 14 )
-
-[node name="Cube8-0" parent="infinite_terrain/eat" index="1"]
-material/0 = ExtResource( 15 )
-
-[node name="Cube9-0" parent="infinite_terrain/eat" index="2"]
-material/0 = ExtResource( 15 )
-
-[node name="Cube9_copy10-0" parent="infinite_terrain/eat" index="3"]
-material_override = ExtResource( 15 )
-
-[node name="SpotLight" type="SpotLight" parent="infinite_terrain/eat"]
-transform = Transform( 0.993718, -0.0513761, 0.0994278, -0.0513761, 0.579859, 0.813095, -0.0994278, -0.813095, 0.573577, 2.27839, 18.632, 11.8059 )
-light_energy = 4.0
-shadow_enabled = true
-spot_range = 34.7224
-spot_angle = 30.8644
 
 [node name="MeshInstance" type="MeshInstance" parent="infinite_terrain"]
 transform = Transform( 0.755716, 0.000733038, -0.654899, 0.00167491, 0.999994, 0.00305206, 0.654897, -0.00340338, 0.75571, 0, 0.101742, 0 )
 visible = false
-mesh = SubResource( 4 )
+mesh = SubResource( 6 )
 material/0 = null
+
+[node name="clouds" parent="infinite_terrain" instance=ExtResource( 10 )]
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
@@ -700,5 +739,3 @@ autoplay = true
 [editable path="gui/titles/Viewport/Camera/titles"]
 
 [editable path="infinite_terrain/player"]
-
-[editable path="infinite_terrain/eat"]

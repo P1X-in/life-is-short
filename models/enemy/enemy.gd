@@ -89,7 +89,7 @@ func _physics_process(delta):
         colliding_body = self.get_slide_collision(i)
 
         if colliding_body.collider is self.player or colliding_body.collider is self.segment:
-            colliding_body.collider.raven_strike(self)
+            colliding_body.collider.enemy_strike(self)
 
 func die():
     var godzilla = self.kaiju.instance()

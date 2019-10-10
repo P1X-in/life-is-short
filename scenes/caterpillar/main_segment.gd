@@ -4,19 +4,20 @@ var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 var tree = preload("res://models/forest/tree.gd")
 
-export var initial_scale = 0.4
+export var initial_size = 0.5
 
 var accumulated_delta = 0.0
 var size = 1.0
+var lives = 4
 const SIZE_LIMIT = 4.0
-var far
+const TIME_LIMIT = 120
+const SIZE_GAIN = .5
 var coins_count = 0
 
 func _ready():
     ._ready()
-    self.size = self.initial_scale
+    self.size = self.initial_size
     self.set_scale(Vector3(self.size, self.size, self.size))
-    self.far = self.camera.get_zfar()
 
 onready var sounds = $"sounds/movement"
 
@@ -56,37 +57,27 @@ func pick_up_coin(coin):
     coin.queue_free()
 
 func eat_shroom(shroom):
-    if self.size < self.SIZE_LIMIT:
-        self.size += 0.1
-        self.set_scale(Vector3(self.size, self.size, self.size))
-        if self.size > 1.0:
-            self.camera.set_zfar(self.far * self.size)
-        self.move_max_speed += 2
-
-        var fraction = (self.size - 0.1) / self.size
-        self._camera_distance = self._camera_distance * fraction
-        self.camera.set_translation(Vector3(0, 0, _camera_distance))
-
     shroom.eat()
 
 func bump_tree(tree):
-    if self.size > self.SIZE_LIMIT * .5:
-        if self.size > self.SIZE_LIMIT * .75:
-            tree.fall()
-        else:
-            tree.shake()
+    # if power then tree.fall()
+    tree.shake()
 
-func raven_strike(raven):
-    if self.size < 5.0:
+func enemy_strike(enemy):
+    hit()
+    enemy.die()
+
+func hit():
+    lives -= 1
+    if lives < 0:
         self.die()
-    else:
-        raven.die()
 
 func kaiju_fight(kaiju):
     self.die()
 
 func die():
     self.controller_enabled = false
+    # remove this crap...
     get_parent().get_parent().get_node("gui/titles/Viewport/Camera/titles/anim").play("wasted")
     get_parent().get_parent().get_node("gui/icons").hide()
     get_parent().get_parent().get_node("gui/wasted").show()

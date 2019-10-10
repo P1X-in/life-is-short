@@ -9,16 +9,16 @@ const CAMERA_AXIS_Y = JOY_ANALOG_RY
 
 export var device_id = 0
 export var move_accel = 4.5
-export var move_max_speed = 24
+export var move_max_speed = 96
 export var move_deaccel = 16
-export var rotate_speed = 5.0
+export var rotate_speed = 12.0
 export var rotate_snap_speed = 50.0
 export var max_slope_angle = 40
 
-export var camera_min_deg = -80
-export var camera_max_deg = 40
+export var camera_min_deg = -70
+export var camera_max_deg = -20
 
-export var camera_min_distance = 24
+export var camera_min_distance = 18
 export var camera_max_distance = 32
 
 export var camera_rotate_speed = 1.5

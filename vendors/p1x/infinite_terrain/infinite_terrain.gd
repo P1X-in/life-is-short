@@ -49,9 +49,14 @@ func load_done(chunk, thread):
     chunks[key] = chunk
     unready_chunks.erase(key)
     thread.wait_to_finish()
-    if not $player.controller_enabled and chunks.size() >= chunk_amount * chunk_amount:
-        $player.controller_enabled = true
-        get_parent().get_node("gui/top/time/time").start_timer()
+    if not $player.controller_enabled:
+        var max_chunks = chunk_amount * chunk_amount
+        if chunks.size() >= max_chunks:
+            $player.controller_enabled = true
+            get_parent().get_node("gui/top/time/time").start_timer()
+            get_parent().get_node("gui/loading/").hide()
+        else:
+            get_parent().get_node("gui/loading/Panel/center/progress").set_text(str(chunks.size()) + ' / ' + str(max_chunks))
         
     
 func get_chunk(x, z):

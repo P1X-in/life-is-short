@@ -2,17 +2,14 @@ extends Spatial
 class_name Chunk
 
 export var TERRAIN_HEIGHT = 48
-export var TERRAIN_VERT = .25
+export var TERRAIN_VERT = .16
 export var COLLIS = true
 export var WATER_LEVEL = -16
-export var ITEMS_AMOUNT = 3
-export var SHROOMS_CHANCE = 0.005
-export var SHROOMS_ELEVATION = 1
+export var CLOUDS_LEVEL = 64
+export var ITEMS_AMOUNT = 16
 
 var models = [
 	preload("res://models/shroom/shroom.tscn"),
-	preload("res://models/forest/tree1.tscn"),
-	preload("res://models/forest/tree2.tscn"),
 	preload("res://models/forest/tree3.tscn"),
 	preload("res://models/forest/tree4.tscn"),
 	preload("res://models/forest/tree5.tscn"),
@@ -37,7 +34,7 @@ func _init(noise, x, z, chunk_size):
 
 func _ready():
 	seed("paradise".hash())
-	randomize()
+	#randomize()
 	generate_chunk()
 	generate_water_layer()
 
@@ -72,10 +69,6 @@ func generate_chunk():
 	for s in range(array_plane.get_surface_count()):
 		array_plane.surface_remove(s)
 
-	plane_mesh.material.set_shader_param(
-		"DATA",
-		pool_array)
-
 	data_tool.commit_to_surface(array_plane)
 	surface_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	surface_tool.create_from(array_plane, 0)
@@ -93,7 +86,7 @@ func generate_chunk():
 
 func generate_vegetation(pool):
 	for i in range(ITEMS_AMOUNT):
-		var random_model_id = randi() % models.size();
+		var random_model_id = randi() % models.size() -1;
 		var object = models[random_model_id].instance()
 
 		var pos = pool[randi() % pool.size()]
@@ -102,7 +95,10 @@ func generate_vegetation(pool):
 
 		var body_node = "body"
 		if random_model_id == 0:
-			var types = ['type1', 'type2', 'type3']
+			var types = [
+			'Mushroom1', 'Mushroom2', 'Mushroom3', 'Mushroom4', 'Mushroom5',
+			'Mushroom6', 'Mushroom7', 'Mushroom8', 'Mushroom9', 'Mushroom10'
+			,'Mushroom11', 'Mushroom12', 'Mushroom13']
 			types.shuffle()
 			body_node = types[0]
 		var model_node = object.get_node(body_node)
@@ -137,3 +133,14 @@ func generate_water_layer():
 
 	add_child(mesh_instance)
 
+func generate_clouds_layer():
+	var plane_mesh = PlaneMesh.new()
+	plane_mesh.size = Vector2(chunk_size, chunk_size)
+	plane_mesh.material = preload("res://vendors/p1x/clouds/clouds.material")
+
+	var mesh_instance = MeshInstance.new()
+	mesh_instance.mesh = plane_mesh
+	mesh_instance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
+	mesh_instance.translate(Vector3(0,CLOUDS_LEVEL,0))
+
+	add_child(mesh_instance)

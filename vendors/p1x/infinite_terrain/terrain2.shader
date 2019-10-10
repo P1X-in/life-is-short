@@ -1,10 +1,12 @@
 shader_type spatial;
+render_mode specular_phong, diffuse_oren_nayar;
 
 uniform vec3 MAIN_COLOR;
 uniform sampler2D noisemap;
 uniform sampler2D noisemap_ground;
 uniform sampler2D noisemap_nrm;
 uniform float RANDOM_UV_FACTOR = 16.;
+uniform float NORMAL_UV_FACTOR = 16.;
 uniform float GROUND_UV_FACTOR = .2;
 uniform float DISTORTION_FACTOR = .3;
 uniform float BRIGHTNESS = 0.7;
@@ -40,7 +42,7 @@ void fragment() {
     vec3 alb = vec3(0.1);
     
     alb.r = mix(.2 - ran * .1, .2, ran_ground);
-    alb.g = mix(.7 - ran * .4, .1 * ran, ran_ground);
+    alb.g = mix(.7 - ran * .4, .0, ran_ground);
     alb.b = mix(0.05, 0.0, ran_ground);
 
     alb *= vec3(BRIGHTNESS);
@@ -49,7 +51,7 @@ void fragment() {
     ROUGHNESS =  mix(0.6, 0.9, ran_ground);
     METALLIC =  mix(.5, .7, ran_ground);
     
-    NORMALMAP = texture(noisemap_nrm, UV).rgb;
+    NORMALMAP = mix(texture(noisemap_nrm, UV * NORMAL_UV_FACTOR).rgb, vec3(0.0), ran_ground);
     NORMALMAP_DEPTH = mix(2.5, 0., ran_ground);
     
     ALBEDO = alb;

@@ -89,7 +89,7 @@ constant = Color( 0.35925, 0.35925, 0.35925, 1 )
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_add, cull_disabled;
+render_mode blend_add, cull_disabled, world_vertex_coords, shadows_disabled;
 
 uniform float uv;
 uniform float speed;
@@ -254,9 +254,11 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -1433.78, -165.739 )
+graph_offset = Vector2( -1609.02, 0 )
 modes/blend = 1
 modes/cull = 2
+flags/shadows_disabled = true
+flags/world_vertex_coords = true
 nodes/fragment/0/position = Vector2( 1280, 60 )
 nodes/fragment/2/node = SubResource( 6 )
 nodes/fragment/2/position = Vector2( -1220, 80 )
