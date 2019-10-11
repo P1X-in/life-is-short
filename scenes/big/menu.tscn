@@ -2,14 +2,14 @@
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://misc/style_blue.tres" type="StyleBox" id=2]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=3]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=9]
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.752941, 0.901961, 0.831373, 1 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -25,7 +25,7 @@ tracks/0/keys = {
 "values": [ 6.8, 4.0, 6.8 ]
 }
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=3]
 size = 100
 font_data = ExtResource( 8 )
 
@@ -43,7 +43,7 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="main"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 6 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -63,18 +63,21 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main/bars"]
 autoplay = "flow"
 playback_speed = 0.1
-anims/flow = SubResource( 7 )
+anims/flow = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="main/bars"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -49.7388
-margin_top = 119.67
-margin_right = -49.7385
-margin_bottom = 162.67
+margin_left = -92.3642
+margin_top = -237.798
+margin_right = -92.364
+margin_bottom = -194.798
 rect_min_size = Vector2( 0, 43 )
 color = Color( 0.109804, 0.176471, 0.482353, 0.305882 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect2" type="ColorRect" parent="main/bars/ColorRect"]
 anchor_top = 0.5
@@ -99,11 +102,11 @@ rect_min_size = Vector2( 0, 43 )
 color = Color( 0.109804, 0.176471, 0.482353, 0.305882 )
 
 [node name="life-is-short" type="Label" parent="main/bars/ColorRect"]
-margin_left = 577.061
-margin_top = -112.682
-margin_right = 1148.06
-margin_bottom = 33.3181
-custom_fonts/font = SubResource( 8 )
+margin_left = 745.373
+margin_top = -111.603
+margin_right = 1342.37
+margin_bottom = 34.3968
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color_shadow = Color( 0.109804, 0.176471, 0.482353, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 12
@@ -120,11 +123,10 @@ margin_right = 204.0
 text = "Arcade game by P1X"
 
 [node name="menu" type="Control" parent="main"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -160.0
-margin_bottom = -160.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -135,10 +137,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 208.0
-margin_top = -146.0
-margin_right = 568.0
-margin_bottom = 47.0
+margin_left = -180.0
+margin_top = -96.5
+margin_right = 180.0
+margin_bottom = 96.5
 rect_min_size = Vector2( 360, 140 )
 custom_styles/panel = ExtResource( 2 )
 __meta__ = {
@@ -171,7 +173,24 @@ margin_bottom = 158.0
 rect_min_size = Vector2( 128, 0 )
 text = "QUIT"
 
-[node name="fps" parent="main" instance=ExtResource( 9 )]
+[node name="ver" type="Label" parent="main/menu/panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -175.0
+margin_top = 139.5
+margin_right = 175.0
+margin_bottom = 220.5
+text = "Version 1.5 - PGA Edition
+(c)2019 P1X
+https://p1x.in/games/life-is-short"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps" parent="main" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0
@@ -179,13 +198,5 @@ margin_top = 14.0
 margin_right = 14.0
 margin_bottom = 14.0
 theme = ExtResource( 7 )
-
-[node name="ver" type="Label" parent="main/fps"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = 35.0
-margin_right = 250.0
-margin_bottom = 60.0
-text = "Version 1.5 - PGA Edition"
 [connection signal="pressed" from="main/menu/panel/buttons/start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="main/menu/panel/buttons/quit" to="." method="_on_quit_pressed"]
