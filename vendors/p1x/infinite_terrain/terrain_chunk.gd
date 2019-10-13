@@ -19,6 +19,8 @@ var models = [
 	preload("res://models/forest/bush3.tscn")
 ]
 
+var dust = preload("res://scenes/small/dust.tscn")
+
 var mesh_instance
 var noise
 var x
@@ -88,7 +90,7 @@ func generate_vegetation(pool):
 	for i in range(ITEMS_AMOUNT):
 		var random_model_id = randi() % models.size() -1;
 		var object = models[random_model_id].instance()
-
+		var dust_instance = dust.instance()
 		var pos = pool[randi() % pool.size()]
 		var ran = 0.8 + randf()
 		var sca = Vector3(ran,ran,ran)
@@ -107,6 +109,9 @@ func generate_vegetation(pool):
 
 		object.translate(pos)
 		add_child(object)
+		
+		dust_instance.translate(Vector3(0,WATER_LEVEL,0))
+		add_child(dust_instance)
 
 func generate_coins(pool):
 	var coin_base = preload("res://models/coin/coin.tscn")

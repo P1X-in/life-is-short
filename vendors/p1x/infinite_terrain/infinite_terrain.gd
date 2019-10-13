@@ -53,8 +53,7 @@ func load_done(chunk, thread):
         var max_chunks = chunk_amount * chunk_amount
         if chunks.size() >= max_chunks:
             $player.controller_enabled = true
-            get_parent().get_node("gui/top/time/time").start_timer()
-            get_parent().get_node("gui/loading/").hide()
+            get_tree().call_group("gui", "start_game")
         else:
             get_parent().get_node("gui/loading/Panel/center/progress").set_text(str(chunks.size()) + ' / ' + str(max_chunks))
         

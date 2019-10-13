@@ -1,0 +1,739 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://misc/style_violet.tres" type="StyleBox" id=2]
+[ext_resource path="res://misc/font_34pt.tres" type="DynamicFont" id=3]
+[ext_resource path="res://misc/main_theme.tres" type="Theme" id=4]
+[ext_resource path="res://misc/style_menus_background.tres" type="StyleBox" id=5]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=6]
+[ext_resource path="res://misc/style_violet-50.tres" type="StyleBox" id=7]
+[ext_resource path="res://misc/style_yellow-50.tres" type="StyleBox" id=8]
+[ext_resource path="res://misc/style_blue.tres" type="StyleBox" id=9]
+[ext_resource path="res://misc/style_green.tres" type="StyleBox" id=10]
+[ext_resource path="res://misc/style_yellow.tres" type="StyleBox" id=11]
+[ext_resource path="res://misc/style_gray-50.tres" type="StyleBox" id=12]
+[ext_resource path="res://misc/style_blue-50.tres" type="StyleBox" id=13]
+[ext_resource path="res://scenes/small/gui.gd" type="Script" id=14]
+[ext_resource path="res://scenes/small/time.gd" type="Script" id=15]
+
+[sub_resource type="Animation" id=6]
+resource_name = "ping"
+tracks/0/type = "value"
+tracks/0/path = NodePath("progress:custom_styles/panel:shadow_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 2, 12, 2 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "pulse"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_styles/panel:shadow_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.6 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:custom_styles/panel:shadow_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5, 0.8, 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 18, 0, 0, 18, 0 ]
+}
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Label
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+func update_coins(coins):
+	set_text(\"%04d\" % [coins])"
+
+[sub_resource type="DynamicFont" id=4]
+size = 64
+outline_size = 5
+outline_color = Color( 0.162659, 0.146226, 0.343429, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "excite"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -7.7, 7.3, -7.7 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.8, 1.8 ), Vector2( 2, 2 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[node name="gui" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="fps" parent="." instance=ExtResource( 6 )]
+margin_left = -140.0
+margin_top = 20.0
+margin_right = -140.0
+margin_bottom = 20.0
+
+[node name="power" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_right = -90.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="top" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_top = 79.0
+margin_bottom = 79.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time" type="Control" parent="top"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="PanelContainer" parent="top/time"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -193.0
+margin_top = -32.0
+margin_right = 193.0
+rect_min_size = Vector2( 386, 32 )
+custom_styles/panel = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="PanelContainer" parent="top/time"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -193.0
+margin_top = -32.0
+margin_right = 193.0
+rect_min_size = Vector2( 0, 32 )
+custom_styles/panel = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="top/time"]
+margin_left = -189.0
+margin_top = -60.0
+margin_right = -80.0
+margin_bottom = -35.0
+text = "TIME LEFT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time" type="Label" parent="top/time"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 127.0
+margin_top = -61.0
+margin_right = 183.0
+margin_bottom = -36.0
+text = "03:00"
+align = 1
+valign = 1
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="time_anim" type="AnimationPlayer" parent="top/time"]
+anims/ping = SubResource( 6 )
+
+[node name="lives" type="Control" parent="top"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -210.0
+margin_right = -210.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="top/lives"]
+margin_left = -189.0
+margin_top = -60.0
+margin_right = -76.0
+margin_bottom = -35.0
+text = "LIVES LEFT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="shelf" type="HBoxContainer" parent="top/lives"]
+margin_left = -185.0
+margin_top = -30.0
+margin_right = -38.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 0, 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="live" type="Control" parent="top/lives/shelf"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/live"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="top/lives/shelf/live"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="live2" type="Control" parent="top/lives/shelf"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/live2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="top/lives/shelf/live2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="live3" type="Control" parent="top/lives/shelf"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/live3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="top/lives/shelf/live3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="live4" type="Control" parent="top/lives/shelf"]
+margin_left = 108.0
+margin_right = 140.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/live4"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="on" type="PanelContainer" parent="top/lives/shelf/live4"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Control" parent="top"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 430.0
+margin_right = 430.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="PanelContainer" parent="top/score"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -193.0
+margin_top = -32.0
+margin_right = -1.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 192, 64 )
+custom_styles/panel = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="top/score"]
+margin_left = -189.0
+margin_top = -60.0
+margin_right = -117.0
+margin_bottom = -35.0
+text = "SCORE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="top/score"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -183.0
+margin_top = -28.0
+margin_right = -12.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 3 )
+text = "000000"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_right = -100.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="power" type="Control" parent="right"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 110.0
+margin_bottom = 110.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="PanelContainer" parent="right/power"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -128.0
+margin_right = 40.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 80, 256 )
+custom_styles/panel = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="PanelContainer" parent="right/power"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 41.0
+margin_top = 128.0
+margin_right = 121.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 80, 0 )
+rect_rotation = 180.0
+custom_styles/panel = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="button" type="PanelContainer" parent="right/power"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -114.0
+margin_top = -126.0
+margin_right = -50.0
+margin_bottom = -62.0
+rect_min_size = Vector2( 64, 64 )
+custom_styles/panel = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title2" type="Label" parent="right/power/button"]
+margin_left = 4.0
+margin_top = 11.0
+margin_right = 60.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 3 )
+text = "A"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="right/power/button"]
+autoplay = "pulse"
+anims/pulse = SubResource( 2 )
+
+[node name="coins" type="Label" parent="right/power"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -160.0
+margin_right = 29.0
+margin_bottom = -134.0
+text = "0000"
+align = 1
+valign = 1
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="right/power"]
+margin_left = -40.0
+margin_top = 138.0
+margin_right = 39.0
+margin_bottom = 191.0
+text = "POWER
+LEVEL"
+align = 1
+
+[node name="loading" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="Panel" parent="loading"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="loading"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -193.5
+margin_top = -59.0
+margin_right = 193.5
+margin_bottom = 59.0
+custom_styles/panel = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="center" type="Control" parent="loading/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="_loading" type="Label" parent="loading/Panel/center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -127.0
+margin_top = -32.5
+margin_right = 127.0
+margin_bottom = -7.5
+text = "GENERATING TERRAIN..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="progress" type="Label" parent="loading/Panel/center"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -26.5
+margin_top = 15.5
+margin_right = 26.5
+margin_bottom = 40.5
+text = "1 / 32"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="game_over" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bg" type="Panel" parent="game_over"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Panel" parent="game_over"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -239.0
+margin_top = -110.0
+margin_right = 240.0
+margin_bottom = -34.0
+custom_styles/panel = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="_gameover" type="Label" parent="game_over/score"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.5
+margin_top = -148.0
+margin_right = 205.5
+margin_bottom = -70.0
+rect_rotation = -7.48068
+rect_scale = Vector2( 1.78747, 1.78747 )
+rect_pivot_offset = Vector2( 199.78, 43.72 )
+custom_fonts/font = SubResource( 4 )
+text = "GAME OVER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="game_over/score/_gameover"]
+autoplay = "excite"
+playback_speed = 0.25
+anims/excite = SubResource( 5 )
+
+[node name="stats" type="HBoxContainer" parent="game_over/score"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -83.0
+margin_top = -20.0
+margin_right = 83.0
+margin_bottom = 20.0
+custom_constants/separation = 18
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="_score" type="Label" parent="game_over/score/stats"]
+margin_top = 7.0
+margin_right = 78.0
+margin_bottom = 32.0
+text = "SCORE:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="game_over/score/stats"]
+margin_left = 96.0
+margin_top = 7.0
+margin_right = 166.0
+margin_bottom = 32.0
+text = "99999"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="Panel" parent="game_over"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -180.0
+margin_top = -21.0
+margin_right = 180.0
+margin_bottom = 161.0
+rect_min_size = Vector2( 360, 140 )
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="VBoxContainer" parent="game_over/menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -130.5
+margin_top = -62.0
+margin_right = 130.5
+margin_bottom = 62.0
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="Button" parent="game_over/menu/menu"]
+margin_right = 261.0
+margin_bottom = 54.0
+text = "MENU"
+
+[node name="play" type="Button" parent="game_over/menu/menu"]
+margin_top = 70.0
+margin_right = 261.0
+margin_bottom = 124.0
+text = "PLAY AGAIN"

@@ -12,7 +12,14 @@ var lives = 4
 const SIZE_LIMIT = 4.0
 const TIME_LIMIT = 120
 const SIZE_GAIN = .5
+const GAME_TIME = 180
+
 var coins_count = 0
+var score = 0
+
+const SCORE_COIN = 10
+const SCORE_SHROOM = 50
+const SCORE_FALL = 100
 
 func _ready():
     ._ready()
@@ -53,15 +60,23 @@ func pick_up_coin(coin):
     coin.get_parent().get_node("anim").play("pick_up")
     $sounds/coin.play()
     coins_count += 1
-    $".".get_parent().get_parent().get_node("gui/right/power/coins").update_coins(coins_count)
+    score_inc(SCORE_COIN)
+    get_tree().call_group("gui", "coins_set", coins_count)
     coin.queue_free()
 
 func eat_shroom(shroom):
+    score_inc(SCORE_SHROOM)
+    get_tree().call_group("gui", "power_inc")
     shroom.eat()
 
 func bump_tree(tree):
     # if power then tree.fall()
+    # score_inc(SCORE_FALL)
     tree.shake()
+
+func score_inc(what):
+    score += what
+    get_tree().call_group("gui", "score_set", score)
 
 func enemy_strike(enemy):
     hit()
@@ -76,8 +91,4 @@ func kaiju_fight(kaiju):
     self.die()
 
 func die():
-    self.controller_enabled = false
-    # remove this crap...
-    get_parent().get_parent().get_node("gui/titles/Viewport/Camera/titles/anim").play("wasted")
-    get_parent().get_parent().get_node("gui/icons").hide()
-    get_parent().get_parent().get_node("gui/wasted").show()
+    get_tree().call_group("game", "player_die")

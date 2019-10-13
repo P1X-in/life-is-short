@@ -2,12 +2,10 @@
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://misc/style_blue.tres" type="StyleBox" id=2]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=3]
+[ext_resource path="res://misc/style_menus_background.tres" type="StyleBox" id=3]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=4]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.752941, 0.901961, 0.831373, 1 )
 
 [sub_resource type="Animation" id=2]
 length = 4.0
@@ -43,8 +41,9 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="main"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = ExtResource( 3 )
 __meta__ = {
+"_edit_lock_": true,
 "_editor_description_": ""
 }
 
@@ -190,7 +189,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="fps" parent="main" instance=ExtResource( 3 )]
+[node name="fps" parent="main" instance=ExtResource( 4 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0
