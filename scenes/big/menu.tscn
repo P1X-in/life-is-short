@@ -1,13 +1,174 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
-[ext_resource path="res://misc/style_blue.tres" type="StyleBox" id=2]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://misc/style_menus_background.tres" type="StyleBox" id=3]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=4]
+[ext_resource path="res://vendors/p1x/shaders/amiga.shader" type="Shader" id=5]
+[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=6]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=9]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=10]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="PlaneMesh" id=3]
+
+[sub_resource type="Shader" id=6]
+code = "shader_type spatial;
+
+/* AMIGAAAAAAA! */
+uniform float s = .2;
+uniform float tf = .1;
+uniform bool animate = true;
+uniform float uv_scale = 4.;
+
+void fragment() {
+	vec3 c = vec3(1.0);
+	float hs = s*.5;
+    float t = animate ? TIME : 0.0;
+	vec2 pos = mod(UV.xy * uv_scale + vec2(t * 0.25, 0.0), vec2(s));
+	if ( (pos.x>hs && pos.y>hs) || (pos.x<hs && pos.y<hs)) { 
+		c = vec3(1.0,.0,.0); 
+	} else {
+		c = vec3(1.0);
+	}
+	
+	ALBEDO = c;
+	METALLIC = 0.4;
+	SPECULAR = 0.6;
+	ROUGHNESS = 0.1;
+    RIM = 0.4;
+    RIM_TINT = 0.6;
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/s = 0.2
+shader_param/tf = 0.1
+shader_param/animate = true
+shader_param/uv_scale = 24.0
+
+[sub_resource type="Animation" id=13]
+resource_name = "menu"
+length = 10.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 2, 4, 4.5, 6.5, 7, 9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.22, 0 ), Vector3( 0, 1.22, 0 ), Vector3( 0.84, 0.17, 0 ), Vector3( 0.84, 0.17, 0 ), Vector3( -0.11, 2.24, -1.88 ), Vector3( -0.11, 2.24, -1.88 ), Vector3( -1.719, 0.289, -2.443 ), Vector3( -1.719, 0.289, -2.443 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.2, 2.3, 3.8, 4.7, 6.3, 7.3, 8.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 5.3, 2.06, 0.65 ), Vector3( 5.3, 2.06, 0.65 ), Vector3( 2.36, 3.1, -15 ), Vector3( 2.36, 3.1, -15 ), Vector3( -12.08, 17.6, -2.13 ), Vector3( -12.08, 17.6, -2.13 ), Vector3( 24.967, 16.03, 1.282 ), Vector3( 24.967, 16.03, 1.282 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "swirlll"
+length = 4.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("head:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.33, 0, -1.34 ), Vector3( -1.33, 1, -1.34 ), Vector3( -1.33, 0, -1.34 ), Vector3( -1.33, 1, -1.34 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("tail:translation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3, 1.3, 2.3, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -1.42 ), Vector3( 0, 1, -1.42 ), Vector3( 0, 0, -1.42 ), Vector3( 0, 1, -1.42 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("tail2:translation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5, 1.5, 2.5, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.44, 0, -1.42 ), Vector3( 1.44, 1, -1.42 ), Vector3( 1.44, 0, -1.42 ), Vector3( 1.44, 1, -1.42 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("tail3:translation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.7, 1.7, 2.7, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 2.97, 0, -1.42 ), Vector3( 2.97, 1, -1.42 ), Vector3( 2.97, 0, -1.42 ), Vector3( 2.97, 1, -1.42 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("tail4:translation")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.9, 1.9, 2.9, 3.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 4.45, 0, -1.42 ), Vector3( 4.45, 1, -1.42 ), Vector3( 4.45, 0, -1.42 ), Vector3( 4.45, 1, -1.42 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("tail5:translation")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1.2, 2.2, 3.1, 4.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 6.07, 0, -1.42 ), Vector3( 6.07, 1, -1.42 ), Vector3( 6.07, 0, -1.42 ), Vector3( 6.07, 1, -1.42 ) ]
+}
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 5 )
+shader_param/s = 0.5
+shader_param/tf = 0.1
+shader_param/animate = true
+shader_param/uv_scale = 2.0
+
+[sub_resource type="SphereMesh" id=12]
+material = SubResource( 11 )
+radius = 6.0
+height = 12.0
+radial_segments = 32
+rings = 16
+
+[sub_resource type="Animation" id=1]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -23,13 +184,98 @@ tracks/0/keys = {
 "values": [ 6.8, 4.0, 6.8 ]
 }
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 100
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.219608, 0.854902, 1, 0.329412 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 1, 1, 1 )
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.913725, 0.411765, 0.898039, 0.2 )
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color( 0.933333, 0.2, 0.027451, 1 )
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color( 0.905882, 0.207843, 1, 1 )
+shadow_size = 2
+
+[sub_resource type="DynamicFont" id=9]
+size = 64
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 8 )
 
 [node name="main_menu" type="Spatial"]
 script = ExtResource( 1 )
 has_buttons = true
+
+[node name="background_world" type="Spatial" parent="."]
+
+[node name="sun" type="DirectionalLight" parent="background_world"]
+transform = Transform( 1, 0, 0, 0, -0.187039, 0.982353, 0, -0.982353, -0.187039, 0, 4.53164, 0 )
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="clouds" parent="background_world" instance=ExtResource( 6 )]
+transform = Transform( -3.96356, 0, 0.538711, 0, 4, 0, -0.538711, 0, -3.96356, 0, 48, 0 )
+
+[node name="floor" type="MeshInstance" parent="background_world"]
+transform = Transform( 63.5347, 0, 247.991, 0, 1, 0, -247.991, 0, 63.5347, 0, 0, 0 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 7 )
+
+[node name="camera_3d_effects" parent="background_world" instance=ExtResource( 2 )]
+transform = Transform( 0.963935, 0.260591, 0.0540329, -0.258599, 0.965106, -0.0411781, -0.0628782, 0.0257202, 0.997689, 0.84, 0.17, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/camera_3d_effects"]
+autoplay = "menu"
+anims/menu = SubResource( 13 )
+
+[node name="cat" type="Spatial" parent="background_world"]
+transform = Transform( 0.296542, 0, 0.95502, 0, 1, 0, -0.95502, 0, 0.296542, -1.54, 1, -4.79 )
+
+[node name="head" parent="background_world/cat" instance=ExtResource( 4 )]
+transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.384604, -1.34 )
+
+[node name="tail" parent="background_world/cat" instance=ExtResource( 9 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.0586754, -1.42 )
+
+[node name="tail2" parent="background_world/cat" instance=ExtResource( 9 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.00440097, -1.42 )
+
+[node name="tail3" parent="background_world/cat" instance=ExtResource( 9 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.143849, -1.42 )
+
+[node name="tail4" parent="background_world/cat" instance=ExtResource( 9 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.408669, -1.42 )
+
+[node name="tail5" parent="background_world/cat" instance=ExtResource( 9 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.796213, -1.42 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/cat"]
+autoplay = "swirlll"
+anims/swirlll = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="background_world"]
+transform = Transform( -1.55174e-07, -0.952449, -0.304698, 1, -1.62921e-07, 0, -4.96416e-08, -0.304698, 0.952449, 3.91, 6, -30.21 )
+mesh = SubResource( 12 )
+material/0 = null
 
 [node name="main" type="Control" parent="."]
 anchor_right = 1.0
@@ -39,6 +285,7 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = ExtResource( 3 )
@@ -50,8 +297,8 @@ __meta__ = {
 [node name="bars" type="Control" parent="main"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -300.0
-margin_right = 300.0
+margin_left = -299.0
+margin_right = 301.0
 margin_bottom = -0.00012207
 rect_rotation = 6.8
 theme = ExtResource( 7 )
@@ -62,7 +309,7 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="main/bars"]
 autoplay = "flow"
 playback_speed = 0.1
-anims/flow = SubResource( 2 )
+anims/flow = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="main/bars"]
 anchor_top = 0.5
@@ -105,7 +352,7 @@ margin_left = 745.373
 margin_top = -111.603
 margin_right = 1342.37
 margin_bottom = 34.3968
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color_shadow = Color( 0.109804, 0.176471, 0.482353, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 12
@@ -136,12 +383,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -180.0
-margin_top = -96.5
-margin_right = 180.0
-margin_bottom = 96.5
+margin_left = 160.0
+margin_top = -86.0
+margin_right = 520.0
+margin_bottom = 240.0
 rect_min_size = Vector2( 360, 140 )
-custom_styles/panel = ExtResource( 2 )
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
@@ -160,27 +407,39 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="main/menu/panel/buttons"]
-margin_top = 34.0
+margin_top = 31.0
 margin_right = 296.0
-margin_bottom = 88.0
+margin_bottom = 85.0
 text = "START GAME"
 
-[node name="quit" type="Button" parent="main/menu/panel/buttons"]
-margin_top = 104.0
+[node name="demo" type="Button" parent="main/menu/panel/buttons"]
+margin_top = 101.0
 margin_right = 296.0
-margin_bottom = 158.0
+margin_bottom = 155.0
+text = "DEMO"
+
+[node name="instruction" type="Button" parent="main/menu/panel/buttons"]
+margin_top = 171.0
+margin_right = 296.0
+margin_bottom = 225.0
+text = "INSTRUCTION"
+
+[node name="quit" type="Button" parent="main/menu/panel/buttons"]
+margin_top = 241.0
+margin_right = 296.0
+margin_bottom = 295.0
 rect_min_size = Vector2( 128, 0 )
 text = "QUIT"
 
-[node name="ver" type="Label" parent="main/menu/panel"]
+[node name="ver" type="Label" parent="main/menu"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -175.0
-margin_top = 139.5
+margin_top = 256.5
 margin_right = 175.0
-margin_bottom = 220.5
+margin_bottom = 337.5
 text = "Version 1.5 - PGA Edition
 (c)2019 P1X
 https://p1x.in/games/life-is-short"
@@ -189,7 +448,52 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="fps" parent="main" instance=ExtResource( 4 )]
+[node name="topscore" type="Control" parent="main/menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 170.0
+margin_bottom = 170.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="main/menu/topscore"]
+margin_left = -153.0
+margin_top = -45.0
+margin_right = 150.0
+margin_bottom = 71.0
+custom_styles/panel = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="_today" type="Label" parent="main/menu/topscore"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -132.5
+margin_top = 31.5
+margin_right = 132.5
+margin_bottom = 56.5
+text = "TODAY TOP SCORE"
+align = 1
+
+[node name="hiscore" type="Label" parent="main/menu/topscore"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -132.0
+margin_top = -39.0
+margin_right = 132.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 9 )
+text = "999999"
+
+[node name="fps" parent="main" instance=ExtResource( 10 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0
