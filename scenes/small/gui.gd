@@ -10,6 +10,7 @@ var game_time = 0
 const P_PROGRESS_SIZE_INIT = Vector2(80, 24)
 const P_PROGRESS_SIZE_MAX = Vector2(80, 256)
 const P_PROGRESS_SIZE_INC = Vector2(0, 12)
+
 const T_PROGRESS_SIZE_INIT = Vector2(386, 32)
 const T_PROGRESS_SIZE_MAX = Vector2(386, 32)
 const T_PROGRESS_SIZE_MIN = Vector2(24, 32)

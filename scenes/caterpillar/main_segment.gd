@@ -58,11 +58,11 @@ func get_speed(factor):
 
 func pick_up_coin(coin):
     coin.get_parent().get_node("anim").play("pick_up")
+    coin.queue_free()
     $sounds/coin.play()
     coins_count += 1
     score_inc(SCORE_COIN)
-    get_tree().call_group("gui", "coins_set", coins_count)
-    coin.queue_free()
+    get_tree().call_group("gui", "coins_set", coins_count) 
     Input.start_joy_vibration(0, 0.1, 0.2, 0.1)
 
 func eat_shroom(shroom):
