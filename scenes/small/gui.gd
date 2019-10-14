@@ -38,7 +38,7 @@ func start_game():
 
 func time_set(t):
 	var t_percent = t * 100 / game_time
-	if t_percent < 10:
+	if t_percent < 25:
 		time_anim.play("ping")
 	var tp_width = (T_PROGRESS_SIZE_MAX.x * t_percent) / 100 
 	if tp_width < T_PROGRESS_SIZE_MIN.x: tp_width = T_PROGRESS_SIZE_MIN.x

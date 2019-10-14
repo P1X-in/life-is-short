@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://models/micro-arcade.dae" type="PackedScene" id=1]
+[ext_resource path="res://models/arcade.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 4, 8, 4 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "run"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../body/arcade:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( -6.08, -3.80294e-08, 5.446 ), Vector3( 8.93182, 0.810045, -1.96309 ), Vector3( 12.7896, 1.56023, 2.86851 ), Vector3( 8.85366, 0.19797, -6.00656 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 0 ), Vector3( 0, -0.698645, 0 ), Vector3( 0, 64, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("collision")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "die"
+} ]
+}
+
+[node name="arcade" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="body" type="Spatial" parent="."]
+
+[node name="arcade" parent="body" instance=ExtResource( 1 )]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
+
+[node name="collision" type="StaticBody" parent="body"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="body/collision"]
+transform = Transform( 1, 2.56114e-09, -1.49012e-08, 1.76951e-08, 1, 1.86265e-09, 0, 3.72529e-09, 1, -0.383349, 6.81944, 0 )
+shape = SubResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="coins_drop" type="Position3D" parent="body/collision"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.7202, 0 )
+
+[node name="anim" type="AnimationPlayer" parent="body"]
+anims/run = SubResource( 4 )

@@ -1,14 +1,14 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=2]
-[ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=3]
-[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=2]
+[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=3]
+[ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=4]
 [ext_resource path="res://vendors/p1x/shaders/amiga.shader" type="Shader" id=5]
-[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=6]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=6]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=9]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=9]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -228,7 +228,7 @@ transform = Transform( 1, 0, 0, 0, -0.187039, 0.982353, 0, -0.982353, -0.187039,
 shadow_enabled = true
 directional_shadow_blend_splits = true
 
-[node name="clouds" parent="background_world" instance=ExtResource( 6 )]
+[node name="clouds" parent="background_world" instance=ExtResource( 3 )]
 transform = Transform( -3.96356, 0, 0.538711, 0, 4, 0, -0.538711, 0, -3.96356, 0, 48, 0 )
 
 [node name="floor" type="MeshInstance" parent="background_world"]
@@ -236,7 +236,7 @@ transform = Transform( 63.5347, 0, 247.991, 0, 1, 0, -247.991, 0, 63.5347, 0, 0,
 mesh = SubResource( 1 )
 material/0 = SubResource( 3 )
 
-[node name="camera_3d_effects" parent="background_world" instance=ExtResource( 2 )]
+[node name="camera_3d_effects" parent="background_world" instance=ExtResource( 9 )]
 transform = Transform( 0.999326, -0.00801691, 0.0357923, 0.0112959, 0.99566, -0.0923705, -0.0348965, 0.0927126, 0.99508, 0, 1.22, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/camera_3d_effects"]
@@ -246,22 +246,22 @@ anims/menu = SubResource( 4 )
 [node name="cat" type="Spatial" parent="background_world"]
 transform = Transform( 0.296542, 0, 0.95502, 0, 1, 0, -0.95502, 0, 0.296542, -1.54, 1, -4.79 )
 
-[node name="head" parent="background_world/cat" instance=ExtResource( 3 )]
+[node name="head" parent="background_world/cat" instance=ExtResource( 4 )]
 transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.0529704, -1.34 )
 
-[node name="tail" parent="background_world/cat" instance=ExtResource( 4 )]
+[node name="tail" parent="background_world/cat" instance=ExtResource( 2 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.409732, -1.42 )
 
-[node name="tail2" parent="background_world/cat" instance=ExtResource( 4 )]
+[node name="tail2" parent="background_world/cat" instance=ExtResource( 2 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.703858, -1.42 )
 
-[node name="tail3" parent="background_world/cat" instance=ExtResource( 4 )]
+[node name="tail3" parent="background_world/cat" instance=ExtResource( 2 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.93101, -1.42 )
 
-[node name="tail4" parent="background_world/cat" instance=ExtResource( 4 )]
+[node name="tail4" parent="background_world/cat" instance=ExtResource( 2 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.996187, -1.42 )
 
-[node name="tail5" parent="background_world/cat" instance=ExtResource( 4 )]
+[node name="tail5" parent="background_world/cat" instance=ExtResource( 2 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.770514, -1.42 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/cat"]
@@ -479,7 +479,7 @@ margin_bottom = 39.0
 custom_fonts/font = SubResource( 12 )
 text = "999999"
 
-[node name="fps" parent="main" instance=ExtResource( 9 )]
+[node name="fps" parent="main" instance=ExtResource( 6 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0

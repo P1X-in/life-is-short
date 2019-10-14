@@ -9,20 +9,34 @@ export var CLOUDS_LEVEL = 64
 export var ITEMS_AMOUNT = 16
 
 var models = [
-	preload("res://models/shroom/shroom.tscn"),
-	preload("res://models/forest/tree3.tscn"),
+	preload("res://models/shroom/shroom.tscn"), #0
+	preload("res://models/arcade.tscn"),  #1
+	
+	preload("res://models/forest/tree3.tscn"), #2
 	preload("res://models/forest/tree4.tscn"),
 	preload("res://models/forest/tree5.tscn"),
 	preload("res://models/forest/tree6.tscn"),
-	preload("res://models/forest/bush1.tscn"),
+	
+	preload("res://models/forest/bush1.tscn"), #6
 	preload("res://models/forest/bush2.tscn"),
-	preload("res://models/forest/bush3.tscn")
+	preload("res://models/forest/bush3.tscn"),
+	
 ]
 
-var bag_of_models = [
-	0,			# shrooms
-	1,2,3,4,	# trees
-	5,6,7,5,6,7 		# bushes
+var active_terrain = 0
+var terrains = [
+	[
+		0,				# shrooms
+		1,1,1,1,
+		2,3,4,5,	# trees
+		6,6,6,7,7,7,8,8,8	# bushes
+	],
+	[
+		0,0,0,				# shrooms
+		1,			# arcade
+		2,2,3,3,4,4,5,5,	# trees
+		6,6,7,7,8,8	# bushes
+	],
 ]
 
 var dust = preload("res://scenes/small/dust.tscn")
@@ -39,6 +53,11 @@ func _init(noise, x, z, chunk_size):
 	self.x = x
 	self.z = z
 	self.chunk_size = chunk_size
+	print(abs(x) + abs(z), chunk_size * 10)
+	if abs(x) + abs(z) > 10 * chunk_size:
+		self.active_terrain = 1
+	else:
+		self.active_terrain = 0
 
 func _ready():
 	seed("paradise".hash())
@@ -94,7 +113,7 @@ func generate_chunk():
 
 func generate_vegetation(pool):
 	for i in range(ITEMS_AMOUNT):
-		var random_model_id = bag_of_models[(randi() % bag_of_models.size())-1];
+		var random_model_id = terrains[active_terrain][(randi() % terrains[active_terrain].size())-1];
 		var object = models[random_model_id].instance()
 		var dust_instance = dust.instance()
 		
@@ -112,7 +131,11 @@ func generate_vegetation(pool):
 			body_node = types[0]
 		var model_node = object.get_node(body_node)
 		model_node.show()
-		model_node.transform = model_node.transform.scaled(sca)
+		
+		if random_model_id == 1:
+			model_node.rotate_y(randf() * 360)
+		if not random_model_id == 1:
+			model_node.transform = model_node.transform.scaled(sca)
 
 		object.translate(pos)
 		add_child(object)

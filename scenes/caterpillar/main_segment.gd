@@ -3,6 +3,7 @@ extends "res://vendors/p1x/gamepad_3d_controller/controller.gd"
 var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 var tree = preload("res://models/forest/tree.gd")
+var arcade = preload("res://models/arcade.gd")
 
 export var initial_size = 1.0
 
@@ -20,6 +21,11 @@ var score = 0
 const SCORE_COIN = 10
 const SCORE_SHROOM = 50
 const SCORE_FALL = 100
+const SCORE_ARCADE = 1000
+
+const SPAWN_COINS_AMOUNT = 12
+
+onready var clouds = get_parent().get_node("clouds")
 
 func _ready():
     ._ready()
@@ -37,6 +43,7 @@ func _physics_process(delta):
         self.accumulated_delta -= 2.0 * PI
 
     if self.is_moving:
+        #clouds.translate(Vector3(translation.x, clouds.translation.y, translation.z))
         if not self.sounds.playing:
             self.sounds.play(randf()*4.0)
     else:
@@ -51,6 +58,8 @@ func process_body_collision(collision):
         self.eat_shroom(collision.collider)
     if collision.collider is self.tree:
         self.bump_tree(collision.collider)
+    if collision.collider is self.arcade:
+        self.run_arcade(collision.collider)
 
 func get_speed(factor):
     var sine_variance = (sin(self.accumulated_delta) + 1.0) / 4.0 + 0.5
@@ -70,6 +79,11 @@ func eat_shroom(shroom):
     get_tree().call_group("gui", "power_inc")
     shroom.eat()
     Input.start_joy_vibration(0, 0.2, 0.4, 0.2)
+
+func run_arcade(arcade):
+    arcade.run()
+    score_inc(SCORE_ARCADE)
+    $anim.play("power_tornado")
 
 func bump_tree(tree):
     # if power then tree.fall()
