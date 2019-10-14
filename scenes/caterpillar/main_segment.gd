@@ -4,7 +4,7 @@ var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 var tree = preload("res://models/forest/tree.gd")
 
-export var initial_size = 0.5
+export var initial_size = 1.0
 
 var accumulated_delta = 0.0
 var size = 1.0
@@ -63,16 +63,19 @@ func pick_up_coin(coin):
     score_inc(SCORE_COIN)
     get_tree().call_group("gui", "coins_set", coins_count)
     coin.queue_free()
+    Input.start_joy_vibration(0, 0.1, 0.2, 0.1)
 
 func eat_shroom(shroom):
     score_inc(SCORE_SHROOM)
     get_tree().call_group("gui", "power_inc")
     shroom.eat()
+    Input.start_joy_vibration(0, 0.2, 0.4, 0.2)
 
 func bump_tree(tree):
     # if power then tree.fall()
     # score_inc(SCORE_FALL)
     tree.shake()
+    Input.start_joy_vibration(0, 0.2, 0.7, 0.2)
 
 func score_inc(what):
     score += what

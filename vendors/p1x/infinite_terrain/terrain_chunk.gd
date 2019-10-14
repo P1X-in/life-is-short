@@ -19,6 +19,12 @@ var models = [
 	preload("res://models/forest/bush3.tscn")
 ]
 
+var bag_of_models = [
+	0,			# shrooms
+	1,2,3,4,	# trees
+	5,6,7,5,6,7 		# bushes
+]
+
 var dust = preload("res://scenes/small/dust.tscn")
 
 var mesh_instance
@@ -88,10 +94,12 @@ func generate_chunk():
 
 func generate_vegetation(pool):
 	for i in range(ITEMS_AMOUNT):
-		var random_model_id = randi() % models.size() -1;
+		var random_model_id = bag_of_models[(randi() % bag_of_models.size())-1];
 		var object = models[random_model_id].instance()
 		var dust_instance = dust.instance()
-		var pos = pool[randi() % pool.size()]
+		
+		var random_pool_id = randi() % pool.size()
+		var pos = pool[random_pool_id]
 		var ran = 0.8 + randf()
 		var sca = Vector3(ran,ran,ran)
 
@@ -99,8 +107,7 @@ func generate_vegetation(pool):
 		if random_model_id == 0:
 			var types = [
 			'Mushroom1', 'Mushroom2', 'Mushroom3', 'Mushroom4', 'Mushroom5',
-			'Mushroom6', 'Mushroom7', 'Mushroom8', 'Mushroom9', 'Mushroom10'
-			,'Mushroom11', 'Mushroom12', 'Mushroom13']
+			'Mushroom6', 'Mushroom7', 'Mushroom8', 'Mushroom9', 'Mushroom10']
 			types.shuffle()
 			body_node = types[0]
 		var model_node = object.get_node(body_node)
@@ -112,6 +119,7 @@ func generate_vegetation(pool):
 		
 		dust_instance.translate(Vector3(0,WATER_LEVEL,0))
 		add_child(dust_instance)
+		pool.remove(random_pool_id)
 
 func generate_coins(pool):
 	var coin_base = preload("res://models/coin/coin.tscn")

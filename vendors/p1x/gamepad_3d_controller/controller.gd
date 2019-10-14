@@ -2,14 +2,14 @@ extends KinematicBody
 
 const DEADZONE = 0.12
 const GRAVITY = 9.8
-const MOVEMENT_AXIS_X = JOY_ANALOG_LX
-const MOVEMENT_AXIS_Y = JOY_ANALOG_LY
-const CAMERA_AXIS_X = JOY_ANALOG_RX
-const CAMERA_AXIS_Y = JOY_ANALOG_RY
+const MOVEMENT_AXIS_X = JOY_AXIS_0
+const MOVEMENT_AXIS_Y = JOY_AXIS_1
+const CAMERA_AXIS_X = JOY_AXIS_3
+const CAMERA_AXIS_Y = JOY_AXIS_4
 
 export var device_id = 0
 export var move_accel = 4.5
-export var move_max_speed = 96
+export var move_max_speed = 150
 export var move_deaccel = 16
 export var rotate_speed = 12.0
 export var rotate_snap_speed = 50.0

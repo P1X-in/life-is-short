@@ -1,19 +1,18 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=2]
-[ext_resource path="res://misc/style_menus_background.tres" type="StyleBox" id=3]
-[ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=2]
+[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=3]
+[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=4]
 [ext_resource path="res://vendors/p1x/shaders/amiga.shader" type="Shader" id=5]
-[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=6]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=6]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=9]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=10]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=9]
 
-[sub_resource type="PlaneMesh" id=3]
+[sub_resource type="PlaneMesh" id=1]
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id=2]
 code = "shader_type spatial;
 
 /* AMIGAAAAAAA! */
@@ -41,14 +40,14 @@ void fragment() {
     RIM_TINT = 0.6;
 }"
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 shader_param/s = 0.2
 shader_param/tf = 0.1
 shader_param/animate = true
 shader_param/uv_scale = 24.0
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=4]
 resource_name = "menu"
 length = 10.0
 loop = true
@@ -154,21 +153,21 @@ tracks/5/keys = {
 "values": [ Vector3( 6.07, 0, -1.42 ), Vector3( 6.07, 1, -1.42 ), Vector3( 6.07, 0, -1.42 ), Vector3( 6.07, 1, -1.42 ) ]
 }
 
-[sub_resource type="ShaderMaterial" id=11]
+[sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 5 )
 shader_param/s = 0.5
 shader_param/tf = 0.1
 shader_param/animate = true
 shader_param/uv_scale = 2.0
 
-[sub_resource type="SphereMesh" id=12]
-material = SubResource( 11 )
+[sub_resource type="SphereMesh" id=7]
+material = SubResource( 6 )
 radius = 6.0
 height = 12.0
 radial_segments = 32
 rings = 16
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=8]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -184,11 +183,11 @@ tracks/0/keys = {
 "values": [ 6.8, 4.0, 6.8 ]
 }
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=9]
 size = 100
 font_data = ExtResource( 8 )
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.219608, 0.854902, 1, 0.329412 )
 border_width_left = 4
 border_width_top = 4
@@ -200,9 +199,8 @@ corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
 
-[sub_resource type="StyleBoxFlat" id=10]
-bg_color = Color( 0.913725, 0.411765, 0.898039, 0.2 )
-draw_center = false
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 1, 0.0313726, 0.0313726, 0.376471 )
 border_width_left = 8
 border_width_top = 8
 border_width_right = 8
@@ -212,10 +210,8 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
-shadow_color = Color( 0.905882, 0.207843, 1, 1 )
-shadow_size = 2
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=12]
 size = 64
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
@@ -232,49 +228,49 @@ transform = Transform( 1, 0, 0, 0, -0.187039, 0.982353, 0, -0.982353, -0.187039,
 shadow_enabled = true
 directional_shadow_blend_splits = true
 
-[node name="clouds" parent="background_world" instance=ExtResource( 6 )]
+[node name="clouds" parent="background_world" instance=ExtResource( 3 )]
 transform = Transform( -3.96356, 0, 0.538711, 0, 4, 0, -0.538711, 0, -3.96356, 0, 48, 0 )
 
 [node name="floor" type="MeshInstance" parent="background_world"]
 transform = Transform( 63.5347, 0, 247.991, 0, 1, 0, -247.991, 0, 63.5347, 0, 0, 0 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 7 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
 
-[node name="camera_3d_effects" parent="background_world" instance=ExtResource( 2 )]
-transform = Transform( 0.963935, 0.260591, 0.0540329, -0.258599, 0.965106, -0.0411781, -0.0628782, 0.0257202, 0.997689, 0.84, 0.17, 0 )
+[node name="camera_3d_effects" parent="background_world" instance=ExtResource( 9 )]
+transform = Transform( 0.999326, -0.00801691, 0.0357923, 0.0112959, 0.99566, -0.0923705, -0.0348965, 0.0927126, 0.99508, 0, 1.22, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/camera_3d_effects"]
 autoplay = "menu"
-anims/menu = SubResource( 13 )
+anims/menu = SubResource( 4 )
 
 [node name="cat" type="Spatial" parent="background_world"]
 transform = Transform( 0.296542, 0, 0.95502, 0, 1, 0, -0.95502, 0, 0.296542, -1.54, 1, -4.79 )
 
-[node name="head" parent="background_world/cat" instance=ExtResource( 4 )]
-transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.384604, -1.34 )
+[node name="head" parent="background_world/cat" instance=ExtResource( 2 )]
+transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.0529704, -1.34 )
 
-[node name="tail" parent="background_world/cat" instance=ExtResource( 9 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.0586754, -1.42 )
+[node name="tail" parent="background_world/cat" instance=ExtResource( 4 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.409732, -1.42 )
 
-[node name="tail2" parent="background_world/cat" instance=ExtResource( 9 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.00440097, -1.42 )
+[node name="tail2" parent="background_world/cat" instance=ExtResource( 4 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.703858, -1.42 )
 
-[node name="tail3" parent="background_world/cat" instance=ExtResource( 9 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.143849, -1.42 )
+[node name="tail3" parent="background_world/cat" instance=ExtResource( 4 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.93101, -1.42 )
 
-[node name="tail4" parent="background_world/cat" instance=ExtResource( 9 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.408669, -1.42 )
+[node name="tail4" parent="background_world/cat" instance=ExtResource( 4 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.996187, -1.42 )
 
-[node name="tail5" parent="background_world/cat" instance=ExtResource( 9 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.796213, -1.42 )
+[node name="tail5" parent="background_world/cat" instance=ExtResource( 4 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.770514, -1.42 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/cat"]
 autoplay = "swirlll"
 anims/swirlll = SubResource( 5 )
 
-[node name="MeshInstance" type="MeshInstance" parent="background_world"]
+[node name="amigaaaa" type="MeshInstance" parent="background_world"]
 transform = Transform( -1.55174e-07, -0.952449, -0.304698, 1, -1.62921e-07, 0, -4.96416e-08, -0.304698, 0.952449, 3.91, 6, -30.21 )
-mesh = SubResource( 12 )
+mesh = SubResource( 7 )
 material/0 = null
 
 [node name="main" type="Control" parent="."]
@@ -284,17 +280,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="main"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true,
-"_editor_description_": ""
-}
-
-[node name="bars" type="Control" parent="main"]
+[node name="logo" type="Control" parent="main"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -299.0
@@ -306,12 +292,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="main/bars"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="main/logo"]
 autoplay = "flow"
 playback_speed = 0.1
-anims/flow = SubResource( 1 )
+anims/flow = SubResource( 8 )
 
-[node name="ColorRect" type="ColorRect" parent="main/bars"]
+[node name="ColorRect" type="ColorRect" parent="main/logo"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -325,7 +311,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect2" type="ColorRect" parent="main/bars/ColorRect"]
+[node name="ColorRect2" type="ColorRect" parent="main/logo/ColorRect"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -336,7 +322,7 @@ margin_bottom = -38.5251
 rect_min_size = Vector2( 0, 43 )
 color = Color( 0.109804, 0.176471, 0.482353, 0.305882 )
 
-[node name="ColorRect3" type="ColorRect" parent="main/bars/ColorRect"]
+[node name="ColorRect3" type="ColorRect" parent="main/logo/ColorRect"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -347,12 +333,12 @@ margin_bottom = -98.5502
 rect_min_size = Vector2( 0, 43 )
 color = Color( 0.109804, 0.176471, 0.482353, 0.305882 )
 
-[node name="life-is-short" type="Label" parent="main/bars/ColorRect"]
+[node name="life-is-short" type="Label" parent="main/logo/ColorRect"]
 margin_left = 745.373
 margin_top = -111.603
 margin_right = 1342.37
 margin_bottom = 34.3968
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color_shadow = Color( 0.109804, 0.176471, 0.482353, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 12
@@ -361,7 +347,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="game_by" type="Label" parent="main/bars/ColorRect/life-is-short"]
+[node name="game_by" type="Label" parent="main/logo/ColorRect/life-is-short"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -25.0
@@ -388,7 +374,7 @@ margin_top = -86.0
 margin_right = 520.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 360, 140 )
-custom_styles/panel = SubResource( 8 )
+custom_styles/panel = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
@@ -464,7 +450,7 @@ margin_left = -153.0
 margin_top = -45.0
 margin_right = 150.0
 margin_bottom = 71.0
-custom_styles/panel = SubResource( 10 )
+custom_styles/panel = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -490,10 +476,10 @@ margin_left = -132.0
 margin_top = -39.0
 margin_right = 132.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 12 )
 text = "999999"
 
-[node name="fps" parent="main" instance=ExtResource( 10 )]
+[node name="fps" parent="main" instance=ExtResource( 6 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0
@@ -501,5 +487,9 @@ margin_top = 14.0
 margin_right = 14.0
 margin_bottom = 14.0
 theme = ExtResource( 7 )
+[connection signal="gui_input" from="main/menu/panel/buttons/start" to="." method="_on_start_gui_input"]
 [connection signal="pressed" from="main/menu/panel/buttons/start" to="." method="_on_start_pressed"]
+[connection signal="gui_input" from="main/menu/panel/buttons/demo" to="." method="_on_demo_gui_input"]
+[connection signal="gui_input" from="main/menu/panel/buttons/instruction" to="." method="_on_instruction_gui_input"]
+[connection signal="gui_input" from="main/menu/panel/buttons/quit" to="." method="_on_quit_gui_input"]
 [connection signal="pressed" from="main/menu/panel/buttons/quit" to="." method="_on_quit_pressed"]

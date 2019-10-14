@@ -8,20 +8,20 @@
 [ext_resource path="res://sounds/caterpillar/chrum2.wav" type="AudioStream" id=6]
 [ext_resource path="res://sounds/caterpillar/chrum3.wav" type="AudioStream" id=7]
 [ext_resource path="res://sounds/caterpillar/chrum4.wav" type="AudioStream" id=8]
-[ext_resource path="res://models/shroom/Mushroom10.dae" type="PackedScene" id=9]
-[ext_resource path="res://models/shroom/Mushroom9.dae" type="PackedScene" id=10]
-[ext_resource path="res://models/shroom/Mushroom2.dae" type="PackedScene" id=11]
-[ext_resource path="res://models/shroom/Mushroom13.dae" type="PackedScene" id=12]
+[ext_resource path="res://models/shroom/Mushroom9.dae" type="PackedScene" id=9]
+[ext_resource path="res://models/shroom/Mushroom3.dae" type="PackedScene" id=10]
+[ext_resource path="res://models/shroom/Mushroom13.dae" type="PackedScene" id=11]
+[ext_resource path="res://models/shroom/Mushroom2.dae" type="PackedScene" id=12]
 [ext_resource path="res://models/shroom/Mushroom4.dae" type="PackedScene" id=13]
-[ext_resource path="res://models/shroom/Mushroom1.dae" type="PackedScene" id=14]
-[ext_resource path="res://models/shroom/Mushroom11.dae" type="PackedScene" id=15]
+[ext_resource path="res://models/shroom/Mushroom10.dae" type="PackedScene" id=14]
+[ext_resource path="res://models/shroom/Mushroom5.dae" type="PackedScene" id=15]
 [ext_resource path="res://models/shroom/Mushroom12.dae" type="PackedScene" id=16]
-[ext_resource path="res://models/shroom/Mushroom5.dae" type="PackedScene" id=17]
-[ext_resource path="res://models/shroom/Mushroom3.dae" type="PackedScene" id=18]
+[ext_resource path="res://models/shroom/Mushroom11.dae" type="PackedScene" id=17]
+[ext_resource path="res://models/shroom/Mushroom1.dae" type="PackedScene" id=18]
 
-[sub_resource type="PhysicsMaterial" id=6]
+[sub_resource type="PhysicsMaterial" id=1]
 
-[sub_resource type="CylinderShape" id=7]
+[sub_resource type="CylinderShape" id=2]
 radius = 1.5
 height = 5.10547
 
@@ -136,12 +136,12 @@ size = Vector3( 1, 1, 1 )
 [node name="shroom" type="Position3D"]
 
 [node name="StaticBody" type="StaticBody" parent="."]
-physics_material_override = SubResource( 6 )
+physics_material_override = SubResource( 1 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1845, 0 )
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.62091, 0 )
@@ -176,21 +176,21 @@ stream = ExtResource( 7 )
 [node name="eat4" type="AudioStreamPlayer" parent="sounds"]
 stream = ExtResource( 8 )
 
-[node name="Mushroom1" parent="." instance=ExtResource( 14 )]
+[node name="Mushroom1" parent="." instance=ExtResource( 18 )]
 visible = false
 
 [node name="Mushroom1" parent="Mushroom1" index="0"]
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom2" parent="." instance=ExtResource( 11 )]
+[node name="Mushroom2" parent="." instance=ExtResource( 12 )]
 visible = false
 
 [node name="Mushroom2" parent="Mushroom2" index="0"]
 material/0 = ExtResource( 3 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom3" parent="." instance=ExtResource( 18 )]
+[node name="Mushroom3" parent="." instance=ExtResource( 10 )]
 visible = false
 
 [node name="Mushroom3" parent="Mushroom3" index="0"]
@@ -204,45 +204,45 @@ visible = false
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom5" parent="." instance=ExtResource( 17 )]
+[node name="Mushroom5" parent="." instance=ExtResource( 15 )]
 visible = false
 
 [node name="Mushroom5" parent="Mushroom5" index="0"]
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom9" parent="." instance=ExtResource( 10 )]
+[node name="Mushroom6" parent="." instance=ExtResource( 9 )]
 visible = false
 
-[node name="Mushroom9" parent="Mushroom9" index="0"]
+[node name="Mushroom9" parent="Mushroom6" index="0"]
 material/0 = ExtResource( 3 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom10" parent="." instance=ExtResource( 9 )]
+[node name="Mushroom7" parent="." instance=ExtResource( 14 )]
 visible = false
 
-[node name="Mushroom10" parent="Mushroom10" index="0"]
+[node name="Mushroom10" parent="Mushroom7" index="0"]
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom11" parent="." instance=ExtResource( 15 )]
+[node name="Mushroom8" parent="." instance=ExtResource( 17 )]
 visible = false
 
-[node name="Mushroom11" parent="Mushroom11" index="0"]
+[node name="Mushroom11" parent="Mushroom8" index="0"]
 material/0 = ExtResource( 3 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom12" parent="." instance=ExtResource( 16 )]
+[node name="Mushroom9" parent="." instance=ExtResource( 16 )]
 visible = false
 
-[node name="Mushroom12" parent="Mushroom12" index="0"]
+[node name="Mushroom12" parent="Mushroom9" index="0"]
 material/0 = ExtResource( 2 )
 material/1 = ExtResource( 1 )
 
-[node name="Mushroom13" parent="." instance=ExtResource( 12 )]
+[node name="Mushroom10" parent="." instance=ExtResource( 11 )]
 visible = false
 
-[node name="Mushroom13" parent="Mushroom13" index="0"]
+[node name="Mushroom13" parent="Mushroom10" index="0"]
 material/0 = ExtResource( 3 )
 material/1 = ExtResource( 1 )
 
@@ -256,12 +256,12 @@ material/1 = ExtResource( 1 )
 
 [editable path="Mushroom5"]
 
+[editable path="Mushroom6"]
+
+[editable path="Mushroom7"]
+
+[editable path="Mushroom8"]
+
 [editable path="Mushroom9"]
 
 [editable path="Mushroom10"]
-
-[editable path="Mushroom11"]
-
-[editable path="Mushroom12"]
-
-[editable path="Mushroom13"]
