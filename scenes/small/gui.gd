@@ -6,26 +6,36 @@ onready var time_anim = $top/time/time_anim
 onready var score = $top/score/score
 onready var coins = $right/power/coins
 
-var game_time = 0
+
 const P_PROGRESS_SIZE_INIT = Vector2(80, 24)
 const P_PROGRESS_SIZE_MAX = Vector2(80, 256)
-const P_PROGRESS_SIZE_INC = Vector2(0, 12)
+const P_PROGRESS_SIZE_MIN = Vector2(80, 24)
 
 const T_PROGRESS_SIZE_INIT = Vector2(386, 32)
 const T_PROGRESS_SIZE_MAX = Vector2(386, 32)
 const T_PROGRESS_SIZE_MIN = Vector2(24, 32)
 
+var game_time = 0
+var tornado_req = 0
+
 func _ready():
 	add_to_group("gui")
 	$loading.show()
 
-func power_inc():
-	if power_progress.rect_size < P_PROGRESS_SIZE_MAX:
-		power_progress.rect_size += P_PROGRESS_SIZE_INC
+func power_set(p, pmax):
+	var p_percent = p * 100 / pmax
+	var pp_height = (P_PROGRESS_SIZE_MAX.y * p_percent) / 100 
+	if pp_height > P_PROGRESS_SIZE_MAX.y: pp_height = P_PROGRESS_SIZE_MAX.y
+	power_progress.rect_size = Vector2(T_PROGRESS_SIZE_MIN.x, pp_height)
+	if p_percent >= tornado_req:
+		$right/power/button.show()
+	else:
+		$right/power/button.hide()
 
-func power_reset():
+func power_reset(tornado):
 	power_progress.rect_size = P_PROGRESS_SIZE_INIT
-	
+	tornado_req = tornado
+
 func score_set(s):
 	score.set_text(str(s))
 
@@ -47,6 +57,6 @@ func time_set(t):
 func time_reset(gt):
 	time_progress.rect_size = T_PROGRESS_SIZE_INIT
 	game_time = gt
-	
+
 func show_game_over():
 	$game_over.show()

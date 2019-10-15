@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://misc/main_script.gd" type="Script" id=1]
 [ext_resource path="res://misc/default_env.tres" type="Environment" id=2]
-[ext_resource path="res://scenes/small/gui.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sounds/music/end.wav" type="AudioStream" id=3]
+[ext_resource path="res://scenes/caterpillar/main_segment.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/small/gui.tscn" type="PackedScene" id=5]
 [ext_resource path="res://vendors/p1x/infinite_terrain/terrain2.material" type="Material" id=6]
 [ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/caterpillar/tail_segment.tscn" type="PackedScene" id=8]
 [ext_resource path="res://vendors/p1x/infinite_terrain/infinite_terrain.gd" type="Script" id=9]
 [ext_resource path="res://sounds/music/ambient.ogg" type="AudioStream" id=16]
 
@@ -29,14 +30,14 @@ shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 512.0
 
-[node name="gui" parent="." instance=ExtResource( 3 )]
+[node name="gui" parent="." instance=ExtResource( 5 )]
 
 [node name="infinite_terrain" type="Spatial" parent="."]
 script = ExtResource( 9 )
 chunk_size = 128
 chunk_amount = 6
 
-[node name="player" parent="infinite_terrain" instance=ExtResource( 5 )]
+[node name="player" parent="infinite_terrain" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10366, 0 )
 move_max_speed = 180
 controller_enabled = false
@@ -44,40 +45,40 @@ controller_enabled = false
 [node name="camera" parent="infinite_terrain/player/camera_pivot" index="0"]
 transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 2.12, 32 )
 
-[node name="tail" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 1
 
-[node name="tail2" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail2" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 2
 
-[node name="tail3" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail3" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 3
 
-[node name="tail4" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail4" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 4
 
-[node name="tail5" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail5" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 5
 
-[node name="tail6" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail6" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 6
 
-[node name="tail7" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail7" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 7
 
-[node name="tail8" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail8" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 8
 
-[node name="tail9" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail9" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 9
 
-[node name="tail10" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail10" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 10
 
-[node name="tail11" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail11" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 11
 
-[node name="tail12" parent="infinite_terrain" instance=ExtResource( 4 )]
+[node name="tail12" parent="infinite_terrain" instance=ExtResource( 8 )]
 index = 12
 
 [node name="MeshInstance" type="MeshInstance" parent="infinite_terrain"]
@@ -91,6 +92,10 @@ material/0 = null
 [node name="music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 autoplay = true
+
+[node name="end" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "Music"
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
 
 [editable path="infinite_terrain/player"]

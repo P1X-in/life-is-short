@@ -29,18 +29,3 @@ func _on_creds_pressed():
 
 func activate_first_button():
 	get_node(first_button_path).grab_focus()
-
-func vibrate():
-	Input.start_joy_vibration(0, 0.0, 0.1, 0.05)
-	
-func _on_start_gui_input(event):
-	vibrate()
-
-func _on_demo_gui_input(event):
-	vibrate()
-
-func _on_instruction_gui_input(event):
-	vibrate()
-
-func _on_quit_gui_input(event):
-	vibrate()

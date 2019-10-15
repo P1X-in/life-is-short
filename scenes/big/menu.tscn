@@ -1,14 +1,15 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
-[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=2]
-[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=3]
-[ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sounds/music/menu.ogg" type="AudioStream" id=2]
+[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=4]
 [ext_resource path="res://vendors/p1x/shaders/amiga.shader" type="Shader" id=5]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=6]
+[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=6]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=9]
+[ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=10]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -49,7 +50,7 @@ shader_param/uv_scale = 24.0
 
 [sub_resource type="Animation" id=4]
 resource_name = "menu"
-length = 10.0
+length = 3.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -58,10 +59,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5, 2, 4, 4.5, 6.5, 7, 9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 1.22, 0 ), Vector3( 0, 1.22, 0 ), Vector3( 0.84, 0.17, 0 ), Vector3( 0.84, 0.17, 0 ), Vector3( -0.11, 2.24, -1.88 ), Vector3( -0.11, 2.24, -1.88 ), Vector3( -1.719, 0.289, -2.443 ), Vector3( -1.719, 0.289, -2.443 ) ]
+"values": [ Vector3( 0, 1.15, 0 ), Vector3( 0, 0.7, 0 ), Vector3( 0, 1.065, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rotation_degrees")
@@ -70,10 +71,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.2, 2.3, 3.8, 4.7, 6.3, 7.3, 8.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 5.3, 2.06, 0.65 ), Vector3( 5.3, 2.06, 0.65 ), Vector3( 2.36, 3.1, -15 ), Vector3( 2.36, 3.1, -15 ), Vector3( -12.08, 17.6, -2.13 ), Vector3( -12.08, 17.6, -2.13 ), Vector3( 24.967, 16.03, 1.282 ), Vector3( 24.967, 16.03, 1.282 ) ]
+"values": [ Vector3( 14.05, 1.34, 8.65 ), Vector3( 22.26, 1.57, 8.65 ), Vector3( 18.265, 0.925, 7.18 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -228,7 +229,7 @@ transform = Transform( 1, 0, 0, 0, -0.187039, 0.982353, 0, -0.982353, -0.187039,
 shadow_enabled = true
 directional_shadow_blend_splits = true
 
-[node name="clouds" parent="background_world" instance=ExtResource( 3 )]
+[node name="clouds" parent="background_world" instance=ExtResource( 9 )]
 transform = Transform( -3.96356, 0, 0.538711, 0, 4, 0, -0.538711, 0, -3.96356, 0, 48, 0 )
 
 [node name="floor" type="MeshInstance" parent="background_world"]
@@ -236,8 +237,8 @@ transform = Transform( 63.5347, 0, 247.991, 0, 1, 0, -247.991, 0, 63.5347, 0, 0,
 mesh = SubResource( 1 )
 material/0 = SubResource( 3 )
 
-[node name="camera_3d_effects" parent="background_world" instance=ExtResource( 9 )]
-transform = Transform( 0.999326, -0.00801691, 0.0357923, 0.0112959, 0.99566, -0.0923705, -0.0348965, 0.0927126, 0.99508, 0, 1.22, 0 )
+[node name="camera_3d_effects" parent="background_world" instance=ExtResource( 3 )]
+transform = Transform( 0.991486, -0.128954, 0.018011, 0.128661, 0.949062, -0.287621, 0.0199965, 0.28749, 0.957574, 0, 1.09624, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/camera_3d_effects"]
 autoplay = "menu"
@@ -246,23 +247,23 @@ anims/menu = SubResource( 4 )
 [node name="cat" type="Spatial" parent="background_world"]
 transform = Transform( 0.296542, 0, 0.95502, 0, 1, 0, -0.95502, 0, 0.296542, -1.54, 1, -4.79 )
 
-[node name="head" parent="background_world/cat" instance=ExtResource( 4 )]
-transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.0529704, -1.34 )
+[node name="head" parent="background_world/cat" instance=ExtResource( 10 )]
+transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.269619, -1.34 )
 
-[node name="tail" parent="background_world/cat" instance=ExtResource( 2 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.409732, -1.42 )
+[node name="tail" parent="background_world/cat" instance=ExtResource( 6 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.01264, -1.42 )
 
-[node name="tail2" parent="background_world/cat" instance=ExtResource( 2 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.703858, -1.42 )
+[node name="tail2" parent="background_world/cat" instance=ExtResource( 6 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.0444839, -1.42 )
 
-[node name="tail3" parent="background_world/cat" instance=ExtResource( 2 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.93101, -1.42 )
+[node name="tail3" parent="background_world/cat" instance=ExtResource( 6 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.25124, -1.42 )
 
-[node name="tail4" parent="background_world/cat" instance=ExtResource( 2 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.996187, -1.42 )
+[node name="tail4" parent="background_world/cat" instance=ExtResource( 6 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.540896, -1.42 )
 
-[node name="tail5" parent="background_world/cat" instance=ExtResource( 2 )]
-transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.770514, -1.42 )
+[node name="tail5" parent="background_world/cat" instance=ExtResource( 6 )]
+transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.903658, -1.42 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/cat"]
 autoplay = "swirlll"
@@ -479,7 +480,7 @@ margin_bottom = 39.0
 custom_fonts/font = SubResource( 12 )
 text = "999999"
 
-[node name="fps" parent="main" instance=ExtResource( 6 )]
+[node name="fps" parent="main" instance=ExtResource( 4 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0
@@ -487,9 +488,10 @@ margin_top = 14.0
 margin_right = 14.0
 margin_bottom = 14.0
 theme = ExtResource( 7 )
-[connection signal="gui_input" from="main/menu/panel/buttons/start" to="." method="_on_start_gui_input"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+bus = "Music"
 [connection signal="pressed" from="main/menu/panel/buttons/start" to="." method="_on_start_pressed"]
-[connection signal="gui_input" from="main/menu/panel/buttons/demo" to="." method="_on_demo_gui_input"]
-[connection signal="gui_input" from="main/menu/panel/buttons/instruction" to="." method="_on_instruction_gui_input"]
-[connection signal="gui_input" from="main/menu/panel/buttons/quit" to="." method="_on_quit_gui_input"]
 [connection signal="pressed" from="main/menu/panel/buttons/quit" to="." method="_on_quit_pressed"]

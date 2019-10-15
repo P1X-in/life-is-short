@@ -4,6 +4,7 @@ var coin = preload("res://models/coin/coin.gd")
 var shroom = preload("res://models/shroom/shroom.gd")
 var tree = preload("res://models/forest/tree.gd")
 var arcade = preload("res://models/arcade.gd")
+var amiga = preload("res://models/amiga/amiga.gd")
 
 export var initial_size = 1.0
 
@@ -17,9 +18,16 @@ const GAME_TIME = 180
 
 var coins_count = 0
 var score = 0
+var power = 0
+var tornado_enabled = false
+
+const POWER_MAX = 100
+const POWER_REQ_TORNADO = 50
+const POWER_SHROOM = 20
+const POWER_COIN = 2
 
 const SCORE_COIN = 10
-const SCORE_SHROOM = 50
+const SCORE_SHROOM = 0
 const SCORE_FALL = 100
 const SCORE_ARCADE = 1000
 
@@ -31,6 +39,7 @@ func _ready():
     ._ready()
     self.size = self.initial_size
     self.set_scale(Vector3(self.size, self.size, self.size))
+    get_tree().call_group("gui", "power_reset", POWER_REQ_TORNADO)
 
 onready var sounds = $"sounds/movement"
 
@@ -50,6 +59,11 @@ func _physics_process(delta):
         self.sounds.stop()
 
     self.raycast.cast_to = Vector3(0, -1 * self.size, self.camera_max_distance * self.size)
+    
+    if power >= POWER_REQ_TORNADO and Input.is_joy_button_pressed(device_id, JOY_BUTTON_0):
+        $anim.play("power_tornado")
+        tornado_enabled = true
+        power_inc(-POWER_REQ_TORNADO)
 
 func process_body_collision(collision):
     if collision.collider is self.coin:
@@ -60,23 +74,24 @@ func process_body_collision(collision):
         self.bump_tree(collision.collider)
     if collision.collider is self.arcade:
         self.run_arcade(collision.collider)
+    if collision.collider is self.amiga:
+        self.hit_amiga(collision.collider)
 
 func get_speed(factor):
     var sine_variance = (sin(self.accumulated_delta) + 1.0) / 4.0 + 0.5
     return self.move_max_speed * factor * sine_variance
 
 func pick_up_coin(coin):
-    coin.get_parent().get_node("anim").play("pick_up")
-    coin.queue_free()
-    $sounds/coin.play()
+    coin.pick_up()
     coins_count += 1
     score_inc(SCORE_COIN)
+    power_inc(POWER_COIN)
     get_tree().call_group("gui", "coins_set", coins_count) 
     Input.start_joy_vibration(0, 0.1, 0.2, 0.1)
 
 func eat_shroom(shroom):
     score_inc(SCORE_SHROOM)
-    get_tree().call_group("gui", "power_inc")
+    power_inc(POWER_SHROOM)
     shroom.eat()
     Input.start_joy_vibration(0, 0.2, 0.4, 0.2)
 
@@ -86,14 +101,24 @@ func run_arcade(arcade):
     $anim.play("power_tornado")
 
 func bump_tree(tree):
-    # if power then tree.fall()
-    # score_inc(SCORE_FALL)
-    tree.shake()
+    if tornado_enabled:
+        tree.fall()
+        score_inc(SCORE_FALL)
+    else:
+        tree.shake()
     Input.start_joy_vibration(0, 0.2, 0.7, 0.2)
 
 func score_inc(what):
     score += what
     get_tree().call_group("gui", "score_set", score)
+
+func power_inc(what):
+    power += what
+    if power > POWER_MAX: power = POWER_MAX
+    get_tree().call_group("gui", "power_set", power, POWER_MAX)
+
+func hit_amiga(a):
+    enemy_strike(a)
 
 func enemy_strike(enemy):
     hit()
@@ -106,6 +131,9 @@ func hit():
 
 func kaiju_fight(kaiju):
     self.die()
+
+func tornado_power_used():
+    tornado_enabled = false
 
 func die():
     get_tree().call_group("game", "player_die")

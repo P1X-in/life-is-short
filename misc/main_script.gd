@@ -23,6 +23,7 @@ func _on_play_pressed():
 	next_scene("scenes/big/main")
 
 func end_game():
+	$end.play()
 	$infinite_terrain/player.controller_enabled = false
 	get_tree().call_group("gui", "show_game_over")
 

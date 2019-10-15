@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://vendors/p1x/shaders/amiga.shader" type="Shader" id=1]
+[ext_resource path="res://models/amiga/amiga.gd" type="Script" id=2]
+
+[sub_resource type="SphereShape" id=1]
+radius = 12.0
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/s = 0.5
+shader_param/tf = 0.1
+shader_param/animate = false
+shader_param/uv_scale = 4.0
+
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
+radius = 12.0
+height = 24.0
+radial_segments = 32
+rings = 16
+
+[node name="amiga" type="Spatial"]
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.45062, 0 )
+mass = 18.0
+gravity_scale = 4.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+shape = SubResource( 1 )
+
+[node name="ball" type="MeshInstance" parent="RigidBody"]
+mesh = SubResource( 3 )
+material/0 = null
+[connection signal="body_entered" from="RigidBody" to="RigidBody" method="_on_RigidBody_body_entered"]

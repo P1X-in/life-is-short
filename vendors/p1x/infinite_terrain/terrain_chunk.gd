@@ -7,6 +7,7 @@ export var COLLIS = true
 export var WATER_LEVEL = -16
 export var CLOUDS_LEVEL = 64
 export var ITEMS_AMOUNT = 16
+export var ENEMIES_AMOUNT = 1
 
 var models = [
 	preload("res://models/shroom/shroom.tscn"), #0
@@ -20,18 +21,18 @@ var models = [
 	preload("res://models/forest/bush1.tscn"), #6
 	preload("res://models/forest/bush2.tscn"),
 	preload("res://models/forest/bush3.tscn"),
-	
 ]
 
 var active_terrain = 0
 var terrains = [
 	[
+		-1,-1,-1,-1,	# no mans land
 		0,				# shrooms
-		1,1,1,1,
 		2,3,4,5,	# trees
 		6,6,6,7,7,7,8,8,8	# bushes
 	],
 	[
+		-1,-1,-1,-1,	# no mans land
 		0,0,0,				# shrooms
 		1,			# arcade
 		2,2,3,3,4,4,5,5,	# trees
@@ -108,51 +109,69 @@ func generate_chunk():
 	mesh_instance.cast_shadow = GeometryInstance.SHADOW_CASTING_SETTING_OFF
 
 	add_child(mesh_instance)
-	generate_vegetation(pool_array)
-	generate_coins(pool_array)
+	
+	spawn_enemy(generate_coins(generate_vegetation(pool_array)))
 
 func generate_vegetation(pool):
 	for i in range(ITEMS_AMOUNT):
-		var random_model_id = terrains[active_terrain][(randi() % terrains[active_terrain].size())-1];
-		var object = models[random_model_id].instance()
-		var dust_instance = dust.instance()
-		
 		var random_pool_id = randi() % pool.size()
-		var pos = pool[random_pool_id]
-		var ran = 0.8 + randf()
-		var sca = Vector3(ran,ran,ran)
-
-		var body_node = "body"
-		if random_model_id == 0:
-			var types = [
-			'Mushroom1', 'Mushroom2', 'Mushroom3', 'Mushroom4', 'Mushroom5',
-			'Mushroom6', 'Mushroom7', 'Mushroom8', 'Mushroom9', 'Mushroom10']
-			types.shuffle()
-			body_node = types[0]
-		var model_node = object.get_node(body_node)
-		model_node.show()
-		
-		if random_model_id == 1:
-			model_node.rotate_y(randf() * 360)
-		if not random_model_id == 1:
-			model_node.transform = model_node.transform.scaled(sca)
-
-		object.translate(pos)
-		add_child(object)
-		
-		dust_instance.translate(Vector3(0,WATER_LEVEL,0))
-		add_child(dust_instance)
+		var random_model_id = terrains[active_terrain][(randi() % terrains[active_terrain].size())-1];
+		if random_model_id >= 0:
+			var object = models[random_model_id].instance()
+			var dust_instance = dust.instance()
+			
+			
+			var pos = pool[random_pool_id]
+			var ran = 0.8 + randf()
+			var sca = Vector3(ran,ran,ran)
+	
+			var body_node = "body"
+			if random_model_id == 0:
+				var types = [
+				'Mushroom1', 'Mushroom2', 'Mushroom3', 'Mushroom4', 'Mushroom5',
+				'Mushroom6', 'Mushroom7', 'Mushroom8', 'Mushroom9', 'Mushroom10']
+				types.shuffle()
+				body_node = types[0]
+			var model_node = object.get_node(body_node)
+			model_node.show()
+			
+			if random_model_id == 1:
+				model_node.rotate_y(randf() * 360)
+			if not random_model_id == 1:
+				model_node.transform = model_node.transform.scaled(sca)
+	
+			object.translate(pos)
+			add_child(object)
+			
+			dust_instance.translate(Vector3(0,WATER_LEVEL,0))
+			add_child(dust_instance)
 		pool.remove(random_pool_id)
+	return pool
 
 func generate_coins(pool):
 	var coin_base = preload("res://models/coin/coin.tscn")
 
 	for i in range(ITEMS_AMOUNT):
-		var pos = pool[randi() % pool.size()]
+		var random_pool_id = randi() % pool.size()
+		var pos = pool[random_pool_id]
 		var object = coin_base.instance()
 		object.translate(pos)
 		add_child(object)
+		pool.remove(random_pool_id)
+	return pool
 
+func spawn_enemy(pool):
+	var amiga_base = preload("res://models/amiga/amiga.tscn")
+
+	for i in range(ENEMIES_AMOUNT):
+		var random_pool_id = randi() % pool.size()
+		var pos = pool[random_pool_id]
+		var object = amiga_base.instance()
+		object.translate(pos + Vector3(0.0,8.0,0.0))
+		add_child(object)
+		pool.remove(random_pool_id)
+	return pool
+		
 func generate_water_layer():
 	var plane_mesh = PlaneMesh.new()
 	plane_mesh.size = Vector2(chunk_size, chunk_size)

@@ -8,7 +8,7 @@
 radius = 3.4
 height = 6.21
 
-[node name="bush1" index="0" instance=ExtResource( 1 )]
+[node name="bush1" instance=ExtResource( 1 )]
 
 [node name="body" parent="." index="0" instance=ExtResource( 2 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
