@@ -114,7 +114,9 @@ func score_inc(what):
 
 func power_inc(what):
     power += what
-    if power > POWER_MAX: power = POWER_MAX
+    if power > POWER_MAX: 
+        power = POWER_MAX
+        hit()
     get_tree().call_group("gui", "power_set", power, POWER_MAX)
 
 func hit_amiga(a):
@@ -127,13 +129,13 @@ func enemy_strike(enemy):
 func hit():
     lives -= 1
     if lives < 0:
-        self.die()
+        self.die("Life was short")
 
 func kaiju_fight(kaiju):
-    self.die()
+    self.die("kaiju")
 
 func tornado_power_used():
     tornado_enabled = false
 
-func die():
-    get_tree().call_group("game", "player_die")
+func die(way):
+    get_tree().call_group("game", "player_die", way)

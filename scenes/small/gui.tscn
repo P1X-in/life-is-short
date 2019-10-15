@@ -16,7 +16,7 @@
 [ext_resource path="res://scenes/small/gui.gd" type="Script" id=14]
 [ext_resource path="res://scenes/small/time.gd" type="Script" id=15]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 resource_name = "ping"
 tracks/0/type = "value"
 tracks/0/path = NodePath("progress:custom_styles/panel:shadow_size")
@@ -207,7 +207,7 @@ __meta__ = {
 }
 
 [node name="time_anim" type="AnimationPlayer" parent="top/time"]
-anims/ping = SubResource( 6 )
+anims/ping = SubResource( 1 )
 
 [node name="lives" type="Control" parent="top"]
 anchor_left = 0.5

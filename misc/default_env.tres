@@ -1,4 +1,11 @@
-[gd_resource type="Environment" load_steps=2 format=2]
+[gd_resource type="Environment" load_steps=4 format=2]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.411504, 0.650442, 0.893805, 1 )
+colors = PoolColorArray( 0.750458, 0.136719, 1, 1, 0.839844, 0.456419, 0.118103, 1, 0.183594, 0.693848, 1, 1, 0.222857, 0.679642, 0.947237, 1, 0.372772, 0.198669, 0.546875, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.831373, 0.647059, 0.945098, 1 )
@@ -31,6 +38,4 @@ dof_blur_near_amount = 0.08
 dof_blur_near_quality = 2
 glow_enabled = true
 glow_intensity = 1.2
-adjustment_brightness = 1.09
-adjustment_contrast = 0.9
-adjustment_saturation = 1.26
+adjustment_color_correction = SubResource( 3 )

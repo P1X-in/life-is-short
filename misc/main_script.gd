@@ -22,13 +22,13 @@ func _on_menu_pressed():
 func _on_play_pressed():
 	next_scene("scenes/big/main")
 
-func end_game():
+func end_game(msg):
 	$end.play()
 	$infinite_terrain/player.controller_enabled = false
-	get_tree().call_group("gui", "show_game_over")
+	get_tree().call_group("gui", "show_game_over", msg)
 
-func player_die():
-	end_game()
+func player_die(msg):
+	end_game(msg)
 	
-func time_elapsed():
-	end_game()
+func time_elapsed(msg):
+	end_game(msg)

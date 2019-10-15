@@ -17,6 +17,7 @@ const T_PROGRESS_SIZE_MIN = Vector2(24, 32)
 
 var game_time = 0
 var tornado_req = 0
+var last_score = 0
 
 func _ready():
 	add_to_group("gui")
@@ -38,6 +39,7 @@ func power_reset(tornado):
 
 func score_set(s):
 	score.set_text(str(s))
+	last_score = s
 
 func coins_set(c):
 	coins.set_text(str(c))
@@ -58,5 +60,8 @@ func time_reset(gt):
 	time_progress.rect_size = T_PROGRESS_SIZE_INIT
 	game_time = gt
 
-func show_game_over():
+func show_game_over(msg):
+	$game_over/score/stats/score.set_text(str(last_score))
+	$game_over/score/_gameover.set_text(msg)
 	$game_over.show()
+	$game_over/menu/menu/play.grab_focus()
