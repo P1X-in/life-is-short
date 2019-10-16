@@ -69,9 +69,22 @@ func time_set(t):
 func time_reset(gt):
 	time_progress.rect_size = T_PROGRESS_SIZE_INIT
 	game_time = gt
+	
+func compass_set(c):
+	$left/compass/aim.set_rotation(c)
 
 func show_game_over(msg):
 	$game_over/score/stats/score.set_text(str(last_score))
 	$game_over/score/_gameover.set_text(msg)
 	$game_over.show()
 	$game_over/menu/menu/play.grab_focus()
+
+func next_scene(path):
+	get_tree().change_scene(path+".tscn")
+
+func _on_menu_pressed():
+	next_scene("scenes/big/menu")
+
+func _on_play_pressed():
+	next_scene("scenes/big/main")
+	pass # Replace with function body.

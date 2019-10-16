@@ -53,6 +53,7 @@ func _physics_process(delta):
 
     if self.is_moving:
         #clouds.translate(Vector3(translation.x, clouds.translation.y, translation.z))
+        get_tree().call_group("gui", "compass_set", -self.rotation.y)
         if not self.sounds.playing:
             self.sounds.play(randf()*4.0)
     else:
