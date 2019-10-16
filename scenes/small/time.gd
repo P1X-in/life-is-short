@@ -18,8 +18,8 @@ func _process(delta):
 	if timer_enabled:
 		time_now = OS.get_unix_time()
 		var elapsed = time_end - time_now
-		if elapsed < 0:
-			get_tree().call_group("game", "time_elapsed")
+		if elapsed <= 0:
+			get_tree().call_group("game", "time_elapsed", "Time left")
 			timer_enabled = false
 		get_tree().call_group("gui", "time_set", elapsed)
 		var minutes = elapsed / 60

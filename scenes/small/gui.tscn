@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://misc/style_violet.tres" type="StyleBox" id=2]
@@ -29,6 +29,30 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 2, 12, 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("progress:custom_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 0.905882, 0.207843, 1, 1 ), Color( 0.282353, 0.0901961, 0.309804, 1 ), Color( 0.905882, 0.207843, 1, 1 ), Color( 0.282353, 0.0901961, 0.309804, 1 ), Color( 0.905882, 0.207843, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("time:custom_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -73,6 +97,35 @@ func _ready():
 
 func update_coins(coins):
 	set_text(\"%04d\" % [coins])"
+
+[sub_resource type="Animation" id=6]
+resource_name = "pulse"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("progress:custom_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 0.890196, 0, 1 ), Color( 1, 0.890196, 0, 1 ), Color( 0.509804, 0.027451, 0.027451, 1 ), Color( 1, 0.890196, 0, 1 ), Color( 0.509804, 0.027451, 0.027451, 1 ), Color( 1, 0.890196, 0, 1 ), Color( 0.509804, 0.027451, 0.027451, 1 ), Color( 1, 0.890196, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("progress:custom_styles/panel:shadow_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 14, 14, 0 ]
+}
 
 [sub_resource type="DynamicFont" id=4]
 size = 64
@@ -123,17 +176,6 @@ margin_left = -140.0
 margin_top = 20.0
 margin_right = -140.0
 margin_bottom = 20.0
-
-[node name="power" type="Control" parent="."]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -90.0
-margin_right = -90.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="top" type="Control" parent="."]
 anchor_left = 0.5
@@ -198,6 +240,7 @@ margin_left = 127.0
 margin_top = -61.0
 margin_right = 183.0
 margin_bottom = -36.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "03:00"
 align = 1
 valign = 1
@@ -240,12 +283,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="live" type="Control" parent="top/lives/shelf"]
+[node name="0" type="Control" parent="top/lives/shelf"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="top/lives/shelf/live"]
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/0"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -260,7 +303,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="top/lives/shelf/live"]
+[node name="on" type="PanelContainer" parent="top/lives/shelf/0"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -275,13 +318,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="live2" type="Control" parent="top/lives/shelf"]
+[node name="1" type="Control" parent="top/lives/shelf"]
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="top/lives/shelf/live2"]
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/1"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -296,7 +339,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="top/lives/shelf/live2"]
+[node name="on" type="PanelContainer" parent="top/lives/shelf/1"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -311,13 +354,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="live3" type="Control" parent="top/lives/shelf"]
+[node name="2" type="Control" parent="top/lives/shelf"]
 margin_left = 72.0
 margin_right = 104.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="top/lives/shelf/live3"]
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/2"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -332,7 +375,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="top/lives/shelf/live3"]
+[node name="on" type="PanelContainer" parent="top/lives/shelf/2"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -347,13 +390,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="live4" type="Control" parent="top/lives/shelf"]
+[node name="3" type="Control" parent="top/lives/shelf"]
 margin_left = 108.0
 margin_right = 140.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 
-[node name="bg" type="PanelContainer" parent="top/lives/shelf/live4"]
+[node name="bg" type="PanelContainer" parent="top/lives/shelf/3"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -368,8 +411,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="on" type="PanelContainer" parent="top/lives/shelf/live4"]
-visible = false
+[node name="on" type="PanelContainer" parent="top/lives/shelf/3"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -516,7 +558,7 @@ text = "A"
 align = 1
 valign = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="right/power/button"]
+[node name="anim" type="AnimationPlayer" parent="right/power/button"]
 autoplay = "pulse"
 anims/pulse = SubResource( 2 )
 
@@ -545,6 +587,9 @@ margin_bottom = 191.0
 text = "POWER
 LEVEL"
 align = 1
+
+[node name="anim_power" type="AnimationPlayer" parent="right/power"]
+anims/pulse = SubResource( 6 )
 
 [node name="loading" type="Control" parent="."]
 visible = false

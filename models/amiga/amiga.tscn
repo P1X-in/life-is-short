@@ -24,6 +24,7 @@ rings = 16
 
 [node name="RigidBody" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.45062, 0 )
+collision_layer = 3
 mass = 18.0
 gravity_scale = 4.0
 contacts_reported = 1

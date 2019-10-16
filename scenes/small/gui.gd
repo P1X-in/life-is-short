@@ -32,7 +32,12 @@ func power_set(p, pmax):
 		$right/power/button.show()
 	else:
 		$right/power/button.hide()
-
+	
+	if p_percent >= 90:
+		$right/power/anim_power.play("pulse")
+	else:
+		$right/power/anim_power.stop()
+		
 func power_reset(tornado):
 	power_progress.rect_size = P_PROGRESS_SIZE_INIT
 	tornado_req = tornado
@@ -44,6 +49,11 @@ func score_set(s):
 func coins_set(c):
 	coins.set_text(str(c))
 
+func life_set(l):
+	var shelf = $top/lives/shelf
+	if l >= 0 and l < shelf.get_child_count():
+		shelf.get_node(str(l)).get_node("on").hide()
+	
 func start_game():
 	$"top/time/time".start_timer(180)
 	$"loading".hide()

@@ -57,6 +57,7 @@ chunk_amount = 6
 
 [node name="player" parent="infinite_terrain" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10366, 0 )
+collision_layer = 2
 move_max_speed = 180
 controller_enabled = false
 

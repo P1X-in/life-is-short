@@ -61,9 +61,7 @@ func _physics_process(delta):
     self.raycast.cast_to = Vector3(0, -1 * self.size, self.camera_max_distance * self.size)
     
     if power >= POWER_REQ_TORNADO and Input.is_joy_button_pressed(device_id, JOY_BUTTON_0):
-        $anim.play("power_tornado")
-        tornado_enabled = true
-        power_inc(-POWER_REQ_TORNADO)
+        self.tornado_power_start()
 
 func process_body_collision(collision):
     if collision.collider is self.coin:
@@ -82,23 +80,30 @@ func get_speed(factor):
     return self.move_max_speed * factor * sine_variance
 
 func pick_up_coin(coin):
+    if coin.is_used(): return
+    if tornado_enabled: 
+        coin.destroy()
+        return 
     coin.pick_up()
     coins_count += 1
     score_inc(SCORE_COIN)
     power_inc(POWER_COIN)
     get_tree().call_group("gui", "coins_set", coins_count) 
-    Input.start_joy_vibration(0, 0.1, 0.2, 0.1)
+    Input.start_joy_vibration(0, 0.1, 0.1, 0.15)
 
 func eat_shroom(shroom):
+    if shroom.is_used(): return
+    if tornado_enabled: 
+        shroom.destroy()
+        return 
     score_inc(SCORE_SHROOM)
     power_inc(POWER_SHROOM)
     shroom.eat()
-    Input.start_joy_vibration(0, 0.2, 0.4, 0.2)
+    Input.start_joy_vibration(0, 0.2, 0.4, 0.35)
 
 func run_arcade(arcade):
     arcade.run()
     score_inc(SCORE_ARCADE)
-    $anim.play("power_tornado")
 
 func bump_tree(tree):
     if tornado_enabled:
@@ -106,7 +111,7 @@ func bump_tree(tree):
         score_inc(SCORE_FALL)
     else:
         tree.shake()
-    Input.start_joy_vibration(0, 0.2, 0.7, 0.2)
+        Input.start_joy_vibration(0, 0.2, 0.2, 0.2)
 
 func score_inc(what):
     score += what
@@ -128,6 +133,7 @@ func enemy_strike(enemy):
 
 func hit():
     lives -= 1
+    get_tree().call_group("gui", "life_set", lives)
     if lives < 0:
         self.die("Life was short")
 
@@ -136,6 +142,11 @@ func kaiju_fight(kaiju):
 
 func tornado_power_used():
     tornado_enabled = false
+func tornado_power_start():
+    $anim.play("power_tornado")
+    Input.start_joy_vibration(self.device_id, 0.0, 0.1, $anim.current_animation_length)
+    tornado_enabled = true
+    power_inc(-POWER_REQ_TORNADO)
 
 func die(way):
     get_tree().call_group("game", "player_die", way)
