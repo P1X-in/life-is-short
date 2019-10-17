@@ -49,10 +49,13 @@ func score_set(s):
 func coins_set(c):
 	coins.set_text(str(c))
 
-func life_set(l):
+func life_set(lives):
 	var shelf = $top/lives/shelf
+	var l = int(lives)
 	if l >= 0 and l < shelf.get_child_count():
 		shelf.get_node(str(l)).get_node("on").hide()
+	if l == 0:
+		$top/lives/anim_lives.play("pulsate")
 	
 func start_game():
 	$"top/time/time".start_timer(180)
@@ -74,9 +77,12 @@ func compass_set(c):
 	$left/compass/aim.set_rotation(c)
 
 func show_game_over(msg):
+	$left.hide()
+	$right.hide()
+	$top.hide()
 	$game_over/score/stats/score.set_text(str(last_score))
 	$game_over/score/_gameover.set_text(msg)
-	$game_over.show()
+	$anim_gui.play("show_game_over")
 	$game_over/menu/menu/play.grab_focus()
 
 func next_scene(path):

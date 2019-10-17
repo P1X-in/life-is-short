@@ -7,8 +7,10 @@ gravity = Vector3( 0, 0.3, 0 )
 tangential_accel = 0.2
 
 [sub_resource type="SpatialMaterial" id=2]
+flags_unshaded = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
 albedo_color = Color( 0.745098, 0.909804, 0.733333, 1 )
-metallic_specular = 1.0
 
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )

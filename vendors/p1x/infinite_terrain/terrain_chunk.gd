@@ -7,7 +7,7 @@ export var COLLIS = true
 export var WATER_LEVEL = -16
 export var CLOUDS_LEVEL = 64
 export var ITEMS_AMOUNT = 16
-export var ENEMIES_AMOUNT = 1
+export var ENEMIES_AMOUNT = 4
 
 var models = [
 	preload("res://models/shroom/shroom.tscn"), #0
@@ -24,12 +24,23 @@ var models = [
 ]
 
 var active_terrain = 0
+const TERRAIN_1_DIST = 6
+const TERRAIN_2_DIST = 12
 var terrains = [
 	[
 		-1,-1,-1,-1,	# no mans land
+		-1,-1,-1,-1,	# no mans land
+		-1,-1,-1,-1,	# no mans land
+		0,				# shrooms
+		6,6,7,7,8,8,	# bushes
+		6,6,7,7,8,8,	# bushes
+	],
+	[
+		-1,-1,-1,-1,	# no mans land
+		-1,-1,-1,-1,	# no mans land
 		0,				# shrooms
 		2,3,4,5,	# trees
-		6,6,6,7,7,7,8,8,8	# bushes
+		6,6,6,7,7,7,8,8,8,	# bushes
 	],
 	[
 		-1,-1,-1,-1,	# no mans land
@@ -54,8 +65,13 @@ func _init(noise, x, z, chunk_size):
 	self.x = x
 	self.z = z
 	self.chunk_size = chunk_size
-	print(abs(x) + abs(z), chunk_size * 10)
-	if abs(x) + abs(z) > 10 * chunk_size:
+	self.select_active_terrain()
+
+func select_active_terrain():
+	var dist = abs(x) + abs(z)
+	if  dist > TERRAIN_2_DIST * chunk_size:
+		self.active_terrain = 2
+	elif dist > TERRAIN_1_DIST * chunk_size:
 		self.active_terrain = 1
 	else:
 		self.active_terrain = 0
@@ -110,7 +126,7 @@ func generate_chunk():
 
 	add_child(mesh_instance)
 	
-	spawn_enemy(generate_coins(generate_vegetation(pool_array)))
+	generate_coins(spawn_enemy(generate_vegetation(pool_array)))
 
 func generate_vegetation(pool):
 	for i in range(ITEMS_AMOUNT):
@@ -161,13 +177,17 @@ func generate_coins(pool):
 	return pool
 
 func spawn_enemy(pool):
-	var amiga_base = preload("res://models/amiga/amiga.tscn")
+	#var amiga_base = preload("res://models/amiga/amiga.tscn")
+	var underwater_bomb_base = preload("res://models/bombs/underwater_mine.tscn")
 
 	for i in range(ENEMIES_AMOUNT):
 		var random_pool_id = randi() % pool.size()
 		var pos = pool[random_pool_id]
-		var object = amiga_base.instance()
-		object.translate(pos + Vector3(0.0,8.0,0.0))
+		var object = underwater_bomb_base.instance()
+		object.translate(pos)
+		object.rotate_x(randf()*360.0)
+		object.rotate_y(randf()*360.0)
+		object.rotate_z(randf()*360.0)
 		add_child(object)
 		pool.remove(random_pool_id)
 	return pool

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://sounds/music/menu.ogg" type="AudioStream" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=9]
 [ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/small/environment.tscn" type="PackedScene" id=11]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -224,6 +225,8 @@ has_buttons = true
 
 [node name="background_world" type="Spatial" parent="."]
 
+[node name="environment" parent="background_world" instance=ExtResource( 11 )]
+
 [node name="sun" type="DirectionalLight" parent="background_world"]
 transform = Transform( 1, 0, 0, 0, -0.187039, 0.982353, 0, -0.982353, -0.187039, 0, 4.53164, 0 )
 shadow_enabled = true
@@ -436,6 +439,7 @@ __meta__ = {
 }
 
 [node name="topscore" type="Control" parent="main/menu"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

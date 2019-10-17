@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://misc/style_violet.tres" type="StyleBox" id=2]
@@ -53,6 +53,34 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "pulsate"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("shelf/3/bg:custom_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.219608, 0.854902, 1, 0.501961 ), Color( 0, 0, 0, 0.501961 ), Color( 0.219608, 0.854902, 1, 0.501961 ), Color( 0, 0, 0, 0.501961 ), Color( 0.219608, 0.854902, 1, 0.501961 ), Color( 0, 0, 0, 0.501961 ), Color( 0.219608, 0.854902, 1, 0.501961 ), Color( 0, 0, 0, 0.501961 ), Color( 0.219608, 0.854902, 1, 0.501961 ), Color( 0, 0, 0, 0.501961 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("shelf/3/bg:custom_styles/panel:shadow_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -173,6 +201,33 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1.8, 1.8 ), Vector2( 2, 2 ), Vector2( 1.2, 1.2 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "show_game_over"
+tracks/0/type = "value"
+tracks/0/path = NodePath("game_over:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("game_over:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
 }
 
 [node name="gui" type="Control"]
@@ -438,6 +493,9 @@ custom_styles/panel = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="anim_lives" type="AnimationPlayer" parent="top/lives"]
+anims/pulsate = SubResource( 9 )
 
 [node name="score" type="Control" parent="top"]
 anchor_left = 0.5
@@ -748,7 +806,7 @@ __meta__ = {
 }
 
 [node name="game_over" type="Control" parent="."]
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -756,6 +814,7 @@ __meta__ = {
 }
 
 [node name="bg" type="Panel" parent="game_over"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = ExtResource( 5 )
@@ -874,5 +933,8 @@ margin_top = 70.0
 margin_right = 261.0
 margin_bottom = 124.0
 text = "PLAY AGAIN"
+
+[node name="anim_gui" type="AnimationPlayer" parent="."]
+anims/show_game_over = SubResource( 8 )
 [connection signal="pressed" from="game_over/menu/menu/menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="game_over/menu/menu/play" to="." method="_on_play_pressed"]
