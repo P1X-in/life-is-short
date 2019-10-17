@@ -25,7 +25,6 @@ func _process(delta):
 		var minutes = elapsed / 60
 		var seconds = elapsed % 60
 		var str_elapsed = "%02d:%02d" % [minutes, seconds]
-		print("elapsed : ", str_elapsed)
 		set_text(str_elapsed)
 	else:
 		set_text("00:00")

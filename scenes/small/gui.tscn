@@ -55,7 +55,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ), Color( 0.541176, 0.0313726, 0.556863, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 resource_name = "pulsate"
 loop = true
 tracks/0/type = "value"
@@ -83,8 +83,7 @@ tracks/1/keys = {
 "values": [ Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ), Color( 0, 0, 0, 0.6 ), Color( 1, 0, 0, 0.6 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "pulse"
+[sub_resource type="Animation" id=3]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -112,7 +111,7 @@ tracks/1/keys = {
 "values": [ 0, 18, 0, 0, 18, 0 ]
 }
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Label
 
 # Declare member variables here. Examples:
@@ -126,8 +125,7 @@ func _ready():
 func update_coins(coins):
 	set_text(\"%04d\" % [coins])"
 
-[sub_resource type="Animation" id=4]
-resource_name = "pulse"
+[sub_resource type="Animation" id=5]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -155,7 +153,7 @@ tracks/1/keys = {
 "values": [ 0, 14, 14, 0 ]
 }
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.458824, 0.458824, 0.458824, 1 )
 border_width_left = 4
 border_width_top = 4
@@ -169,13 +167,13 @@ corner_radius_bottom_left = 32
 shadow_size = 2
 shadow_offset = Vector2( 0, 4 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=7]
 size = 64
 outline_size = 5
 outline_color = Color( 0.162659, 0.146226, 0.343429, 1 )
 font_data = ExtResource( 1 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -203,8 +201,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1.8, 1.8 ), Vector2( 2, 2 ), Vector2( 1.2, 1.2 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "show_game_over"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("game_over:modulate")
 tracks/0/interp = 2
@@ -495,7 +492,7 @@ __meta__ = {
 }
 
 [node name="anim_lives" type="AnimationPlayer" parent="top/lives"]
-anims/pulsate = SubResource( 9 )
+anims/pulsate = SubResource( 2 )
 
 [node name="score" type="Control" parent="top"]
 anchor_left = 0.5
@@ -631,7 +628,7 @@ valign = 1
 
 [node name="anim" type="AnimationPlayer" parent="right/power/button"]
 autoplay = "pulse"
-anims/pulse = SubResource( 2 )
+anims/pulse = SubResource( 3 )
 
 [node name="coins" type="Label" parent="right/power"]
 anchor_left = 0.5
@@ -645,7 +642,7 @@ margin_bottom = -134.0
 text = "0000"
 align = 1
 valign = 1
-script = SubResource( 3 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -660,7 +657,7 @@ LEVEL"
 align = 1
 
 [node name="anim_power" type="AnimationPlayer" parent="right/power"]
-anims/pulse = SubResource( 4 )
+anims/pulse = SubResource( 5 )
 
 [node name="left" type="Control" parent="."]
 anchor_top = 1.0
@@ -685,7 +682,7 @@ margin_top = -32.0
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 64, 64 )
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -849,7 +846,7 @@ margin_bottom = -70.0
 rect_rotation = -7.48068
 rect_scale = Vector2( 1.78747, 1.78747 )
 rect_pivot_offset = Vector2( 199.78, 43.72 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 text = "GAME OVER"
 align = 1
 __meta__ = {
@@ -859,7 +856,7 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="game_over/score/_gameover"]
 autoplay = "excite"
 playback_speed = 0.25
-anims/excite = SubResource( 7 )
+anims/excite = SubResource( 8 )
 
 [node name="stats" type="HBoxContainer" parent="game_over/score"]
 anchor_left = 0.5
@@ -935,6 +932,6 @@ margin_bottom = 124.0
 text = "PLAY AGAIN"
 
 [node name="anim_gui" type="AnimationPlayer" parent="."]
-anims/show_game_over = SubResource( 8 )
+anims/show_game_over = SubResource( 9 )
 [connection signal="pressed" from="game_over/menu/menu/menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="game_over/menu/menu/play" to="." method="_on_play_pressed"]

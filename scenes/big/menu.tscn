@@ -1,16 +1,19 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://sounds/music/menu.ogg" type="AudioStream" id=2]
 [ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=3]
-[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=4]
+[ext_resource path="res://misc/font_64pt.tres" type="DynamicFont" id=4]
 [ext_resource path="res://vendors/p1x/shaders/amiga.shader" type="Shader" id=5]
-[ext_resource path="res://scenes/small/environment.tscn" type="PackedScene" id=6]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=6]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=9]
+[ext_resource path="res://misc/style_yellow.tres" type="StyleBox" id=9]
 [ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=10]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=11]
+[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=11]
+[ext_resource path="res://misc/style_blue.tres" type="StyleBox" id=12]
+[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/small/environment.tscn" type="PackedScene" id=14]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -225,14 +228,14 @@ has_buttons = true
 
 [node name="background_world" type="Spatial" parent="."]
 
-[node name="environment" parent="background_world" instance=ExtResource( 6 )]
+[node name="environment" parent="background_world" instance=ExtResource( 14 )]
 
 [node name="sun" type="DirectionalLight" parent="background_world"]
 transform = Transform( 1, 0, 0, 0, -0.187039, 0.982353, 0, -0.982353, -0.187039, 0, 4.53164, 0 )
 shadow_enabled = true
 directional_shadow_blend_splits = true
 
-[node name="clouds" parent="background_world" instance=ExtResource( 4 )]
+[node name="clouds" parent="background_world" instance=ExtResource( 13 )]
 transform = Transform( -3.96356, 0, 0.538711, 0, 4, 0, -0.538711, 0, -3.96356, 0, 48, 0 )
 
 [node name="floor" type="MeshInstance" parent="background_world"]
@@ -253,19 +256,19 @@ transform = Transform( 0.296542, 0, 0.95502, 0, 1, 0, -0.95502, 0, 0.296542, -1.
 [node name="head" parent="background_world/cat" instance=ExtResource( 10 )]
 transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.269619, -1.34 )
 
-[node name="tail" parent="background_world/cat" instance=ExtResource( 9 )]
+[node name="tail" parent="background_world/cat" instance=ExtResource( 11 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.01264, -1.42 )
 
-[node name="tail2" parent="background_world/cat" instance=ExtResource( 9 )]
+[node name="tail2" parent="background_world/cat" instance=ExtResource( 11 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.0444839, -1.42 )
 
-[node name="tail3" parent="background_world/cat" instance=ExtResource( 9 )]
+[node name="tail3" parent="background_world/cat" instance=ExtResource( 11 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.25124, -1.42 )
 
-[node name="tail4" parent="background_world/cat" instance=ExtResource( 9 )]
+[node name="tail4" parent="background_world/cat" instance=ExtResource( 11 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.540896, -1.42 )
 
-[node name="tail5" parent="background_world/cat" instance=ExtResource( 9 )]
+[node name="tail5" parent="background_world/cat" instance=ExtResource( 11 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.903658, -1.42 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/cat"]
@@ -280,6 +283,7 @@ material/0 = null
 [node name="main" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -293,6 +297,7 @@ margin_bottom = -0.00012207
 rect_rotation = 6.8
 theme = ExtResource( 7 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -397,27 +402,28 @@ __meta__ = {
 }
 
 [node name="start" type="Button" parent="main/menu/panel/buttons"]
-margin_top = 31.0
+margin_top = 66.0
 margin_right = 296.0
-margin_bottom = 85.0
+margin_bottom = 120.0
 text = "START GAME"
 
 [node name="demo" type="Button" parent="main/menu/panel/buttons"]
+visible = false
 margin_top = 101.0
 margin_right = 296.0
 margin_bottom = 155.0
 text = "DEMO"
 
 [node name="instruction" type="Button" parent="main/menu/panel/buttons"]
-margin_top = 171.0
+margin_top = 136.0
 margin_right = 296.0
-margin_bottom = 225.0
+margin_bottom = 190.0
 text = "INSTRUCTION"
 
 [node name="quit" type="Button" parent="main/menu/panel/buttons"]
-margin_top = 241.0
+margin_top = 206.0
 margin_right = 296.0
-margin_bottom = 295.0
+margin_bottom = 260.0
 rect_min_size = Vector2( 128, 0 )
 text = "QUIT"
 
@@ -484,7 +490,7 @@ margin_bottom = 39.0
 custom_fonts/font = SubResource( 12 )
 text = "999999"
 
-[node name="fps" parent="main" instance=ExtResource( 11 )]
+[node name="fps" parent="main" instance=ExtResource( 6 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0
@@ -493,9 +499,170 @@ margin_right = 14.0
 margin_bottom = 14.0
 theme = ExtResource( 7 )
 
+[node name="instruction" type="Control" parent="main"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="panel" type="Panel" parent="main/instruction"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -464.5
+margin_top = -251.5
+margin_right = 464.5
+margin_bottom = 251.5
+custom_styles/panel = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="main/instruction/panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -109.0
+margin_top = 30.0
+margin_right = 109.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 4 )
+text = "HOW TO PLAY"
+align = 1
+
+[node name="Panel" type="Panel" parent="main/instruction/panel"]
+margin_left = 223.0
+margin_top = 136.0
+margin_right = 344.0
+margin_bottom = 176.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="main/instruction/panel"]
+margin_left = 732.0
+margin_top = 136.0
+margin_right = 814.0
+margin_bottom = 176.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel3" type="Panel" parent="main/instruction/panel"]
+margin_left = 128.0
+margin_top = 218.0
+margin_right = 262.0
+margin_bottom = 258.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel4" type="Panel" parent="main/instruction/panel"]
+margin_left = 382.0
+margin_top = 219.0
+margin_right = 450.0
+margin_bottom = 259.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel5" type="Panel" parent="main/instruction/panel"]
+margin_left = 526.0
+margin_top = 220.0
+margin_right = 612.0
+margin_bottom = 260.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel6" type="Panel" parent="main/instruction/panel"]
+margin_left = 727.0
+margin_top = 219.0
+margin_right = 842.0
+margin_bottom = 259.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel7" type="Panel" parent="main/instruction/panel"]
+margin_left = 452.0
+margin_top = 276.0
+margin_right = 555.0
+margin_bottom = 316.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel8" type="Panel" parent="main/instruction/panel"]
+margin_left = 633.0
+margin_top = 276.0
+margin_right = 727.0
+margin_bottom = 316.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel9" type="Panel" parent="main/instruction/panel"]
+margin_left = 452.0
+margin_top = 330.0
+margin_right = 545.0
+margin_bottom = 370.0
+custom_styles/panel = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="instructions" type="Label" parent="main/instruction/panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -422.5
+margin_top = -111.5
+margin_right = 422.5
+margin_bottom = 91.5
+text = "You play as a  caterpillar  .  You have  3 minutes  to get as many   points   as possible.
+
+Eat  mushrooms  and collect  coins  to gain  energy  . But   don't  overdose!
+
+Use cumulated energy to  summon  a small  tornado  .
+
+Avoid  bombs!"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ok" type="Button" parent="main/instruction/panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -57.0
+margin_top = -84.0
+margin_right = 57.0
+margin_bottom = -30.0
+text = "OK"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 autoplay = true
 bus = "Music"
 [connection signal="pressed" from="main/menu/panel/buttons/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="main/menu/panel/buttons/instruction" to="." method="_on_instruction_pressed"]
 [connection signal="pressed" from="main/menu/panel/buttons/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="main/instruction/panel/ok" to="." method="_on_ok_pressed"]
