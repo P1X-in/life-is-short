@@ -7,7 +7,11 @@ func _ready():
 
 func explode():
 	$'../anim'.play("boom")
+	self.queue_free()
 
+func explode_and_activate():
+	$'../anim'.play("boom_and_activate")
+	
 func is_activated():
 	return self.activated
 	

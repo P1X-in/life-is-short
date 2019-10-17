@@ -53,7 +53,10 @@ func life_set(lives):
 	var shelf = $top/lives/shelf
 	var l = int(lives)
 	if l >= 0 and l < shelf.get_child_count():
-		shelf.get_node(str(l)).get_node("on").hide()
+		for life in range(shelf.get_child_count()):
+			if life > l:
+				shelf.get_children()[life].get_node("on").hide()
+				
 	if l == 0:
 		$top/lives/anim_lives.play("pulsate")
 	

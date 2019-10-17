@@ -33,6 +33,10 @@ const SCORE_FALL = 100
 const SCORE_ARCADE = 500
 const SCORE_DETONATE_BOMB = 1000
 
+const DAMAGE_ENEMY = 1.0
+const DAMAGE_BOMB = 1.5
+const DAMAGE_OVERDOSE = 0.5
+
 const SPAWN_COINS_AMOUNT = 12
 
 onready var clouds = get_parent().get_node("clouds")
@@ -125,15 +129,15 @@ func score_inc(what):
 func power_inc(what):
 	power += what
 	if power > POWER_MAX: 
-		power = POWER_MAX
-		hit(0.5)
+		power = POWER_MAX * 0.8
+		self.hit(DAMAGE_OVERDOSE)
 	get_tree().call_group("gui", "power_set", power, POWER_MAX)
 
 func hit_amiga(a):
 	enemy_strike(a)
 
 func enemy_strike(enemy):
-	hit(1.0)
+	self.hit(DAMAGE_ENEMY)
 	enemy.die()
 
 func hit(amount):
@@ -161,12 +165,13 @@ func activate_bomb(bomb):
 	if tornado_enabled:
 		if not bomb.is_activated():
 			bomb.explode()
+			bomb.activate()
 			self.score_inc(SCORE_DETONATE_BOMB)
 	else:
 		if not bomb.is_activated():
-			bomb.explode()
+			bomb.explode_and_activate()
 		else:
-			self.hit(0.1)
+			self.hit(DAMAGE_BOMB)
 			Input.start_joy_vibration(0, 0.4, 0.8, 0.5)
-	bomb.deactivate()
+			bomb.deactivate()
 	
