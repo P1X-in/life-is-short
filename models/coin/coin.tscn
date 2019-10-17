@@ -99,6 +99,7 @@ anims/rotate = SubResource( 5 )
 stream = ExtResource( 3 )
 unit_db = 24.0
 unit_size = 18.0
+bus = "SFX"
 __meta__ = {
 "_editor_description_": ""
 }

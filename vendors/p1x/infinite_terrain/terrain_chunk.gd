@@ -21,6 +21,9 @@ var models = [
 	preload("res://models/forest/bush1.tscn"), #6
 	preload("res://models/forest/bush2.tscn"),
 	preload("res://models/forest/bush3.tscn"),
+	
+	preload("res://models/blockers/antitank.tscn"), #9
+	preload("res://models/blockers/antitank_multi.tscn"),
 ]
 
 var active_terrain = 0
@@ -34,20 +37,23 @@ var terrains = [
 		0,				# shrooms
 		6,6,7,7,8,8,	# bushes
 		6,6,7,7,8,8,	# bushes
+		9,9,10,10			# antitank
 	],
 	[
-		-1,-1,-1,-1,	# no mans land
-		-1,-1,-1,-1,	# no mans land
-		0,				# shrooms
-		2,3,4,5,	# trees
+		-1,-1,-1,-1,		# no mans land
+		-1,-1,-1,-1,		# no mans land
+		0,					# shrooms
+		2,3,4,5,			# trees
 		6,6,6,7,7,7,8,8,8,	# bushes
+		9,9,10,				# antitank
 	],
 	[
-		-1,-1,-1,-1,	# no mans land
+		-1,-1,-1,-1,		# no mans land
 		0,0,0,				# shrooms
-		1,			# arcade
+		1,					# arcade
 		2,2,3,3,4,4,5,5,	# trees
-		6,6,7,7,8,8	# bushes
+		6,6,7,7,8,8,		# bushes
+		9,10,				# antitank
 	],
 ]
 

@@ -28,7 +28,7 @@ const POWER_SHROOM = 20
 const POWER_COIN = 2
 
 const SCORE_COIN = 10
-const SCORE_SHROOM = 0
+const SCORE_SHROOM = 50
 const SCORE_FALL = 100
 const SCORE_ARCADE = 500
 const SCORE_DETONATE_BOMB = 1000
@@ -58,7 +58,7 @@ func _physics_process(delta):
 		self.accumulated_delta -= 2.0 * PI
 
 	if self.is_moving:
-		#clouds.translate(Vector3(translation.x, clouds.translation.y, translation.z))
+		clouds.translation = Vector3(self.translation.x, clouds.translation.y, self.translation.z)
 		get_tree().call_group("gui", "compass_set", -self.rotation.y)
 		if not self.sounds.playing:
 			self.sounds.play(randf()*4.0)

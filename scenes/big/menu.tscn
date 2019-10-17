@@ -3,14 +3,14 @@
 [ext_resource path="res://vendors/p1x/intro/intro.gd" type="Script" id=1]
 [ext_resource path="res://sounds/music/menu.ogg" type="AudioStream" id=2]
 [ext_resource path="res://vendors/p1x/camera_3d_effects/camera.tscn" type="PackedScene" id=3]
-[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=4]
+[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=4]
 [ext_resource path="res://vendors/p1x/shaders/amiga.shader" type="Shader" id=5]
-[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/small/environment.tscn" type="PackedScene" id=6]
 [ext_resource path="res://misc/main_theme.tres" type="Theme" id=7]
 [ext_resource path="res://misc/Inter-Black.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://vendors/p1x/clouds/clouds.tscn" type="PackedScene" id=9]
+[ext_resource path="res://models/caterpillar/cat_tail.tscn" type="PackedScene" id=9]
 [ext_resource path="res://models/caterpillar/cat_head.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/small/environment.tscn" type="PackedScene" id=11]
+[ext_resource path="res://vendors/p1x/print_fps/fps.tscn" type="PackedScene" id=11]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -225,14 +225,14 @@ has_buttons = true
 
 [node name="background_world" type="Spatial" parent="."]
 
-[node name="environment" parent="background_world" instance=ExtResource( 11 )]
+[node name="environment" parent="background_world" instance=ExtResource( 6 )]
 
 [node name="sun" type="DirectionalLight" parent="background_world"]
 transform = Transform( 1, 0, 0, 0, -0.187039, 0.982353, 0, -0.982353, -0.187039, 0, 4.53164, 0 )
 shadow_enabled = true
 directional_shadow_blend_splits = true
 
-[node name="clouds" parent="background_world" instance=ExtResource( 9 )]
+[node name="clouds" parent="background_world" instance=ExtResource( 4 )]
 transform = Transform( -3.96356, 0, 0.538711, 0, 4, 0, -0.538711, 0, -3.96356, 0, 48, 0 )
 
 [node name="floor" type="MeshInstance" parent="background_world"]
@@ -253,19 +253,19 @@ transform = Transform( 0.296542, 0, 0.95502, 0, 1, 0, -0.95502, 0, 0.296542, -1.
 [node name="head" parent="background_world/cat" instance=ExtResource( 10 )]
 transform = Transform( -0.86351, 0, 0.504332, 0, 1, 0, -0.504332, 0, -0.86351, -1.33, 0.269619, -1.34 )
 
-[node name="tail" parent="background_world/cat" instance=ExtResource( 6 )]
+[node name="tail" parent="background_world/cat" instance=ExtResource( 9 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 0, 0.01264, -1.42 )
 
-[node name="tail2" parent="background_world/cat" instance=ExtResource( 6 )]
+[node name="tail2" parent="background_world/cat" instance=ExtResource( 9 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 1.44, 0.0444839, -1.42 )
 
-[node name="tail3" parent="background_world/cat" instance=ExtResource( 6 )]
+[node name="tail3" parent="background_world/cat" instance=ExtResource( 9 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 2.97, 0.25124, -1.42 )
 
-[node name="tail4" parent="background_world/cat" instance=ExtResource( 6 )]
+[node name="tail4" parent="background_world/cat" instance=ExtResource( 9 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 4.45, 0.540896, -1.42 )
 
-[node name="tail5" parent="background_world/cat" instance=ExtResource( 6 )]
+[node name="tail5" parent="background_world/cat" instance=ExtResource( 9 )]
 transform = Transform( -3.58433e-08, 0, -1, 0, 1, 0, 0.82, 0, -4.37114e-08, 6.07, 0.903658, -1.42 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_world/cat"]
@@ -484,7 +484,7 @@ margin_bottom = 39.0
 custom_fonts/font = SubResource( 12 )
 text = "999999"
 
-[node name="fps" parent="main" instance=ExtResource( 4 )]
+[node name="fps" parent="main" instance=ExtResource( 11 )]
 anchor_left = 0.0
 anchor_right = 0.0
 margin_left = 14.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://models/forest/tree.gd" type="Script" id=1]
 [ext_resource path="res://models/forest/tree_fall..tres" type="Animation" id=2]
@@ -6,18 +6,21 @@
 [ext_resource path="res://sounds/forest/broken_tree.wav" type="AudioStream" id=4]
 [ext_resource path="res://sounds/forest/szelest1.wav" type="AudioStream" id=5]
 
-[sub_resource type="CylinderShape" id=1]
+[sub_resource type="PhysicsMaterial" id=1]
+
+[sub_resource type="CylinderShape" id=2]
 radius = 2.10203
 height = 11.3912
 
 [node name="tree_master" type="Spatial"]
 
 [node name="StaticBody" type="StaticBody" parent="."]
+physics_material_override = SubResource( 1 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.98524, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/fall = ExtResource( 2 )
@@ -27,8 +30,10 @@ anims/shake = ExtResource( 3 )
 stream = ExtResource( 4 )
 unit_db = 24.0
 unit_size = 20.0
+bus = "SFX"
 
 [node name="shake" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 5 )
 unit_db = 24.0
 unit_size = 18.0
+bus = "SFX"
